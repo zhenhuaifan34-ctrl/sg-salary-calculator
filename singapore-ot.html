@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Singapore Salary & OT Calculator | CPF & MOM Compliant</title>
+    <style>
+        :root {
+            --primary: #ef4444;
+            --secondary: #3b82f6;
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+        }
+
+        body {
+            font-family: -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { font-size: 1.4rem; color: var(--primary); text-align: center; margin-bottom: 20px; }
+        
+        .section-title { font-size: 0.9rem; font-weight: bold; color: #6b7280; text-transform: uppercase; margin: 15px 0 10px; border-bottom: 1px solid #e5e7eb; }
+
+        .input-group { margin-bottom: 12px; }
+        label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
+        input { width: 100%; padding: 12px; border: 1.5px solid #e5e7eb; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        input:focus { border-color: var(--secondary); outline: none; }
+
+        button { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; transition: opacity 0.2s; }
+        button:active { opacity: 0.8; }
+
+        .result-card {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1e293b;
+            color: white;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
+        .result-row.total { border-top: 1px solid #475569; pt: 10px; margin-top: 10px; font-size: 1.2rem; color: #fbbf24; font-weight: bold; }
+
+        .tips { margin-top: 20px; font-size: 0.8rem; background: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fef3c7; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>SG Salary Pro 2026</h1>
+    
+    <div class="section-title">Income Details</div>
+    <div class="input-group">
+        <label>Monthly Basic Salary (SGD)</label>
+        <input type="number" id="basicSalary" placeholder="e.g. 3500">
+    </div>
+
+    <div class="section-title">Overtime Hours</div>
+    <div class="input-group">
+        <label>1.5x OT (Normal Days)</label>
+        <input type="number" id="ot15" value="0">
+    </div>
+    <div class="input-group">
+        <label>2.0x OT (Rest Day/PH)</label>
+        <input type="number" id="ot20" value="0">
+    </div>
+
+    <button onclick="calculate()">Calculate Net Pay</button>
+
+    <div id="resultBox" class="result-card">
+        <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
+        <div class="result-row"><span>OT Pay Total:</span><span id="resOT">S$0.00</span></div>
+        <div class="result-row" style="color: #94a3b8;"><span>Employee CPF (20%):</span><span id="resCPF">-S$0.00</span></div>
+        <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
+    </div>
+
+    <div class="tips" id="momTips">
+        <strong>💡 MOM Quick Guide:</strong><br>
+        1. Max OT hours per month is 72.<br>
+        2. OT pay must be paid within 14 days after the salary period.<br>
+        3. Calculations are based on a 44-hour work week.
+    </div>
+
+    <div style="margin-top: 25px; font-size: 0.75rem; color: #9ca3af; text-align: center;">
+        © 2026 Singapore Labor Tool • Not Legal Advice
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const basic = parseFloat(document.getElementById('basicSalary').value);
+        const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
+        const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
+
+        if (!basic) {
+            alert("Please enter your basic salary.");
+            return;
+        }
+
+        // MOM Rule: Cap OT hourly rate calculation at S$2,600
+        const otBaseSalary = Math.min(basic, 2600);
+        const hourlyRate = (12 * otBaseSalary) / (52 * 44);
+        
+        const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
+        const grossSalary = basic + otPay;
+        
+        // CPF Calculation (20% for age <= 55, capped at first S$6,800 of monthly salary in 2026)
+        const cpfBase = Math.min(grossSalary, 6800);
+        const employeeCPF = cpfBase * 0.20;
+        
+        const netPay = grossSalary - employeeCPF;
+
+        document.getElementById('resGross').innerText = 'S$' + grossSalary.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('resOT').innerText = 'S$' + otPay.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('resCPF').innerText = '-S$' + employeeCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('resNet').innerText = 'S$' + netPay.toLocaleString(undefined, {minimumFractionDigits: 2});
+        
+        document.getElementById('resultBox').style.display = 'block';
+
+        // Dynamic Hint
+        if (ot15 + ot20 > 72) {
+            document.getElementById('momTips').style.background = '#fef2f2';
+            document.getElementById('momTips').innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
+        }
+    }
+</script>
+
+</body>
+</html>
