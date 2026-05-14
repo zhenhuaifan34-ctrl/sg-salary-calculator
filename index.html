@@ -130,10 +130,10 @@
     </div>
 
 </div>
-    <div class="container" style="margin-top: 20px; background: none; box-shadow: none;">
+    <div style="max-width: 500px; margin: 20px auto; padding: 0 15px;">
     <div class="section-title">Frequently Asked Questions (2026 Update)</div>
     
-    <div class="result-card" style="background: white; color: var(--text); border: 1px solid #e5e7eb;">
+    <div style="margin-top: 20px; padding: 20px; background: white; color: var(--text); border-radius: 12px; border: 1px solid #e5e7eb;">
         <p><strong>Q1: What is the CPF Ordinary Wage (OW) ceiling in 2026?</strong><br>
         As of 1 January 2026, the CPF OW ceiling has increased to <strong>$8,000</strong> per month.</p>
         
@@ -171,7 +171,7 @@
         const grossSalary = basic + otPay;
         
         // CPF Calculation (20% for age <= 55, capped at first S$8,000 of monthly salary in 2026)
-        const cpfBase = Math.min(grossSalary, ，8000);
+        const cpfBase = Math.min(grossSalary, 8000);
         const employeeCPF = cpfBase * 0.20;
         
         const netPay = grossSalary - employeeCPF;
