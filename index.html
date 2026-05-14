@@ -4,7 +4,8 @@
     <meta name="google-site-verification" content="9bokCnlQGx0rwxYHEv6U3a5D0lnq-sbNN4v0KA3RfZs" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Singapore Salary & OT Calculator | CPF & MOM Compliant</title>
+    <title>Singapore Salary Calculator 2026 | Net Pay & MOM OT Calculation</title>
+    <meta name="description" content="Calculate your 2026 net pay after CPF changes. Features MOM OT pay calculation, July $1,800 LQS updates, and salary simulations for Singapore workers.">
     <style>
         :root {
             --primary: #ef4444;
@@ -61,7 +62,7 @@
 <body>
 
 <div class="container">
-    <h1>SG Salary Pro 2026</h1>
+    <h1>Singapore Salary & OT Calculator 2026</h1>
     
     <div class="section-title">Income Details</div>
     <div class="input-group">
@@ -129,7 +130,24 @@
     </div>
 
 </div>
+    <div class="container" style="margin-top: 20px; background: none; box-shadow: none;">
+    <div class="section-title">Frequently Asked Questions (2026 Update)</div>
     
+    <div class="result-card" style="background: white; color: var(--text); border: 1px solid #e5e7eb;">
+        <p><strong>Q1: What is the CPF Ordinary Wage (OW) ceiling in 2026?</strong><br>
+        As of 1 January 2026, the CPF OW ceiling has increased to <strong>$8,000</strong> per month.</p>
+        
+        <p><strong>Q2: Who is eligible for Overtime (OT) pay in Singapore?</strong><br>
+        Under Part IV of the Employment Act, you are eligible if you are a non-workman earning up to <strong>$2,600</strong> or a workman earning up to <strong>$4,500</strong>.</p>
+        
+        <p><strong>Q3: What is the new Local Qualifying Salary (LQS) for July 2026?</strong><br>
+        From 1 July 2026, the LQS for full-time local employees will increase from $1,600 to <strong>$1,800</strong>.</p>
+        
+        <p><strong>Q4: How do the 2026 CPF changes affect my take-home pay?</strong><br>
+        If your monthly salary is between $7,400 and $8,000, your take-home pay will decrease slightly because more is contributed to CPF.</p>
+    </div>
+</div>
+
 <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
     <a href="/privacy.html" style="font-size: 0.8rem; color: #999; text-decoration: none;">Privacy Policy</a>
 </div>
@@ -152,8 +170,8 @@
         const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
         const grossSalary = basic + otPay;
         
-        // CPF Calculation (20% for age <= 55, capped at first S$6,800 of monthly salary in 2026)
-        const cpfBase = Math.min(grossSalary, 6800);
+        // CPF Calculation (20% for age <= 55, capped at first S$8,000 of monthly salary in 2026)
+        const cpfBase = Math.min(grossSalary, ，8000);
         const employeeCPF = cpfBase * 0.20;
         
         const netPay = grossSalary - employeeCPF;
