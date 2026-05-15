@@ -165,7 +165,7 @@
 </div>
 
 <script>
-        function calculate() {
+            function calculate() {
         const basic = parseFloat(document.getElementById('basicSalary').value);
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
@@ -207,7 +207,7 @@
         
         document.getElementById('resultBox').style.display = 'block';
 
-        // 4. 优化：显示结果后平滑滚动
+        // 4. 优化：显示结果后平滑滚动 (之前丢失的优化)
         setTimeout(() => {
             document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
@@ -219,11 +219,13 @@
             tipElement.style.border = '1px solid #fee2e2';
             tipElement.innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
         } else {
+            // 当数值恢复正常时，还原默认提示
             tipElement.style.background = '#fffbeb';
             tipElement.style.border = '1px solid #fef3c7';
             tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week.';
         }
     }
+
 
 </script>
 
