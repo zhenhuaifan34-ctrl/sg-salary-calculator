@@ -165,7 +165,7 @@
 </div>
 
 <script>
-    function calculate() {
+        function calculate() {
         const basic = parseFloat(document.getElementById('basicSalary').value);
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
@@ -175,32 +175,56 @@
             return;
         }
 
-        // MOM Rule: Cap OT hourly rate calculation at S$2,600
+        // 1. MOM 规则：加班费计算基数上限为 S$2,600
         const otBaseSalary = Math.min(basic, 2600);
         const hourlyRate = (12 * otBaseSalary) / (52 * 44);
         
         const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
         const grossSalary = basic + otPay;
         
-        // CPF Calculation (20% for age <= 55, capped at first S$8,000 of monthly salary in 2026)
+        // 2. 2026年 CPF 政策：OW 上限上调至 $8,000
         const cpfBase = Math.min(grossSalary, 8000);
-        const employeeCPF = cpfBase * 0.20;
+        const employeeCPF = cpfBase * 0.20; // 员工缴纳 20%
+        const employerCPF = cpfBase * 0.17; // 雇主缴纳 17%
+        const totalCPF = employeeCPF + employerCPF; 
         
         const netPay = grossSalary - employeeCPF;
 
+        // 3. 更新界面数值
         document.getElementById('resGross').innerText = 'S$' + grossSalary.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resOT').innerText = 'S$' + otPay.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resCPF').innerText = '-S$' + employeeCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
+        
+        // 更新新增的雇主及总额部分
+        if(document.getElementById('resEmployerCPF')) {
+            document.getElementById('resEmployerCPF').innerText = '+S$' + employerCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+        if(document.getElementById('resTotalCPF')) {
+            document.getElementById('resTotalCPF').innerText = 'S$' + totalCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+        
         document.getElementById('resNet').innerText = 'S$' + netPay.toLocaleString(undefined, {minimumFractionDigits: 2});
         
         document.getElementById('resultBox').style.display = 'block';
 
-        // Dynamic Hint
+        // 4. 优化：显示结果后平滑滚动
+        setTimeout(() => {
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+
+        // 5. 加班上限警告 (修正了引号错误并增加了还原逻辑)
+        const tipElement = document.getElementById('momTips');
         if (ot15 + ot20 > 72) {
-            document.getElementById('momTips').style.background = '#fef2f2;
-            document.getElementById('momTips').innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
+            tipElement.style.background = '#fef2f2';
+            tipElement.style.border = '1px solid #fee2e2';
+            tipElement.innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
+        } else {
+            tipElement.style.background = '#fffbeb';
+            tipElement.style.border = '1px solid #fef3c7';
+            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week.';
         }
     }
+
 </script>
 
 </body>
