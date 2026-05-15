@@ -71,6 +71,13 @@
     </div>
 
     <div class="section-title">Overtime Hours</div>
+        <div class="section-title">Overtime Hours</div>
+    <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+        <button onclick="setOT(0)" style="background: #94a3b8; padding: 8px; font-size: 0.8rem; margin: 0;">Zero OT</button>
+        <button onclick="setOT(20)" style="background: #64748b; padding: 8px; font-size: 0.8rem; margin: 0;">20h (Normal)</button>
+        <button onclick="setOT(72)" style="background: #475569; padding: 8px; font-size: 0.8rem; margin: 0;">72h (Max)</button>
+    </div>
+
     <div class="input-group">
         <label>1.5x OT (Normal Days)</label>
         <input type="number" id="ot15" value="0" inputmode="decimal" onfocus="this.select()">
@@ -165,6 +172,12 @@
 </div>
 
 <script>
+        function setOT(hours) {
+        document.getElementById('ot15').value = hours;
+        document.getElementById('ot20').value = 0;
+        calculate(); // 自动触发计算
+    }
+
             function calculate() {
         const basic = parseFloat(document.getElementById('basicSalary').value);
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
