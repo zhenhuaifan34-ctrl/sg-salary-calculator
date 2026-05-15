@@ -88,11 +88,23 @@
 
 
     <div id="resultBox" class="result-card">
-        <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
-        <div class="result-row"><span>OT Pay Total:</span><span id="resOT">S$0.00</span></div>
-        <div class="result-row" style="color: #94a3b8;"><span>Employee CPF (20%):</span><span id="resCPF">-S$0.00</span></div>
-        <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
+    <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
+    <div class="result-row"><span>OT Pay Total:</span><span id="resOT">S$0.00</span></div>
+    <div class="result-row"><span>Employee CPF (20%):</span><span id="resCPF">-S$0.00</span></div>
+    
+    <div class="result-row" style="color: #94a3b8; font-size: 0.85rem; border-top: 1px dashed #475569; padding-top: 8px; margin-top: 5px;">
+        <span>Employer CPF (17%):</span>
+        <span id="resEmployerCPF">+S$0.00</span>
     </div>
+    
+    <div class="result-row" style="color: #94a3b8; font-size: 0.85rem;">
+        <span>Total CPF (Emp+Empr):</span>
+        <span id="resTotalCPF">S$0.00</span>
+    </div>
+
+    <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
+</div>
+
 
     <div class="tips" id="momTips">
         <strong>💡 MOM Quick Guide:</strong><br>
