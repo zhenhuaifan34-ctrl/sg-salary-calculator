@@ -67,17 +67,17 @@
     <div class="section-title">Income Details</div>
     <div class="input-group">
         <label>Monthly Basic Salary (SGD)</label>
-        <input type="number" id="basicSalary" placeholder="e.g. 3500">
+        <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()">
     </div>
 
     <div class="section-title">Overtime Hours</div>
     <div class="input-group">
         <label>1.5x OT (Normal Days)</label>
-        <input type="number" id="ot15" value="0">
+        <input type="number" id="ot15" value="0" inputmode="decimal" onfocus="this.select()">
     </div>
     <div class="input-group">
         <label>2.0x OT (Rest Day/PH)</label>
-        <input type="number" id="ot20" value="0">
+        <input type="number" id="ot20" value="0" inputmode="decimal" onfocus="this.select()">
     </div>
 
     <button onclick="calculate()">Calculate Net Pay</button>
