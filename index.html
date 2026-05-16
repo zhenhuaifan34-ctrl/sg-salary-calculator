@@ -182,6 +182,32 @@
 </div>
 
 <script>
+    function handleEmpTypeChange() {
+    const empType = document.querySelector('input[name="empType"]:checked').value;
+    const lblNon = document.getElementById('lblNonWorkman');
+    const lblWork = document.getElementById('lblWorkman');
+    
+    if (empType === 'non-workman') {
+        lblNon.style.background = '#3b82f6';
+        lblNon.style.color = 'white';
+        lblNon.style.borderColor = '#3b82f6';
+        lblWork.style.background = '#e5e7eb';
+        lblWork.style.color = 'var(--text)';
+        lblWork.style.borderColor = '#e5e7eb';
+    } else {
+        lblWork.style.background = '#10b981';
+        lblWork.style.color = 'white';
+        lblWork.style.borderColor = '#10b981';
+        lblNon.style.background = '#e5e7eb';
+        lblNon.style.color = 'var(--text)';
+        lblNon.style.borderColor = '#e5e7eb';
+    }
+    // 如果用户已经输了薪资，切换时自动触发重新计算
+    if(document.getElementById('basicSalary').value) {
+        calculate();
+    }
+}
+
         function setOT(hours) {
         document.getElementById('ot15').value = hours;
         document.getElementById('ot20').value = 0;
@@ -198,9 +224,18 @@
             return;
         }
 
-        // 1. MOM 规则：加班费计算基数上限为 S$2,600
-        const otBaseSalary = Math.min(basic, 2600);
-        const hourlyRate = (12 * otBaseSalary) / (52 * 44);
+        // 新代码：根据白领/蓝领分类动态锁定 MOM 加班费基数上限
+const empType = document.querySelector('input[name="empType"]:checked').value;
+let otBaseSalary = basic;
+
+if (empType === 'non-workman') {
+    otBaseSalary = Math.min(basic, 2600); // 白领上限 2600
+} else {
+    otBaseSalary = Math.min(basic, 4500); // 蓝领上限 4500
+}
+
+const hourlyRate = (12 * otBaseSalary) / (52 * 44);
+
         
         const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
         const grossSalary = basic + otPay;
