@@ -248,7 +248,7 @@
         }
     }
 
-    // ================= 离职测算引擎 =================
+        // ================= 离职测算引擎 =================
     function calculateResign() {
         const basic = parseFloat(document.getElementById('resignBasic').value);
         const workDays = parseFloat(document.getElementById('workDaysPerWeek').value);
@@ -263,10 +263,9 @@
         const dailyRate = (12 * basic) / (52 * workDays);
         const cashEncashment = dailyRate * leave;
 
-        document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('resLeaveCash').innerText = 'S$' + cashEncashment.toFixed(2);
+        // ✅ 修正后：各个 ID 各司其职，并且都完美保留 2 位小数
         document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toFixed(2);
-
+        document.getElementById('resLeaveCash').innerText = 'S$' + cashEncashment.toFixed(2);
         document.getElementById('resLeaveDaysText').innerText = leave;
 
         document.getElementById('resignResultBox').style.display = 'block';
@@ -275,6 +274,7 @@
             document.getElementById('resignResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
     }
+
 
     // ================= 原有薪资与加班计算逻辑 =================
     function copyResults() {
