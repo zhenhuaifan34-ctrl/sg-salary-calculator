@@ -120,6 +120,10 @@
     </div>
 
     <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
+            <button id="copyBtn" onclick="copyResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        📋 Copy Calculation Details
+    </button>
+
 </div>
 
 
@@ -182,6 +186,42 @@
 </div>
 
 <script>
+    function copyResults() {
+    const gross = document.getElementById('resGross').innerText;
+    const ot = document.getElementById('resOT').innerText;
+    const empCpf = document.getElementById('resCPF').innerText;
+    const emprCpf = document.getElementById('resEmployerCPF').innerText;
+    const totalCpf = document.getElementById('resTotalCPF').innerText;
+    const net = document.getElementById('resNet').innerText;
+    const empType = document.querySelector('input[name="empType"]:checked').value === 'non-workman' ? 'Non-Workman' : 'Workman';
+
+    const textToCopy = `🇸🇬 *Singapore Salary & OT Breakdown (2026)*\n` +
+                       `• Category: ${empType}\n` +
+                       `• Gross Salary: ${gross}\n` +
+                       `• OT Pay Total: ${ot}\n` +
+                       `• Employee CPF (20%): ${empCpf}\n` +
+                       `• Employer CPF (17%): ${emprCpf}\n` +
+                       `• Total CPF Contribution: ${totalCpf}\n` +
+                       `---------------------------\n` +
+                       `💰 *Net Take-Home Pay: ${net}*\n\n` +
+                       `Calculated via: sg-salary-calculator.vercel.app`;
+
+    // 使用现代浏览器剪贴板 API
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "✅ Copied Successfully!";
+        btn.style.background = "#10b981"; // 变成绿色提示
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = "#475569"; // 恢复原状
+        }, 2000);
+    }).catch(err => {
+        alert('Failed to copy. Please copy manually.');
+    });
+}
+
     function handleEmpTypeChange() {
     const empType = document.querySelector('input[name="empType"]:checked').value;
     const lblNon = document.getElementById('lblNonWorkman');
