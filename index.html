@@ -264,7 +264,9 @@
         const cashEncashment = dailyRate * leave;
 
         document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('resLeaveCash').innerText = 'S$' + cashEncashment.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('resLeaveCash').innerText = 'S$' + cashEncashment.toFixed(2);
+        document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toFixed(2);
+
         document.getElementById('resLeaveDaysText').innerText = leave;
 
         document.getElementById('resignResultBox').style.display = 'block';
