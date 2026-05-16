@@ -256,6 +256,13 @@
 
             function calculate() {
         const basic = parseFloat(document.getElementById('basicSalary').value);
+                // 【新增记忆优化】如果用户输入了有效薪资，将其和身份分类存入浏览器本地缓存
+        if (basic) {
+            localStorage.setItem('savedBasicSalary', document.getElementById('basicSalary').value);
+            const selectedEmpType = document.querySelector('input[name="empType"]:checked').value;
+            localStorage.setItem('savedEmpType', selectedEmpType);
+        }
+        
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
 
@@ -324,8 +331,33 @@ const hourlyRate = (12 * otBaseSalary) / (52 * 44);
         }
     }
 
-// 页面加载时初始化按钮颜色
-setTimeout(handleEmpTypeChange, 100);
+
+// 【新增记忆优化】页面加载时，尝试自动恢复用户上次输入的数据
+window.addEventListener('DOMContentLoaded', () => {
+    const savedBasic = localStorage.getItem('savedBasicSalary');
+    const savedType = localStorage.getItem('savedEmpType');
+    
+    // 恢复薪资输入框
+    if (savedBasic) {
+        document.getElementById('basicSalary').value = savedBasic;
+    }
+    
+    // 恢复身份单选框
+    if (savedType) {
+        const radioToCheck = document.querySelector(`input[name="empType"][value="${savedType}"]`);
+        if (radioToCheck) {
+            radioToCheck.checked = true;
+        }
+    }
+    
+    // 初始化按钮高亮样式
+    handleEmpTypeChange();
+    
+    // 如果有历史薪资，自动帮用户跑一遍计算，省得他们再点按钮
+    if (savedBasic) {
+        calculate();
+    }
+});
 
 </script>
 
