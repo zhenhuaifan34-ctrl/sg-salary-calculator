@@ -18,6 +18,7 @@
             --input-bg: #ffffff;
             --faq-bg: #ffffff;
             --tab-unselected: #e5e7eb;
+            --btn-link-bg: rgba(0, 0, 0, 0.01);
         }
 
         /* 🌙 自动感应系统暗黑模式 */
@@ -30,6 +31,7 @@
                 --input-bg: #1e293b;    
                 --faq-bg: #1e293b;      
                 --tab-unselected: #334155;
+                --btn-link-bg: rgba(255, 255, 255, 0.03);
             }
         }
 
@@ -80,6 +82,11 @@
         .result-row.total { border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; font-size: 1.2rem; color: #fbbf24; font-weight: bold; }
 
         .tips { margin-top: 20px; font-size: 0.8rem; background: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fef3c7; color: #1f2937; }
+
+        /* 复用引流链接样式，保持代码整洁 */
+        .seo-links-container { display: flex; flex-direction: column; gap: 10px; margin: 25px 0; align-items: center; width: 100%; box-sizing: border-box; }
+        .seo-link-btn { font-weight: bold; text-decoration: none; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: var(--btn-link-bg); transition: background 0.2s, transform 0.1s; }
+        .seo-link-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -126,20 +133,13 @@
             <input type="number" id="ot20" value="0" inputmode="decimal" onfocus="this.select()">
         </div>
 
-        <button onclick="calculate()">Calculate Net Pay</button>
+        <button onclick="calculateEvent()">Calculate Net Pay</button>
         
-        <div style="display: flex; flex-direction: column; gap: 10px; margin: 25px 0; align-items: center; width: 100%; box-sizing: border-box;">
-    <a href="/guide-2026.html" style="color: #ef4444; font-weight: bold; text-decoration: none; border: 1.5px solid #ef4444; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: 2026 SG Labor Law & OT Rights Guide
-    </a>
-    <a href="/guide-resignation-2026.html" style="color: #3b82f6; font-weight: bold; text-decoration: none; border: 1.5px solid #3b82f6; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: MOM Resignation & Leave Encashment Guide
-    </a>
-    <a href="/guide-lqs-2026.html" style="color: #10b981; font-weight: bold; text-decoration: none; border: 1.5px solid #10b981; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide
-    </a>
-</div>
-
+        <div class="seo-links-container">
+            <a href="/guide-2026.html" class="seo-link-btn" style="color: #ef4444; border: 1.5px solid #ef4444;">👉 Read: 2026 SG Labor Law & OT Rights Guide</a>
+            <a href="/guide-resignation-2026.html" class="seo-link-btn" style="color: #3b82f6; border: 1.5px solid #3b82f6;">👉 Read: MOM Resignation & Leave Encashment Guide</a>
+            <a href="/guide-lqs-2026.html" class="seo-link-btn" style="color: #10b981; border: 1.5px solid #10b981;">👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide</a>
+        </div>
 
         <div id="resultBox" class="result-card">
             <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
@@ -189,18 +189,6 @@
         </div>
 
         <button onclick="calculateResign()" style="background: var(--secondary);">Calculate Settlement</button>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin: 25px 0; align-items: center; width: 100%; box-sizing: border-box;">
-    <a href="/guide-2026.html" style="color: #ef4444; font-weight: bold; text-decoration: none; border: 1.5px solid #ef4444; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: 2026 SG Labor Law & OT Rights Guide
-    </a>
-    <a href="/guide-resignation-2026.html" style="color: #3b82f6; font-weight: bold; text-decoration: none; border: 1.5px solid #3b82f6; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: MOM Resignation & Leave Encashment Guide
-    </a>
-    <a href="/guide-lqs-2026.html" style="color: #10b981; font-weight: bold; text-decoration: none; border: 1.5px solid #10b981; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: transparent; transition: background 0.2s;">
-        👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide
-    </a>
-</div>
-
 
         <div id="resignResultBox" class="result-card">
             <div class="result-row"><span>MOM Formula Daily Rate:</span><span id="resDailyRate">S$0.00</span></div>
@@ -214,6 +202,12 @@
             <button id="copyResignBtn" onclick="copyResignResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
                 📋 Copy Resignation Settlement
             </button>
+        </div>
+
+        <div class="seo-links-container">
+            <a href="/guide-2026.html" class="seo-link-btn" style="color: #ef4444; border: 1.5px solid #ef4444;">👉 Read: 2026 SG Labor Law & OT Rights Guide</a>
+            <a href="/guide-resignation-2026.html" class="seo-link-btn" style="color: #3b82f6; border: 1.5px solid #3b82f6;">👉 Read: MOM Resignation & Leave Encashment Guide</a>
+            <a href="/guide-lqs-2026.html" class="seo-link-btn" style="color: #10b981; border: 1.5px solid #10b981;">👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide</a>
         </div>
 
         <div class="tips" style="background: #eff6ff; border-color: #bfdbfe;">
@@ -245,7 +239,6 @@
 </div>
 
 <script>
-    // 🎛️ Tab 切换核心控制器
     function switchTab(tab) {
         const salaryPanel = document.getElementById('salaryPanel');
         const resignPanel = document.getElementById('resignPanel');
@@ -263,7 +256,6 @@
             btnResign.classList.add('active');
             btnSalary.classList.remove('active');
             
-            // 自动联动：如果左边输入过月薪，右边离职薪资自动帮用户填好，省重复操作
             const savedBasic = document.getElementById('basicSalary').value;
             if(savedBasic && !document.getElementById('resignBasic').value) {
                 document.getElementById('resignBasic').value = savedBasic;
@@ -271,7 +263,6 @@
         }
     }
 
-    // ================= 离职测算引擎 =================
     function calculateResign() {
         const basic = parseFloat(document.getElementById('resignBasic').value);
         const workDays = parseFloat(document.getElementById('workDaysPerWeek').value);
@@ -282,11 +273,9 @@
             return;
         }
 
-        // MOM 法定日薪公式
         const dailyRate = (12 * basic) / (52 * workDays);
         const cashEncashment = dailyRate * leave;
 
-        // ✅ 修正后：各个 ID 各司其职，并且都完美保留 2 位小数
         document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toFixed(2);
         document.getElementById('resLeaveCash').innerText = 'S$' + cashEncashment.toFixed(2);
         document.getElementById('resLeaveDaysText').innerText = leave;
@@ -298,7 +287,6 @@
         }, 50);
     }
 
-    // ================= 原有薪资与加班计算逻辑 =================
     function copyResults() {
         const gross = document.getElementById('resGross').innerText;
         const ot = document.getElementById('resOT').innerText;
@@ -366,26 +354,35 @@
             lblWork.style.background = '#10b981'; lblWork.style.color = 'white'; lblWork.style.borderColor = '#10b981';
             lblNon.style.background = '#e5e7eb'; lblNon.style.color = 'var(--text)'; lblNon.style.borderColor = '#e5e7eb';
         }
-        if(document.getElementById('basicSalary').value) { calculate(); }
+        // 🟢 修复方案：只有当输入框有值时才静默重新计算，空值时不再弹 alert 骚扰用户
+        if(document.getElementById('basicSalary').value) { calculate(true); }
     }
 
     function setOT(hours) {
         document.getElementById('ot15').value = hours;
         document.getElementById('ot20').value = 0;
-        calculate();
+        calculate(true);
     }
 
-    function calculate() {
+    // 🟢 调整核心计算触发器，显式区分类别切换与按钮点击
+    function calculateEvent() {
+        calculate(false);
+    }
+
+    function calculate(isSilent) {
         const basic = parseFloat(document.getElementById('basicSalary').value);
         if (basic) {
             localStorage.setItem('savedBasicSalary', document.getElementById('basicSalary').value);
             localStorage.setItem('savedEmpType', document.querySelector('input[name="empType"]:checked').value);
         }
         
+        if (!basic) { 
+            if(!isSilent) alert("Please enter your basic salary."); 
+            return; 
+        }
+
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
-
-        if (!basic) { alert("Please enter your basic salary."); return; }
 
         const empType = document.querySelector('input[name="empType"]:checked').value;
         let otBaseSalary = empType === 'non-workman' ? Math.min(basic, 2600) : Math.min(basic, 4500);
@@ -430,7 +427,7 @@
             if (radioToCheck) radioToCheck.checked = true;
         }
         handleEmpTypeChange();
-        if (savedBasic) { calculate(); }
+        if (savedBasic) { calculate(true); }
     });
 </script>
 </body>
