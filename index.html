@@ -306,6 +306,33 @@
         }).catch(err => { alert('Failed to copy. Please copy manually.'); });
     }
 
+    function copyResignResults() {
+    const basic = document.getElementById('resignBasic').value;
+    const workDays = document.getElementById('workDaysPerWeek').value;
+    const leave = document.getElementById('remainingLeave').value || 0;
+    const daily = document.getElementById('resDailyRate').innerText;
+    const cash = document.getElementById('resLeaveCash').innerText;
+
+    const textToCopy = `🇸🇬 *Singapore Resignation & Leave Encashment Breakdown (2026)*\n` +
+                       `• Monthly Basic Salary: S$${basic}\n` +
+                       `• Work Week Scheme: ${workDays} Days/Week\n` +
+                       `• Unused Annual Leave: ${leave} Days\n` +
+                       `---------------------------\n` +
+                       `• MOM Formula Daily Rate: ${daily}\n` +
+                       `💰 *Total Leave Encashment Value: ${cash}*\n\n` +
+                       `*Note:* Calculated based on Section 28 of SG Employment Act.\n` +
+                       `Verify via: sg-salary-calculator.vercel.app`;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const btn = document.getElementById('copyResignBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "✅ Copied Successfully!";
+        btn.style.background = "#10b981"; 
+        setTimeout(() => { btn.innerHTML = originalText; btn.style.background = "#475569"; }, 2000);
+    }).catch(err => { alert('Failed to copy. Please copy manually.'); });
+}
+
+
     function handleEmpTypeChange() {
         const empType = document.querySelector('input[name="empType"]:checked').value;
         const lblNon = document.getElementById('lblNonWorkman');
