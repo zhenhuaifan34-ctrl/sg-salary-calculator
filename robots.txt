@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /guide-2026.html
+Allow: /guide-lqs-2026.html
+Allow: /privacy.html
+
+# 允许所有搜索引擎抓取，但指向我们的站点地图
+Sitemap: https://sg-salary-calculator.vercel.app/sitemap.xml
