@@ -8,13 +8,29 @@
     <title>Singapore Salary Calculator 2026 | Net Pay & MOM OT Calculation</title>
     <meta name="description" content="Calculate your 2026 net pay after CPF changes. Features MOM OT pay calculation, July $1,800 LQS updates, and salary simulations for Singapore workers.">
     <style>
-        :root {
+                :root {
             --primary: #ef4444;
             --secondary: #3b82f6;
             --bg: #f3f4f6;
             --card: #ffffff;
             --text: #1f2937;
+            --input-border: #e5e7eb;
+            --input-bg: #ffffff;
+            --faq-bg: #ffffff;
         }
+
+        /* 🌙 自动感应系统暗黑模式 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;          /* 深灰蓝背景 */
+                --card: #1e293b;        /* 稍微亮一点的卡片背景 */
+                --text: #f8fafc;        /* 亮白文字 */
+                --input-border: #334155;/* 暗色输入框边框 */
+                --input-bg: #1e293b;    /* 暗色输入框内部 */
+                --faq-bg: #1e293b;      /* FAQ 模块暗色背景 */
+            }
+        }
+
 
         body {
             font-family: -apple-system, sans-serif;
@@ -39,7 +55,7 @@
 
         .input-group { margin-bottom: 12px; }
         label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
-        input { width: 100%; padding: 12px; border: 1.5px solid #e5e7eb; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        input { width: 100%; padding: 12px; border: 1.5px solid var(--input-border); background-color: var(--input-bg); color: var(--text); border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
         input:focus { border-color: var(--secondary); outline: none; }
 
         button { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; transition: opacity 0.2s; }
