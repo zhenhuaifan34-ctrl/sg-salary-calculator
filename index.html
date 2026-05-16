@@ -77,7 +77,14 @@
     </style>
 </head>
 <body>
-
+<div style="display: flex; background: var(--input-border); padding: 4px; border-radius: 8px; margin-bottom: 20px;">
+    <button id="tabSalary" onclick="switchTab('salary')" style="flex: 1; margin: 0; padding: 10px; font-size: 0.9rem; background: var(--primary); color: white; border-radius: 6px;">
+        💰 薪资与加班
+    </button>
+    <button id="tabResign" onclick="switchTab('resign')" style="flex: 1; margin: 0; padding: 10px; font-size: 0.9rem; background: transparent; color: var(--text); border-radius: 6px; box-shadow: none;">
+        🚪 离职算账
+    </button>
+</div>
 <div class="container">
     <h1>Singapore Salary & OT Calculator 2026</h1>
     
