@@ -70,7 +70,17 @@
         <label>Monthly Basic Salary (SGD)</label>
         <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()">
     </div>
-
+<div class="input-group">
+        <label>Employee Category (MOM Rules)</label>
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+            <label style="flex: 1; text-align: center; background: #e5e7eb; color: var(--text); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 4px; border: 1.5px solid #e5e7eb;" id="lblNonWorkman">
+                <input type="radio" name="empType" value="non-workman" checked style="width: auto; margin: 0;" onclick="handleEmpTypeChange()"> Non-Workman (Office/Staff)
+            </label>
+            <label style="flex: 1; text-align: center; background: #e5e7eb; color: var(--text); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 4px; border: 1.5px solid #e5e7eb;" id="lblWorkman">
+                <input type="radio" name="empType" value="workman" style="width: auto; margin: 0;" onclick="handleEmpTypeChange()"> Workman (Manual Labor)
+            </label>
+        </div>
+</div>
     <div class="section-title">Overtime Hours</div>
     <div style="display: flex; gap: 8px; margin-bottom: 15px;">
         <button onclick="setOT(0)" style="background: #94a3b8; padding: 8px; font-size: 0.8rem; margin: 0;">Zero OT</button>
