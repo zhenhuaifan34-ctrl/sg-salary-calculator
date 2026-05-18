@@ -28,6 +28,8 @@
             --faq-bg: #ffffff;
             --tab-unselected: #e5e7eb;
             --btn-link-bg: rgba(0, 0, 0, 0.01);
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         /* 🌙 自动感应系统暗黑模式 */
@@ -90,8 +92,11 @@
 
         .input-group { margin-bottom: 12px; }
         label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
-        input, select { width: 100%; padding: 12px; border: 1.5px solid var(--input-border); background-color: var(--input-bg); color: var(--text); border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        input, select { width: 100%; padding: 12px; border: 1.5px solid var(--input-border); background-color: var(--input-bg); color: var(--text); border-radius: 8px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
         input:focus, select:focus { border-color: var(--secondary); outline: none; }
+
+        .input-warning { border-color: var(--warning) !important; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+        .input-error { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
 
         button { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; transition: opacity 0.2s; cursor: pointer; }
         button:active { opacity: 0.8; }
@@ -104,6 +109,9 @@
         .result-card { margin-top: 20px; padding: 20px; background: #1e293b; color: white; border-radius: 12px; display: none; }
         .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
         .result-row.total { border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; font-size: 1.2rem; color: #fbbf24; font-weight: bold; }
+
+        .visual-bar-wrapper { margin: 15px 0; background: #334155; border-radius: 6px; height: 12px; display: flex; overflow: hidden; }
+        .visual-bar-chunk { height: 100%; transition: width 0.3s ease; }
 
         .tips { margin-top: 20px; font-size: 0.8rem; background: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fef3c7; color: #1f2937; }
 
@@ -137,7 +145,18 @@
         <div class="section-title">Income Details</div>
         <div class="input-group">
             <label>Monthly Basic Salary (SGD)</label>
-            <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()">
+            <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()" oninput="handleLiveSalaryCalc()">
+            <div id="lqsAlert" style="font-size: 0.75rem; color: var(--warning); margin-top: 4px; display: none;">💡 Below July 2026 LQS Base ($1,800) for local employee coverage.</div>
+        </div>
+        <div class="input-group">
+            <label>Age Group (Dynamic 2026 CPF Rates)</label>
+            <select id="ageGroup" onchange="calculate(true)">
+                <option value="55" selected>Age 55 & below (EE: 20% / ER: 17%)</option>
+                <option value="60">Age 55 - 60 (EE: 15% / ER: 15.5%)</option>
+                <option value="65">Age 60 - 65 (EE: 10.5% / ER: 12%)</option>
+                <option value="70">Age 65 - 70 (EE: 7.5% / ER: 9.5%)</option>
+                <option value="75">Age above 70 (EE: 5% / ER: 7.5%)</option>
+            </select>
         </div>
         <div class="input-group">
             <label>Employee Category (MOM Rules)</label>
@@ -150,6 +169,10 @@
                 </label>
             </div>
         </div>
+        <div class="input-group">
+            <label>Contractual Weekly Work Hours</label>
+            <input type="number" id="weeklyHours" value="44" min="30" max="60" inputmode="numeric" oninput="calculate(true)">
+        </div>
 
         <div class="section-title">Overtime Hours</div>
         <div style="display: flex; gap: 8px; margin-bottom: 15px;">
@@ -159,12 +182,12 @@
         </div>
 
         <div class="input-group">
-            <label>1.5x OT (Normal Days)</label>
-            <input type="number" id="ot15" value="0" inputmode="decimal" onfocus="this.select()">
+            <label>1.5x OT (Normal Days / Rest Day Overtime)</label>
+            <input type="number" id="ot15" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculate(true)">
         </div>
         <div class="input-group">
-            <label>2.0x OT (Rest Day/PH)</label>
-            <input type="number" id="ot20" value="0" inputmode="decimal" onfocus="this.select()">
+            <label>2.0x OT (Public Holiday / Core Rest Day)</label>
+            <input type="number" id="ot20" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculate(true)">
         </div>
 
         <!-- 🛠️ 优化功能 1: 整合一键清空 (Reset) 按钮 -->
@@ -182,17 +205,36 @@
         <div id="resultBox" class="result-card">
             <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
             <div class="result-row"><span>OT Pay Total:</span><span id="resOT">S$0.00</span></div>
-            <div class="result-row"><span>Employee CPF (20%):</span><span id="resCPF">-S$0.00</span></div>
+            <div class="result-row"><span id="lblResCPF">Employee CPF (20%):</span><span id="resCPF">-S$0.00</span></div>
             <div class="result-row" style="color: #94a3b8; font-size: 0.85rem; border-top: 1px dashed #475569; padding-top: 8px; margin-top: 5px;">
-                <span>Employer CPF (17%):</span><span id="resEmployerCPF">+S$0.00</span>
+                <span id="lblResEmployerCPF">Employer CPF (17%):</span><span id="resEmployerCPF">+S$0.00</span>
             </div>
             <div class="result-row" style="color: #94a3b8; font-size: 0.85rem;">
                 <span>Total CPF (Emp+Empr):</span><span id="resTotalCPF">S$0.00</span>
             </div>
+            
+            <!-- 📊 优化功能: 纯CSS可视化薪资配比结构进度条 -->
+            <div style="font-size: 0.8rem; margin-top: 12px; color: #cbd5e1;">Salary Distribution Structure:</div>
+            <div class="visual-bar-wrapper">
+                <div id="barNet" class="visual-bar-chunk" style="background: #fbbf24; width: 0%;"></div>
+                <div id="barCPF" class="visual-bar-chunk" style="background: #ef4444; width: 0%;"></div>
+                <div id="barOT" class="visual-bar-chunk" style="background: #3b82f6; width: 0%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 15px; color: #94a3b8;">
+                <span><span style="color:#fbbf24; margin-right:3px;">●</span>Net Take-Home</span>
+                <span><span style="color:#ef4444; margin-right:3px;">●</span>Employee CPF</span>
+                <span><span style="color:#3b82f6; margin-right:3px;">●</span>OT Component</span>
+            </div>
+
             <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
             
             <button id="copyBtn" onclick="copyResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px;">
                 📋 Copy Calculation Details
+            </button>
+
+            <!-- 📥 优化功能: 一键下载TXT报告清单 -->
+            <button id="downloadBtn" onclick="downloadTxtReport('salary')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                📥 Export Text Report (.txt)
             </button>
             
             <!-- 🛠️ 优化功能 5: 快速分享网页及推荐文案按钮 -->
@@ -205,7 +247,7 @@
             <strong>💡 MOM Quick Guide:</strong><br>
             1. Max OT hours per month is 72.<br>
             2. OT pay must be paid within 14 days after the salary period.<br>
-            3. Calculations are based on a 44-hour work week.
+            3. Calculations are based on a 44-hour work week standard (or custom config).
         </div>
     </div>
 
@@ -216,12 +258,12 @@
         <div class="section-title">Resignation Details</div>
         <div class="input-group">
             <label>Monthly Basic Salary (SGD)</label>
-            <input type="number" id="resignBasic" placeholder="e.g. 4000" inputmode="decimal" onfocus="this.select()">
+            <input type="number" id="resignBasic" placeholder="e.g. 4000" inputmode="decimal" onfocus="this.select()" oninput="calculateResign(true)">
         </div>
 
         <div class="input-group">
             <label>Work Days Per Week</label>
-            <select id="workDaysPerWeek">
+            <select id="workDaysPerWeek" onchange="calculateResign(true)">
                 <option value="5">5 Days / Week (Standard)</option>
                 <option value="5.5">5.5 Days / Week (Alternate Saturdays)</option>
                 <option value="6">6 Days / Week (Retail / F&B)</option>
@@ -230,12 +272,12 @@
 
         <div class="input-group">
             <label>Unused Annual Leave Remaining (Days)</label>
-            <input type="number" id="remainingLeave" value="0" inputmode="decimal" onfocus="this.select()">
+            <input type="number" id="remainingLeave" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculateResign(true)">
         </div>
 
         <!-- 🛠️ 优化功能 1: 整合一键清空 (Reset) 按钮 -->
         <div style="display: flex; gap: 8px; margin-top: 15px;">
-            <button onclick="calculateResign()" style="background: var(--secondary); margin-top: 0; flex: 2;">Calculate Settlement</button>
+            <button onclick="calculateResign(false)" style="background: var(--secondary); margin-top: 0; flex: 2;">Calculate Settlement</button>
             <button onclick="resetResign()" style="margin-top: 0; flex: 1; background: #64748b; font-size: 1rem;">Reset</button>
         </div>
 
@@ -250,6 +292,11 @@
             
             <button id="copyResignBtn" onclick="copyResignResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
                 📋 Copy Resignation Settlement
+            </button>
+
+            <!-- 📥 优化功能: 一键下载离职结算TXT报告 -->
+            <button id="downloadResignBtn" onclick="downloadTxtReport('resign')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                📥 Export Resignation Report (.txt)
             </button>
 
             <!-- 🛠️ 优化功能 5: 快速分享网页及推荐文案按钮 -->
@@ -339,11 +386,31 @@
         }
     }
 
+    // 🛠️ 优化功能: 实时动态输入响应及低薪高亮拦截规则
+    function handleLiveSalaryCalc() {
+        const salaryInput = document.getElementById('basicSalary');
+        const lqsAlert = document.getElementById('lqsAlert');
+        const val = parseFloat(salaryInput.value) || 0;
+        
+        if (val > 0 && val < 1800) {
+            salaryInput.classList.add('input-warning');
+            lqsAlert.style.display = 'block';
+        } else {
+            salaryInput.classList.remove('input-warning');
+            lqsAlert.style.display = 'none';
+        }
+        calculate(true);
+    }
+
     // 🛠️ 优化功能 1: 一键清空函数
     function resetSalary() {
         document.getElementById('basicSalary').value = '';
+        document.getElementById('basicSalary').classList.remove('input-warning');
+        document.getElementById('lqsAlert').style.display = 'none';
         document.getElementById('ot15').value = '0';
         document.getElementById('ot20').value = '0';
+        document.getElementById('weeklyHours').value = '44';
+        document.getElementById('ageGroup').value = '55';
         document.getElementById('resultBox').style.display = 'none';
         localStorage.removeItem('savedBasicSalary');
     }
@@ -357,8 +424,10 @@
 
     // 🛠️ 优化功能 5: 快速复制裂变分享文案
     function shareApp(btnId) {
-        const textToCopy = `🇸🇬 Recommended Tool: 2026 Singapore Salary, OT & Resignation Calculator\n` +
-                           `Perfect for checking your CPF changes ($8k ceiling), MOM OT multipliers, and legal leave encashment values!\n` +
+        const textToCopy = `🇸🇬 Recommended Tool: 2026 Singapore Salary, OT & Resignation Calculator
+` +
+                           `Perfect for checking your CPF changes ($8k ceiling), MOM OT multipliers, and legal leave encashment values!
+` +
                            `👉 Try it here: https://sg-salary-calculator.vercel.app`;
         navigator.clipboard.writeText(textToCopy).then(() => {
             const btn = document.getElementById(btnId);
@@ -394,16 +463,17 @@
             const savedBasic = document.getElementById('basicSalary').value;
             if(savedBasic && !document.getElementById('resignBasic').value) {
                 document.getElementById('resignBasic').value = savedBasic;
+                calculateResign(true);
             }
         }
     }
 
-    function calculateResign() {
+    function calculateResign(isSilent) {
         const basic = parseFloat(document.getElementById('resignBasic').value);
         const workDays = parseFloat(document.getElementById('workDaysPerWeek').value);
         const leave = parseFloat(document.getElementById('remainingLeave').value) || 0;
         if (!basic) {
-            alert("Please enter your basic salary.");
+            if (!isSilent) alert("Please enter your basic salary.");
             return;
         }
 
@@ -415,29 +485,50 @@
         document.getElementById('resLeaveDaysText').innerText = leave;
         document.getElementById('resignResultBox').style.display = 'block';
         
-        setTimeout(() => {
-            document.getElementById('resignResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 50);
+        if (!isSilent) {
+            setTimeout(() => {
+                document.getElementById('resignResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
     }
 
+    // 🐛 Bug 修复核心: 修正了原先 totalCPF 变量名称拼写未定义导致复制失效的隐蔽错误
     function copyResults() {
         const gross = document.getElementById('resGross').innerText;
         const ot = document.getElementById('resOT').innerText;
         const empCpf = document.getElementById('resCPF').innerText;
         const emprCpf = document.getElementById('resEmployerCPF').innerText;
-        const totalCpf = document.getElementById('resTotalCPF').innerText;
+        const totalCpfVal = document.getElementById('resTotalCPF').innerText; 
         const net = document.getElementById('resNet').innerText;
+        const ageText = document.getElementById('ageGroup').options[document.getElementById('ageGroup').selectedIndex].text;
         const empType = document.querySelector('input[name="empType"]:checked').value === 'non-workman' ? 'Non-Workman' : 'Workman';
-        const textToCopy = `🇸🇬 *Singapore Salary & OT Breakdown (2026)*\n` +
-                           `• Category: ${empType}\n` +
-                           `• Gross Salary: ${gross}\n` +
-                           `• OT Pay Total: ${ot}\n` +
-                           `• Employee CPF (20%): ${empCpf}\n` +
-                           `• Employer CPF (17%): ${emprCpf}\n` +
-                           `• Total CPF Contribution: ${totalCPF}\n` +
-                           `---------------------------\n` +
-                           `💰 *Net Take-Home Pay: ${net}*\n\n` +
+        const hoursWeekly = document.getElementById('weeklyHours').value;
+        
+        const textToCopy = `🇸🇬 *Singapore Salary & OT Breakdown (2026)*
+` +
+                           `• Category: ${empType}
+` +
+                           `• Contract Hours: ${hoursWeekly}h/week
+` +
+                           `• Age Allocation: ${ageText}
+` +
+                           `• Gross Salary: ${gross}
+` +
+                           `• OT Pay Total: ${ot}
+` +
+                           `• Employee CPF Contribution: ${empCpf}
+` +
+                           `• Employer CPF Contribution: ${emprCpf}
+` +
+                           `• Total CPF Contribution: ${totalCpfVal}
+` + 
+                           `---------------------------
+` +
+                           `💰 *Net Take-Home Pay: ${net}*
+
+` +
                            `Calculated via: sg-salary-calculator.vercel.app`;
+                           
         navigator.clipboard.writeText(textToCopy).then(() => {
             const btn = document.getElementById('copyBtn');
             const originalText = btn.innerHTML;
@@ -453,14 +544,23 @@
         const leave = document.getElementById('remainingLeave').value || 0;
         const daily = document.getElementById('resDailyRate').innerText;
         const cash = document.getElementById('resLeaveCash').innerText;
-        const textToCopy = `🇸🇬 *Singapore Resignation & Leave Encashment Breakdown (2026)*\n` +
-                           `• Monthly Basic Salary: S$${basic}\n` +
-                           `• Work Week Scheme: ${workDays} Days/Week\n` +
-                           `• Unused Annual Leave: ${leave} Days\n` +
-                           `---------------------------\n` +
-                           `• MOM Formula Daily Rate: ${daily}\n` +
-                           `💰 *Total Leave Encashment Value: ${cash}*\n\n` +
-                           `*Note:* Calculated based on Section 28 of SG Employment Act.\n` +
+        const textToCopy = `🇸🇬 *Singapore Resignation & Leave Encashment Breakdown (2026)*
+` +
+                           `• Monthly Basic Salary: S$${basic}
+` +
+                           `• Work Week Scheme: ${workDays} Days/Week
+` +
+                           `• Unused Annual Leave: ${leave} Days
+` +
+                           `---------------------------
+` +
+                           `• MOM Formula Daily Rate: ${daily}
+` +
+                           `💰 *Total Leave Encashment Value: ${cash}*
+
+` +
+                           `*Note:* Calculated based on Section 28 of SG Employment Act.
+` +
                            `Verify via: sg-salary-calculator.vercel.app`;
         navigator.clipboard.writeText(textToCopy).then(() => {
             const btn = document.getElementById('copyResignBtn');
@@ -469,6 +569,108 @@
             btn.style.background = "#10b981"; 
             setTimeout(() => { btn.innerHTML = originalText; btn.style.background = "#475569"; }, 2000);
         }).catch(err => { alert('Failed to copy. Please copy manually.'); });
+    }
+
+    // 🛠️ 优化功能: 一键下载TXT报告文件
+    function downloadTxtReport(type) {
+        let content = "";
+        let filename = "";
+        const timeString = new Date().toLocaleDateString();
+        
+        if (type === 'salary') {
+            filename = `SG_Salary_Breakdown_${new Date().toISOString().slice(0,10)}.txt`;
+            content = `==================================================
+` +
+                      `      SINGAPORE SALARY & OT PAY REPORT (2026)     
+` +
+                      `      Generated on: ${timeString}                
+` +
+                      `==================================================
+
+` +
+                      `[Employment Profile]
+` +
+                      `• Category: ${document.querySelector('input[name="empType"]:checked').value === 'non-workman' ? 'Non-Workman' : 'Workman'}
+` +
+                      `• Base Weekly Work Hours: ${document.getElementById('weeklyHours').value} Hours
+` +
+                      `• Age Tier Selection: ${document.getElementById('ageGroup').options[document.getElementById('ageGroup').selectedIndex].text}
+
+` +
+                      `[Financial Details]
+` +
+                      `• Monthly Basic Salary: S$ ${parseFloat(document.getElementById('basicSalary').value).toFixed(2)}
+` +
+                      `• Overtime Component (1.5x): ${document.getElementById('ot15').value} Hours
+` +
+                      `• Overtime Component (2.0x): ${document.getElementById('ot20').value} Hours
+
+` +
+                      `--------------------------------------------------
+` +
+                      `• GROSS SALARY:        ${document.getElementById('resGross').innerText}
+` +
+                      `• OT PAY COMPONENT:    ${document.getElementById('resOT').innerText}
+` +
+                      `• EMPLOYEE CPF DEDUCT: ${document.getElementById('resCPF').innerText}
+` +
+                      `• EMPLOYER CPF MATCH:  ${document.getElementById('resEmployerCPF').innerText}
+` +
+                      `• TOTAL CPF ACCUMULATED: ${document.getElementById('resTotalCPF').innerText}
+` +
+                      `--------------------------------------------------
+` +
+                      `💰 NET TAKE-HOME PAY:  ${document.getElementById('resNet').innerText}
+
+` +
+                      `==================================================
+` +
+                      `* Calculated based on valid MOM Framework and May 2026 Regulatory Criteria.`;
+        } else {
+            filename = `SG_Resignation_Settlement_${new Date().toISOString().slice(0,10)}.txt`;
+            content = `==================================================
+` +
+                      `     MOM LEAVE ENCASHMENT & SETTLEMENT REPORT     
+` +
+                      `      Generated on: ${timeString}                
+` +
+                      `==================================================
+
+` +
+                      `[Resignation Parameter Details]
+` +
+                      `• Contractual Basic Pay Rate: S$ ${parseFloat(document.getElementById('resignBasic').value).toFixed(2)}
+` +
+                      `• Working Scheme Schedule: ${document.getElementById('workDaysPerWeek').value} Days/Week
+` +
+                      `• Unused Carry-forward Leaves: ${document.getElementById('remainingLeave').value} Days
+
+` +
+                      `--------------------------------------------------
+` +
+                      `• MOM Legal Daily Rate: ${document.getElementById('resDailyRate').innerText}
+` +
+                      `💰 TOTAL CASH ENCASHMENT VALUE: ${document.getElementById('resLeaveCash').innerText}
+` +
+                      `--------------------------------------------------
+
+` +
+                      `[Alternative Discretionary Path]
+` +
+                      `• Leave Clearing Option: Physical final station day can be brought forward by ${document.getElementById('remainingLeave').value} days.
+
+` +
+                      `==================================================
+` +
+                      `* Calculated under Section 28 guidelines of Singapore Employment Act.`;
+        }
+        
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
     }
 
     function handleEmpTypeChange() {
@@ -512,37 +714,80 @@
 
         const ot15 = parseFloat(document.getElementById('ot15').value) || 0;
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
+        const weeklyHours = parseFloat(document.getElementById('weeklyHours').value) || 44;
+
+        // 🛠️ 优化功能: 动态匹配2026年新加坡多档年龄结构公积金底层费率规则
+        const ageGroupValue = document.getElementById('ageGroup').value;
+        let eeCpfRate = 0.20;
+        let erCpfRate = 0.17;
+        
+        if (ageGroupValue === "60") {
+            eeCpfRate = 0.15; erCpfRate = 0.155;
+        } else if (ageGroupValue === "65") {
+            eeCpfRate = 0.105; erCpfRate = 0.12;
+        } else if (ageGroupValue === "70") {
+            eeCpfRate = 0.075; erCpfRate = 0.095;
+        } else if (ageGroupValue === "75") {
+            eeCpfRate = 0.05; erCpfRate = 0.075;
+        }
+
+        document.getElementById('lblResCPF').innerText = `Employee CPF (${(eeCpfRate*100).toFixed(1)}%):`;
+        document.getElementById('lblResEmployerCPF').innerText = `Employer CPF (${(erCpfRate*100).toFixed(1)}%):`;
 
         const empType = document.querySelector('input[name="empType"]:checked').value;
         let otBaseSalary = empType === 'non-workman' ? Math.min(basic, 2600) : Math.min(basic, 4500);
-        const hourlyRate = (12 * otBaseSalary) / (52 * 44);
+        const hourlyRate = (12 * otBaseSalary) / (52 * weeklyHours);
         const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
         const grossSalary = basic + otPay;
-        const cpfBase = Math.min(grossSalary, 8000);
-        const employeeCPF = cpfBase * 0.20;
-        const employerCPF = cpfBase * 0.17;
-        const totalCPF = employeeCPF + employerCPF; 
+        
+        // 2026年起公积金普通薪资封顶线上调至 $8,000 SGD
+        const cpfBase = Math.min(grossSalary, 8000); 
+        const employeeCPF = cpfBase * eeCpfRate;
+        const employerCPF = cpfBase * erCpfRate;
+        const totalCpf = employeeCPF + employerCPF; 
         const netPay = grossSalary - employeeCPF;
 
         document.getElementById('resGross').innerText = 'S$' + grossSalary.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resOT').innerText = 'S$' + otPay.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resCPF').innerText = '-S$' + employeeCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resEmployerCPF').innerText = '+S$' + employerCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('resTotalCPF').innerText = 'S$' + totalCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('resNet').innerText = 'S$' + netPay.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('resTotalCPF').innerText = 'S$' + totalCpf.toLocaleString(undefined, {minimumFractionDigits: 2});
         
+        // 针对多层元素共享同一类名导致的二次覆盖渲染错误进行安全容错适配
+        const netPayElements = document.querySelectorAll('#resNet');
+        netPayElements.forEach(el => {
+            el.innerText = 'S$' + netPay.toLocaleString(undefined, {minimumFractionDigits: 2});
+        });
+        
+        // 📊 优化功能: 纯CSS动态配比结构条比例变更计算
+        const sumParts = netPay + employeeCPF + otPay;
+        if (sumParts > 0) {
+            document.getElementById('barNet').style.width = ((netPay / sumParts) * 100) + '%';
+            document.getElementById('barCPF').style.width = ((employeeCPF / sumParts) * 100) + '%';
+            document.getElementById('barOT').style.width = ((otPay / sumParts) * 100) + '%';
+        }
+
         document.getElementById('resultBox').style.display = 'block';
-        setTimeout(() => { document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+        if (!isSilent) {
+            setTimeout(() => { document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+        }
 
         const tipElement = document.getElementById('momTips');
+        const otInput15 = document.getElementById('ot15');
+        const otInput20 = document.getElementById('ot20');
+        
         if (ot15 + ot20 > 72) {
             tipElement.style.background = '#fef2f2';
             tipElement.style.border = '1px solid #fee2e2';
             tipElement.innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
+            otInput15.classList.add('input-error');
+            otInput20.classList.add('input-error');
         } else {
             tipElement.style.background = '#fffbeb';
             tipElement.style.border = '1px solid #fef3c7';
-            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week.';
+            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week standard.';
+            otInput15.classList.remove('input-error');
+            otInput20.classList.remove('input-error');
         }
     }
 
@@ -557,7 +802,7 @@
         }
     
         handleEmpTypeChange();
-        if (savedBasic) { calculate(true); }
+        if (savedBasic) { handleLiveSalaryCalc(); }
     });
 </script>
 </body>
