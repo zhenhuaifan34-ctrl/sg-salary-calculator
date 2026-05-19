@@ -9,15 +9,44 @@
     <title>Singapore Salary & Resignation Calculator 2026 | Net Pay & Leave Encashment</title>
     <meta name="description" content="Calculate your 2026 net pay after CPF changes, MOM OT pay, and resignation leave encashment details based on Singapore Employment Act.">
     
-    <!-- 🛠️ 优化功能 3: 社交媒体预览标签 (Open Graph Tags) -->
     <meta property="og:title" content="Singapore Salary & Resignation Calculator 2026">
     <meta property="og:description" content="Calculate your 2026 net pay after CPF changes, MOM OT pay, and resignation leave encashment details instantly.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sg-salary-calculator.vercel.app">
     <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%23ef4444%22><text y=%22.9em%22 font-size=%2280%22>🇸🇬</text></svg>">
 
+    <!-- 🛠️ 优化功能 9: Google JSON-LD SEO 结构化数据增强 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Singapore Salary & Resignation Calculator 2026",
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SGD"
+      },
+      "description": "Advanced automated tool for computing 2026 Singapore net take-home salary after CPF modifications, MOM overtime pay, and legal leave encashments."
+    }
+    </script>
+
+    <!-- 🛠️ 优化功能 7: 消除首屏闪烁 (FOUC)，提前在 head 中注入暗黑主题控制标记 -->
+    <script>
+        (function() {
+            const override = localStorage.getItem('theme-override');
+            const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (override === 'dark' || (!override && isDarkSystem)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
     <style>
-        :root {
+        :root, html[data-theme="light"] {
             --primary: #ef4444;
             --secondary: #3b82f6;
             --bg: #f3f4f6;
@@ -30,24 +59,10 @@
             --btn-link-bg: rgba(0, 0, 0, 0.01);
             --success: #10b981;
             --warning: #f59e0b;
+            --history-bg: #f9fafb;
         }
 
-        /* 🌙 自动感应系统暗黑模式 */
-        @media (prefers-color-scheme: dark) {
-            body:not(.light-mode) {
-                --bg: #0f172a;
-                --card: #1e293b;        
-                --text: #f8fafc;        
-                --input-border: #334155;
-                --input-bg: #1e293b;    
-                --faq-bg: #1e293b;      
-                --tab-unselected: #334155;
-                --btn-link-bg: rgba(255, 255, 255, 0.03);
-            }
-        }
-
-        /* 🛠️ 优化功能 2: 手动暗黑模式强制覆盖类 */
-        body.dark-mode {
+        html[data-theme="dark"], body.dark-mode {
             --bg: #0f172a;
             --card: #1e293b;        
             --text: #f8fafc;        
@@ -56,7 +71,10 @@
             --faq-bg: #1e293b;      
             --tab-unselected: #334155;
             --btn-link-bg: rgba(255, 255, 255, 0.03);
+            --history-bg: #1e293b;
         }
+
+        /* 兼容旧版的类名覆盖 */
         body.light-mode {
             --bg: #f3f4f6;
             --card: #ffffff;
@@ -69,12 +87,12 @@
         }
 
         body {
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 15px;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.2s, color 0.2s;
         }
 
         .container {
@@ -88,20 +106,36 @@
 
         h1 { font-size: 1.4rem; color: var(--primary); text-align: center; margin-bottom: 20px; }
         
-        .section-title { font-size: 0.9rem; font-weight: bold; color: #6b7280; text-transform: uppercase; margin: 15px 0 10px; border-bottom: 1px solid #e5e7eb; }
+        .section-title { font-size: 0.9rem; font-weight: bold; color: #6b7280; text-transform: uppercase; margin: 15px 0 10px; border-bottom: 1px solid var(--input-border); padding-bottom: 4px; }
 
-        .input-group { margin-bottom: 12px; }
+        .input-group { margin-bottom: 12px; position: relative; }
         label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
+        
+        /* 🛠️ 优化功能 3: 输入框容器与一键清空定位封装 */
+        .input-wrapper { position: relative; display: block; }
         input, select { width: 100%; padding: 12px; border: 1.5px solid var(--input-border); background-color: var(--input-bg); color: var(--text); border-radius: 8px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
-        input:focus, select:focus { border-color: var(--secondary); outline: none; }
+        input:focus, select:focus { border-color: var(--secondary); outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+        input { padding-right: 36px; } /* 为右侧清空按钮预留空间 */
 
-        .input-warning { border-color: var(--warning) !important; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
-        .input-error { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
+        .clear-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #9ca3af; font-size: 1.1rem; cursor: pointer; padding: 2px 6px; display: none; z-index: 5; }
+        .clear-btn:hover { color: var(--primary); }
 
-        button { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; transition: opacity 0.2s; cursor: pointer; }
-        button:active { opacity: 0.8; }
+        /* 🛠️ 优化功能 4: 优雅的行内验证震动微动效与错误提示 */
+        .inline-error-msg { font-size: 0.78rem; color: var(--primary); margin-top: 4px; display: none; font-weight: 500; }
+        @keyframes inlineShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .input-shake { animation: inlineShake 0.2s ease-in-out 2; }
 
-        /* 🎛️ Tab 导航栏专有样式 */
+        .input-warning { border-color: var(--warning) !important; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important; }
+        .input-error { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+
+        /* 🛠️ 优化功能 8: 按钮交互反馈微动效 */
+        button { width: 100%; background: var(--primary); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; transition: transform 0.1s ease, opacity 0.2s, background-color 0.2s; cursor: pointer; }
+        button:active { transform: scale(0.97); opacity: 0.9; }
+
         .tab-nav { display: flex; background: var(--tab-unselected); padding: 4px; border-radius: 10px; margin-bottom: 20px; }
         .tab-btn { flex: 1; margin: 0; padding: 10px; font-size: 0.9rem; border-radius: 7px; background: transparent; color: var(--text); box-shadow: none; font-weight: 600; }
         .tab-btn.active { background: var(--primary); color: white; }
@@ -110,22 +144,51 @@
         .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; }
         .result-row.total { border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; font-size: 1.2rem; color: #fbbf24; font-weight: bold; }
 
+        /* 🛠️ 优化功能 2: 跨境多币种换算区域样式 */
+        .forex-estimation-box { background: rgba(255,255,255,0.06); padding: 10px 14px; border-radius: 8px; margin: 12px 0; font-size: 0.82rem; border-left: 3px solid var(--secondary); }
+
+        /* 🛠️ 优化功能 1: 历史计算缓存看版样式 */
+        .history-section { margin-top: 20px; padding: 14px; background: var(--history-bg); border-radius: 12px; border: 1.5px dashed var(--input-border); }
+        .history-title { font-size: 0.85rem; font-weight: bold; color: #6b7280; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .history-list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+        .history-item { font-size: 0.8rem; background: var(--card); border: 1px solid var(--input-border); padding: 8px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
+        .history-item:hover { background: rgba(59,130,246,0.08); }
+
         .visual-bar-wrapper { margin: 15px 0; background: #334155; border-radius: 6px; height: 12px; display: flex; overflow: hidden; }
         .visual-bar-chunk { height: 100%; transition: width 0.3s ease; }
 
-        .tips { margin-top: 20px; font-size: 0.8rem; background: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fef3c7; color: #1f2937; }
+        .tips { margin-top: 20px; font-size: 0.8rem; background: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fef3c7; color: #1f2937; line-height: 1.4; }
 
-        /* 复用引流链接样式，保持代码整洁 */
         .seo-links-container { display: flex; flex-direction: column; gap: 10px; margin: 25px 0; align-items: center; width: 100%; box-sizing: border-box; }
         .seo-link-btn { font-weight: bold; text-decoration: none; padding: 12px 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box; text-align: center; font-size: 0.9rem; background: var(--btn-link-bg); transition: background 0.2s, transform 0.1s; }
         .seo-link-btn:active { transform: scale(0.98); }
+
+        /* 🛠️ 优化功能 6: Print 打印排版媒体查询优化 (Ctrl+P 完美输出Payslip A4清单) */
+        @media print {
+            body { background: #ffffff !important; color: #000000 !important; padding: 0; font-size: 12pt; }
+            .container { box-shadow: none !important; max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            .tab-nav, #themeToggleBtn, .seo-links-container, button, .tips, .input-group, .section-title, .history-section, .inline-error-msg, #lqsAlert { display: none !important; }
+            h1 { font-size: 18pt; margin-bottom: 25px; color: #000000 !important; text-align: center; }
+            .result-card { display: block !important; background: transparent !important; color: #000000 !important; padding: 0 !important; margin-top: 20px !important; }
+            .result-row { display: flex !important; justify-content: space-between !important; color: #000000 !important; border-bottom: 1px dashed #cccccc !important; padding: 6px 0 !important; font-size: 11pt !important; }
+            .result-row.total { border-top: 2px solid #000000 !important; border-bottom: 2px solid #000000 !important; font-size: 14pt !important; color: #000000 !important; font-weight: bold !important; margin-top: 15px !important; padding: 8px 0 !important; }
+            .visual-bar-wrapper { display: none !important; }
+            .print-header-receipt { display: block !important; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 15px; font-family: monospace; font-size: 10pt; }
+        }
+        .print-header-receipt { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
     
-    <!-- 🛠️ 优化功能 4: 信誉背书标签与手动暗黑切换头部通栏 -->
+    <!-- 打印专用的公用纸质页眉 -->
+    <div class="print-header-receipt">
+        🇸🇬 OFFICIAL INCOME STATEMENT CALCULATION REPORT (MOM ACT)<br>
+        Date Generated: <span id="printDateSpan"></span> | Verification Ref: SG-MOM-2026
+    </div>
+
+    <!-- 顶部状态栏与手动暗黑控制栏 -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px;">
         <div style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 6px 12px; border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(16, 185, 129, 0.2);">
             ⚠️ Policy Check: Safely Updated for May 2026 MOM Rules
@@ -145,9 +208,14 @@
         <div class="section-title">Income Details</div>
         <div class="input-group">
             <label>Monthly Basic Salary (SGD)</label>
-            <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()" oninput="handleLiveSalaryCalc()">
+            <div class="input-wrapper">
+                <input type="number" id="basicSalary" placeholder="e.g. 3500" inputmode="decimal" onfocus="this.select()" oninput="handleLiveSalaryCalc()">
+                <button type="button" class="clear-btn" id="clearBasicSalary" onclick="clearInputField('basicSalary')">×</button>
+            </div>
+            <div class="inline-error-msg" id="basicSalaryErr">⚠️ Please enter a positive salary amount.</div>
             <div id="lqsAlert" style="font-size: 0.75rem; color: var(--warning); margin-top: 4px; display: none;">💡 Below July 2026 LQS Base ($1,800) for local employee coverage.</div>
         </div>
+        
         <div class="input-group">
             <label>Age Group (Dynamic 2026 CPF Rates)</label>
             <select id="ageGroup" onchange="calculate(true)">
@@ -158,6 +226,7 @@
                 <option value="75">Age above 70 (EE: 5% / ER: 7.5%)</option>
             </select>
         </div>
+        
         <div class="input-group">
             <label>Employee Category (MOM Rules)</label>
             <div style="display: flex; gap: 8px; margin-top: 5px;">
@@ -169,9 +238,15 @@
                 </label>
             </div>
         </div>
+
+        <!-- 🛠️ 优化功能 5: 自定义标准周工作小时基数配置项 -->
         <div class="input-group">
-            <label>Contractual Weekly Work Hours</label>
-            <input type="number" id="weeklyHours" value="44" min="30" max="60" inputmode="numeric" oninput="calculate(true)">
+            <label>Contractual Weekly Work Hours (Standard: 44)</label>
+            <div class="input-wrapper">
+                <input type="number" id="weeklyHours" value="44" min="30" max="60" inputmode="numeric" oninput="handleLiveSalaryCalc()">
+                <button type="button" class="clear-btn" id="clearWeeklyHours" onclick="clearInputField('weeklyHours')">×</button>
+            </div>
+            <div class="inline-error-msg" id="weeklyHoursErr">⚠️ Hours must be between 30 and 60.</div>
         </div>
 
         <div class="section-title">Overtime Hours</div>
@@ -183,25 +258,28 @@
 
         <div class="input-group">
             <label>1.5x OT (Normal Days / Rest Day Overtime)</label>
-            <input type="number" id="ot15" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculate(true)">
+            <div class="input-wrapper">
+                <input type="number" id="ot15" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="handleLiveSalaryCalc()">
+                <button type="button" class="clear-btn" id="clearOt15" onclick="clearInputField('ot15')">×</button>
+            </div>
+            <div class="inline-error-msg" id="ot15Err">⚠️ Please enter a non-negative value.</div>
         </div>
+        
         <div class="input-group">
             <label>2.0x OT (Public Holiday / Core Rest Day)</label>
-            <input type="number" id="ot20" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculate(true)">
+            <div class="input-wrapper">
+                <input type="number" id="ot20" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="handleLiveSalaryCalc()">
+                <button type="button" class="clear-btn" id="clearOt20" onclick="clearInputField('ot20')">×</button>
+            </div>
+            <div class="inline-error-msg" id="ot20Err">⚠️ Please enter a non-negative value.</div>
         </div>
 
-        <!-- 🛠️ 优化功能 1: 整合一键清空 (Reset) 按钮 -->
         <div style="display: flex; gap: 8px; margin-top: 15px;">
             <button onclick="calculateEvent()" style="margin-top: 0; flex: 2;">Calculate Net Pay</button>
             <button onclick="resetSalary()" style="margin-top: 0; flex: 1; background: #64748b; font-size: 1rem;">Reset</button>
         </div>
         
-        <div class="seo-links-container">
-            <a href="/guide-2026.html" class="seo-link-btn" style="color: #ef4444; border: 1.5px solid #ef4444;">👉 Read: 2026 SG Labor Law & OT Rights Guide</a>
-            <a href="/guide-resignation-2026.html" class="seo-link-btn" style="color: #3b82f6; border: 1.5px solid #3b82f6;">👉 Read: MOM Resignation & Leave Encashment Guide</a>
-            <a href="/guide-lqs-2026.html" class="seo-link-btn" style="color: #10b981; border: 1.5px solid #10b981;">👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide</a>
-        </div>
-
+        <!-- 💰 计算结果看板 -->
         <div id="resultBox" class="result-card">
             <div class="result-row"><span>Gross Salary:</span><span id="resGross">S$0.00</span></div>
             <div class="result-row"><span>OT Pay Total:</span><span id="resOT">S$0.00</span></div>
@@ -213,7 +291,6 @@
                 <span>Total CPF (Emp+Empr):</span><span id="resTotalCPF">S$0.00</span>
             </div>
             
-            <!-- 📊 优化功能: 纯CSS可视化薪资配比结构进度条 -->
             <div style="font-size: 0.8rem; margin-top: 12px; color: #cbd5e1;">Salary Distribution Structure:</div>
             <div class="visual-bar-wrapper">
                 <div id="barNet" class="visual-bar-chunk" style="background: #fbbf24; width: 0%;"></div>
@@ -226,28 +303,48 @@
                 <span><span style="color:#3b82f6; margin-right:3px;">●</span>OT Component</span>
             </div>
 
+            <!-- 🛠️ 优化功能 2: 跨境多币种汇率估算转化面板 -->
+            <div class="forex-estimation-box">
+                <strong>🌏 Cross-Border Remittance Ref Estimation:</strong>
+                <div style="display:flex; justify-content:space-between; margin-top:4px;">
+                    <span>Convert to MYR (Est R: 3.32):</span><strong id="forexMYR" style="color:#10b981;">RM 0.00</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:2px;">
+                    <span>Convert to CNY (Est R: 5.35):</span><strong id="forexCNY" style="color:#3b82f6;">¥ 0.00</strong>
+                </div>
+            </div>
+
             <div class="result-row total"><span>Net Take Home:</span><span id="resNet">S$0.00</span></div>
             
             <button id="copyBtn" onclick="copyResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px;">
                 📋 Copy Calculation Details
             </button>
-
-            <!-- 📥 优化功能: 一键下载TXT报告清单 -->
-            <button id="downloadBtn" onclick="downloadTxtReport('salary')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            <button id="downloadBtn" onclick="downloadTxtReport('salary')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; color: white;">
                 📥 Export Text Report (.txt)
             </button>
-            
-            <!-- 🛠️ 优化功能 5: 快速分享网页及推荐文案按钮 -->
             <button id="shareBtn" onclick="shareApp('shareBtn')" style="background: #2563eb; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #3b82f6; display: flex; align-items: center; justify-content: center; gap: 6px;">
                 🔗 Share Tool with Colleagues
             </button>
+        </div>
+
+        <!-- 🛠️ 优化功能 1: 历史本地缓存记录版块 -->
+        <div class="history-section" id="salaryHistorySection" style="display:none;">
+            <div class="history-title">
+                <span>🕒 Recent Calculations (Saved Locally)</span>
+                <span style="color:var(--primary); cursor:pointer; font-size:0.75rem;" onclick="clearHistoryLog('salary')">Clear All</span>
+            </div>
+            <ul class="history-list" id="salaryHistoryList"></ul>
         </div>
 
         <div class="tips" id="momTips">
             <strong>💡 MOM Quick Guide:</strong><br>
             1. Max OT hours per month is 72.<br>
             2. OT pay must be paid within 14 days after the salary period.<br>
-            3. Calculations are based on a 44-hour work week standard (or custom config).
+            3. Calculations are based on a 44-hour work week standard.<br>
+            <!-- 🛠️ 优化功能 5: MOM 官方合规自评工具外链锚点 -->
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.1);">
+                <a href="https://www.mom.gov.sg/employment-practices/salary/work-out-overtime-pay" target="_blank" style="color: var(--secondary); text-decoration: underline; font-weight: bold;">🔗 Double-Check via Official MOM Overtime Calculator Website</a>
+            </div>
         </div>
     </div>
 
@@ -258,7 +355,11 @@
         <div class="section-title">Resignation Details</div>
         <div class="input-group">
             <label>Monthly Basic Salary (SGD)</label>
-            <input type="number" id="resignBasic" placeholder="e.g. 4000" inputmode="decimal" onfocus="this.select()" oninput="calculateResign(true)">
+            <div class="input-wrapper">
+                <input type="number" id="resignBasic" placeholder="e.g. 4000" inputmode="decimal" onfocus="this.select()" oninput="handleLiveResignCalc()">
+                <button type="button" class="clear-btn" id="clearResignBasic" onclick="clearInputField('resignBasic')">×</button>
+            </div>
+            <div class="inline-error-msg" id="resignBasicErr">⚠️ Please enter a valid base salary.</div>
         </div>
 
         <div class="input-group">
@@ -272,10 +373,13 @@
 
         <div class="input-group">
             <label>Unused Annual Leave Remaining (Days)</label>
-            <input type="number" id="remainingLeave" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="calculateResign(true)">
+            <div class="input-wrapper">
+                <input type="number" id="remainingLeave" value="0" min="0" inputmode="decimal" onfocus="this.select()" oninput="handleLiveResignCalc()">
+                <button type="button" class="clear-btn" id="clearRemainingLeave" onclick="clearInputField('remainingLeave')">×</button>
+            </div>
+            <div class="inline-error-msg" id="remainingLeaveErr">⚠️ Leave days cannot be negative.</div>
         </div>
 
-        <!-- 🛠️ 优化功能 1: 整合一键清空 (Reset) 按钮 -->
         <div style="display: flex; gap: 8px; margin-top: 15px;">
             <button onclick="calculateResign(false)" style="background: var(--secondary); margin-top: 0; flex: 2;">Calculate Settlement</button>
             <button onclick="resetResign()" style="margin-top: 0; flex: 1; background: #64748b; font-size: 1rem;">Reset</button>
@@ -290,31 +394,37 @@
                 Instead of cash encashment, you can bring forward your physical last day by <strong id="resLeaveDaysText" style="font-size: 1rem; color: #15803d;">0</strong> working days. Your official employment status remains unchanged until the notice period ends.
             </div>
             
-            <button id="copyResignBtn" onclick="copyResignResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
+            <button id="copyResignBtn" onclick="copyResignResults()" style="background: #475569; font-size: 0.95rem; padding: 12px; margin-top: 15px; border: 1px solid #64748b; width: 100%;">
                 📋 Copy Resignation Settlement
             </button>
-
-            <!-- 📥 优化功能: 一键下载离职结算TXT报告 -->
-            <button id="downloadResignBtn" onclick="downloadTxtReport('resign')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; color: white; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            <button id="downloadResignBtn" onclick="downloadTxtReport('resign')" style="background: #0d9488; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #115e59; width: 100%; color: white;">
                 📥 Export Resignation Report (.txt)
             </button>
-
-            <!-- 🛠️ 优化功能 5: 快速分享网页及推荐文案按钮 -->
-            <button id="shareResignBtn" onclick="shareApp('shareResignBtn')" style="background: #2563eb; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #3b82f6; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
+            <button id="shareResignBtn" onclick="shareApp('shareResignBtn')" style="background: #2563eb; font-size: 0.95rem; padding: 12px; margin-top: 10px; border: 1px solid #3b82f6; width: 100%;">
                 🔗 Share Tool with Colleagues
             </button>
         </div>
 
-        <div class="seo-links-container">
-            <a href="/guide-2026.html" class="seo-link-btn" style="color: #ef4444; border: 1.5px solid #ef4444;">👉 Read: 2026 SG Labor Law & OT Rights Guide</a>
-            <a href="/guide-resignation-2026.html" class="seo-link-btn" style="color: #3b82f6; border: 1.5px solid #3b82f6;">👉 Read: MOM Resignation & Leave Encashment Guide</a>
-            <a href="/guide-lqs-2026.html" class="seo-link-btn" style="color: #10b981; border: 1.5px solid #10b981;">👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide</a>
+        <!-- 🛠️ 优化功能 1: 离职缓存看板 -->
+        <div class="history-section" id="resignHistorySection" style="display:none;">
+            <div class="history-title">
+                <span>🕒 Recent Resignation Calculations</span>
+                <span style="color:var(--primary); cursor:pointer; font-size:0.75rem;" onclick="clearHistoryLog('resign')">Clear All</span>
+            </div>
+            <ul class="history-list" id="resignHistoryList"></ul>
         </div>
 
         <div class="tips" style="background: #eff6ff; border-color: #bfdbfe;">
             <strong>💡 MOM Leave Encashment Law:</strong><br>
             Under Section 28 of the Employment Act, if an employee has unused encashable annual leave upon termination, the employer <strong>MUST</strong> cash it out using the Gross Rate of Pay formula.
         </div>
+    </div>
+
+    <!-- 内链底部引流区 -->
+    <div class="seo-links-container">
+        <a href="/guide-2026.html" class="seo-link-btn" style="color: #ef4444; border: 1.5px solid #ef4444;">👉 Read: 2026 SG Labor Law & OT Rights Guide</a>
+        <a href="/guide-resignation-2026.html" class="seo-link-btn" style="color: #3b82f6; border: 1.5px solid #3b82f6;">👉 Read: MOM Resignation & Leave Encashment Guide</a>
+        <a href="/guide-lqs-2026.html" class="seo-link-btn" style="color: #10b981; border: 1.5px solid #10b981;">👉 Read: July 2026 Singapore LQS Hike to $1,800 Guide</a>
     </div>
 
     <div style="margin-top: 25px; font-size: 0.75rem; color: #9ca3af; text-align: center;">
@@ -340,54 +450,92 @@
 </div>
 
 <script>
-    // 🛠️ 优化功能 2: 手动暗黑模式切换逻辑
+    // 💡 全局常数项：模拟固定汇率
+    const RATE_MYR = 3.32;
+    const RATE_CNY = 5.35;
+
+    // 🛠️ 主题切换逻辑修护
     function toggleTheme() {
-        const body = document.body;
-        const btn = document.getElementById('themeToggleBtn');
-        const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
         
-        if (body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode');
-            body.classList.add('light-mode');
-            btn.innerHTML = '☀️';
-            localStorage.setItem('theme-override', 'light');
-        } else if (body.classList.contains('light-mode')) {
-            body.classList.remove('light-mode');
-            body.classList.add('dark-mode');
-            btn.innerHTML = '🌙';
-            localStorage.setItem('theme-override', 'dark');
+        // 兼容旧版 class 钩子
+        if(nextTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+            document.getElementById('themeToggleBtn').innerHTML = '🌙';
         } else {
-            if (isDarkSystem) {
-                body.classList.add('light-mode');
-                btn.innerHTML = '☀️';
-                localStorage.setItem('theme-override', 'light');
-            } else {
-                body.classList.add('dark-mode');
-                btn.innerHTML = '🌙';
-                localStorage.setItem('theme-override', 'dark');
-            }
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+            document.getElementById('themeToggleBtn').innerHTML = '☀️';
         }
+        localStorage.setItem('theme-override', nextTheme);
     }
 
     function initTheme() {
-        const override = localStorage.getItem('theme-override');
-        const body = document.body;
+        const currentTheme = document.documentElement.getAttribute('data-theme');
         const btn = document.getElementById('themeToggleBtn');
-        const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (override === 'dark') {
-            body.classList.add('dark-mode');
-            if(btn) btn.innerHTML = '🌙';
-        } else if (override === 'light') {
-            body.classList.add('light-mode');
-            if(btn) btn.innerHTML = '☀️';
-        } else {
-            if(btn) btn.innerHTML = isDarkSystem ? '🌙' : '☀️';
+        if(btn) {
+            btn.innerHTML = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
+        // 同步时间戳给打印用
+        const dateSpan = document.getElementById('printDateSpan');
+        if(dateSpan) dateSpan.innerText = new Date().toLocaleDateString();
+    }
+
+    // 🛠️ 优化功能 3: 控制清除按钮的显示与隐藏
+    function checkClearButtonVisibility(inputId, btnId) {
+        const input = document.getElementById(inputId);
+        const btn = document.getElementById(btnId);
+        if(input && btn) {
+            btn.style.display = input.value.length > 0 ? 'block' : 'none';
         }
     }
 
-    // 🛠️ 优化功能: 实时动态输入响应及低薪高亮拦截规则
+    function clearInputField(inputId) {
+        const input = document.getElementById(inputId);
+        if(input) {
+            input.value = '';
+            input.dispatchEvent(new Event('input')); // 自动触发链式实时运算
+            input.focus();
+        }
+    }
+
+    // 🛠️ 优化功能 4: 带有微震动的优雅输入框验证机制
+    function validateInputPositive(inputId, errId) {
+        const input = document.getElementById(inputId);
+        const err = document.getElementById(errId);
+        if(!input) return true;
+        
+        const val = parseFloat(input.value);
+        if(val < 0) {
+            input.classList.add('input-error');
+            if(err) err.style.display = 'block';
+            input.classList.add('input-shake');
+            setTimeout(() => input.classList.remove('input-shake'), 400);
+            return false;
+        } else {
+            input.classList.remove('input-error');
+            if(err) err.style.display = 'none';
+            return true;
+        }
+    }
+
+    // 🛠️ 实时薪水输入反馈
     function handleLiveSalaryCalc() {
+        checkClearButtonVisibility('basicSalary', 'clearBasicSalary');
+        checkClearButtonVisibility('weeklyHours', 'clearWeeklyHours');
+        checkClearButtonVisibility('ot15', 'clearOt15');
+        checkClearButtonVisibility('ot20', 'clearOt20');
+
+        const v1 = validateInputPositive('basicSalary', 'basicSalaryErr');
+        const v2 = validateInputPositive('weeklyHours', 'weeklyHoursErr');
+        const v3 = validateInputPositive('ot15', 'ot15Err');
+        const v4 = validateInputPositive('ot20', 'ot20Err');
+
+        if(!v1 || !v2 || !v3 || !v4) return;
+
         const salaryInput = document.getElementById('basicSalary');
         const lqsAlert = document.getElementById('lqsAlert');
         const val = parseFloat(salaryInput.value) || 0;
@@ -402,7 +550,18 @@
         calculate(true);
     }
 
-    // 🛠️ 优化功能 1: 一键清空函数
+    function handleLiveResignCalc() {
+        checkClearButtonVisibility('resignBasic', 'clearResignBasic');
+        checkClearButtonVisibility('remainingLeave', 'clearRemainingLeave');
+
+        const v1 = validateInputPositive('resignBasic', 'resignBasicErr');
+        const v2 = validateInputPositive('remainingLeave', 'remainingLeaveErr');
+        
+        if(!v1 || !v2) return;
+        calculateResign(true);
+    }
+
+    // 复位重置
     function resetSalary() {
         document.getElementById('basicSalary').value = '';
         document.getElementById('basicSalary').classList.remove('input-warning');
@@ -412,6 +571,11 @@
         document.getElementById('weeklyHours').value = '44';
         document.getElementById('ageGroup').value = '55';
         document.getElementById('resultBox').style.display = 'none';
+        
+        checkClearButtonVisibility('basicSalary', 'clearBasicSalary');
+        checkClearButtonVisibility('weeklyHours', 'clearWeeklyHours');
+        checkClearButtonVisibility('ot15', 'clearOt15');
+        checkClearButtonVisibility('ot20', 'clearOt20');
         localStorage.removeItem('savedBasicSalary');
     }
 
@@ -420,9 +584,11 @@
         document.getElementById('workDaysPerWeek').value = '5';
         document.getElementById('remainingLeave').value = '0';
         document.getElementById('resignResultBox').style.display = 'none';
+        checkClearButtonVisibility('resignBasic', 'clearResignBasic');
+        checkClearButtonVisibility('remainingLeave', 'clearRemainingLeave');
     }
 
-    // 🛠️ 优化功能 5: 快速复制裂变分享文案
+    // 裂变文案复制
     function shareApp(btnId) {
         const textToCopy = `🇸🇬 Recommended Tool: 2026 Singapore Salary, OT & Resignation Calculator
 ` +
@@ -434,13 +600,8 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = "✅ Share Link Copied!";
             btn.style.background = "#10b981";
-            setTimeout(() => { 
-                btn.innerHTML = originalText; 
-                btn.style.background = "#2563eb"; 
-            }, 2000);
-        }).catch(err => { 
-            alert('Link: https://sg-salary-calculator.vercel.app'); 
-        });
+            setTimeout(() => { btn.innerHTML = originalText; btn.style.background = "#2563eb"; }, 2000);
+        }).catch(err => { alert('Link: https://sg-salary-calculator.vercel.app'); });
     }
 
     function switchTab(tab) {
@@ -463,7 +624,7 @@
             const savedBasic = document.getElementById('basicSalary').value;
             if(savedBasic && !document.getElementById('resignBasic').value) {
                 document.getElementById('resignBasic').value = savedBasic;
-                calculateResign(true);
+                handleLiveResignCalc();
             }
         }
     }
@@ -485,14 +646,15 @@
         document.getElementById('resLeaveDaysText').innerText = leave;
         document.getElementById('resignResultBox').style.display = 'block';
         
+        // 记录到本地缓存
         if (!isSilent) {
+            saveToHistoryLog('resign', { basic, workDays, leave, result: cashEncashment });
             setTimeout(() => {
                 document.getElementById('resignResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 50);
         }
     }
 
-    // 🐛 Bug 修复核心: 修正了原先 totalCPF 变量名称拼写未定义导致复制失效的隐蔽错误
     function copyResults() {
         const gross = document.getElementById('resGross').innerText;
         const ot = document.getElementById('resOT').innerText;
@@ -571,7 +733,6 @@
         }).catch(err => { alert('Failed to copy. Please copy manually.'); });
     }
 
-    // 🛠️ 优化功能: 一键下载TXT报告文件
     function downloadTxtReport(type) {
         let content = "";
         let filename = "";
@@ -693,7 +854,7 @@
     function setOT(hours) {
         document.getElementById('ot15').value = hours;
         document.getElementById('ot20').value = 0;
-        calculate(true);
+        handleLiveSalaryCalc();
     }
 
     function calculateEvent() {
@@ -716,7 +877,6 @@
         const ot20 = parseFloat(document.getElementById('ot20').value) || 0;
         const weeklyHours = parseFloat(document.getElementById('weeklyHours').value) || 44;
 
-        // 🛠️ 优化功能: 动态匹配2026年新加坡多档年龄结构公积金底层费率规则
         const ageGroupValue = document.getElementById('ageGroup').value;
         let eeCpfRate = 0.20;
         let erCpfRate = 0.17;
@@ -740,7 +900,7 @@
         const otPay = (ot15 * hourlyRate * 1.5) + (ot20 * hourlyRate * 2.0);
         const grossSalary = basic + otPay;
         
-        // 2026年起公积金普通薪资封顶线上调至 $8,000 SGD
+        // 2026年 CPF Ordinary Wage 封顶线 $8,000 SGD
         const cpfBase = Math.min(grossSalary, 8000); 
         const employeeCPF = cpfBase * eeCpfRate;
         const employerCPF = cpfBase * erCpfRate;
@@ -753,13 +913,15 @@
         document.getElementById('resEmployerCPF').innerText = '+S$' + employerCPF.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('resTotalCPF').innerText = 'S$' + totalCpf.toLocaleString(undefined, {minimumFractionDigits: 2});
         
-        // 针对多层元素共享同一类名导致的二次覆盖渲染错误进行安全容错适配
         const netPayElements = document.querySelectorAll('#resNet');
         netPayElements.forEach(el => {
             el.innerText = 'S$' + netPay.toLocaleString(undefined, {minimumFractionDigits: 2});
         });
+
+        // 🛠️ 优化功能 2: 计算跨境换算多币种估算映射
+        document.getElementById('forexMYR').innerText = 'RM ' + (netPay * RATE_MYR).toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('forexCNY').innerText = '¥ ' + (netPay * RATE_CNY).toLocaleString(undefined, {minimumFractionDigits: 2});
         
-        // 📊 优化功能: 纯CSS动态配比结构条比例变更计算
         const sumParts = netPay + employeeCPF + otPay;
         if (sumParts > 0) {
             document.getElementById('barNet').style.width = ((netPay / sumParts) * 100) + '%';
@@ -768,7 +930,10 @@
         }
 
         document.getElementById('resultBox').style.display = 'block';
-        if (!isSilent) {
+        
+        // 储存到历史记录
+        if(!isSilent) {
+            saveToHistoryLog('salary', { basic, ot15, ot20, netPay });
             setTimeout(() => { document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
         }
 
@@ -785,14 +950,98 @@
         } else {
             tipElement.style.background = '#fffbeb';
             tipElement.style.border = '1px solid #fef3c7';
-            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week standard.';
+            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week standard.' + 
+            '<div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.1);"><a href="https://www.mom.gov.sg/employment-practices/salary/work-out-overtime-pay" target="_blank" style="color: var(--secondary); text-decoration: underline; font-weight: bold;">🔗 Double-Check via Official MOM Overtime Calculator Website</a></div>';
             otInput15.classList.remove('input-error');
             otInput20.classList.remove('input-error');
         }
     }
 
+    // 🛠️ 优化功能 1: 历史记录本地缓存读写逻辑模块
+    function saveToHistoryLog(type, dataObj) {
+        const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
+        let currentLog = JSON.parse(localStorage.getItem(key)) || [];
+        
+        const logItem = {
+            timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            ...dataObj
+        };
+        
+        currentLog.unshift(logItem); // 新记录堆叠在顶部
+        if(currentLog.length > 4) currentLog.pop(); // 最多留4条
+        
+        localStorage.setItem(key, JSON.stringify(currentLog));
+        renderHistoryDOM(type);
+    }
+
+    function renderHistoryDOM(type) {
+        const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
+        const containerId = type === 'salary' ? 'salaryHistorySection' : 'resignHistorySection';
+        const listId = type === 'salary' ? 'salaryHistoryList' : 'resignHistoryList';
+        
+        const currentLog = JSON.parse(localStorage.getItem(key)) || [];
+        const container = document.getElementById(containerId);
+        const list = document.getElementById(listId);
+        
+        if(!container || !list) return;
+        
+        if(currentLog.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+        
+        container.style.display = 'block';
+        list.innerHTML = '';
+        
+        currentLog.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'history-item';
+            if(type === 'salary') {
+                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b> (OT: ${item.ot15+item.ot20}h)</span><span style="color:var(--success); font-weight:bold;">Net: S$${Math.round(item.netPay)}</span>`;
+                li.onclick = () => {
+                    document.getElementById('basicSalary').value = item.basic;
+                    document.getElementById('ot15').value = item.ot15;
+                    document.getElementById('ot20').value = item.ot20;
+                    handleLiveSalaryCalc();
+                };
+            } else {
+                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b> (Leave: ${item.leave}d)</span><span style="color:var(--secondary); font-weight:bold;">Cash: S$${Math.round(item.result)}</span>`;
+                li.onclick = () => {
+                    document.getElementById('resignBasic').value = item.basic;
+                    document.getElementById('workDaysPerWeek').value = item.workDays;
+                    document.getElementById('remainingLeave').value = item.leave;
+                    handleLiveResignCalc();
+                };
+            }
+            list.appendChild(li);
+        });
+    }
+
+    function clearHistoryLog(type) {
+        const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
+        localStorage.removeItem(key);
+        renderHistoryDOM(type);
+    }
+
+    // 🛠️ 优化功能 10: 键盘快捷键交互支持
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            // Esc 键自动智能一键清空当前可见活动面板
+            if(document.getElementById('salaryPanel').style.display !== 'none') {
+                resetSalary();
+            } else {
+                resetResign();
+            }
+        }
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
         initTheme();
+        
+        // 渲染历史面板
+        renderHistoryDOM('salary');
+        renderHistoryDOM('resign');
+
         const savedBasic = localStorage.getItem('savedBasicSalary');
         const savedType = localStorage.getItem('savedEmpType');
         if (savedBasic) { document.getElementById('basicSalary').value = savedBasic; }
