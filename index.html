@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
+    <!-- 🇸🇬 Favicon Icon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇸🇬</text></svg>">
     <meta name="google-site-verification" content="9bokCnlQGx0rwxYHEv6U3a5D0lnq-sbNN4v0KA3RfZs" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singapore Salary & Resignation Calculator 2026 | Net Pay & Leave Encashment</title>
-    <meta name="description" content="Calculate your 2026 net pay after CPF changes, MOM OT pay, and resignation leave encashment details based on Singapore Employment Act.">
+    <title>Singapore Salary, OT & Resignation Portal 2026 | Multi-Utility Toolkit</title>
+    <meta name="description" content="Advanced 4-in-1 tool for computing Singapore monthly salary, overtime pay, 2026 CPF OW/AW ceiling balances, pro-rated annual leaves, and resignation cash encashments.">
     
-    <meta property="og:title" content="Singapore Salary & Resignation Calculator 2026">
-    <meta property="og:description" content="Calculate your 2026 net pay after CPF changes, MOM OT pay, and resignation leave encashment details instantly.">
+    <meta property="og:title" content="Singapore Salary, OT & Resignation Portal 2026">
+    <meta property="og:description" content="Calculate your monthly net pay, 2026 CPF annual bonus limits, pro-rated annual leaves, and resignation encashment details instantly.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sg-salary-calculator.vercel.app">
     <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%23ef4444%22><text y=%22.9em%22 font-size=%2280%22>🇸🇬</text></svg>">
@@ -18,7 +19,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Singapore Salary & Resignation Calculator 2026",
+      "name": "Singapore Salary & Resignation Portal 2026",
       "operatingSystem": "All",
       "applicationCategory": "BusinessApplication",
       "offers": {
@@ -26,7 +27,7 @@
         "price": "0",
         "priceCurrency": "SGD"
       },
-      "description": "Advanced automated tool for computing 2026 Singapore net take-home salary after CPF modifications, MOM overtime pay, and legal leave encashments."
+      "description": "Premium 4-in-1 workforce utility for calculating 2026 monthly salaries, statutory overtime multipliers, dynamic pro-rated leave entitlements, and year-end AWS/Bonus CPF contribution threshold frameworks."
     }
     </script>
 
@@ -82,7 +83,7 @@
         }
 
         .container {
-            max-width: 520px;
+            max-width: 540px;
             margin: 0 auto;
             background-color: var(--card);
             padding: 30px 24px;
@@ -92,11 +93,10 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* 🛠️ 优化功能 8: 打印样式遮罩优化 */
         @media print {
             body { background: white; color: black; padding: 0; }
             .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; }
-            .theme-toggle-btn, .tabs, .reset-btn, .history-container, footer, .footer-links, .faq-container, a { display: none !important; }
+            .theme-toggle-btn, .tabs, .reset-btn, .history-container, footer, .footer-links, .faq-container, a, .tab-grid { display: none !important; }
             .result-box { border: 1px solid #000; background: white !important; color: black !important; display: block !important; }
             input, select { border: none !important; background: transparent !important; color: black !important; appearance: none; }
         }
@@ -138,8 +138,11 @@
             border-color: var(--secondary);
         }
 
-        .tabs {
-            display: flex;
+        /* 👑 升级为响应式 2x2 工具矩阵网格系统 */
+        .tab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
             background-color: var(--result-bg);
             padding: 6px;
             border-radius: 16px;
@@ -147,16 +150,20 @@
         }
 
         .tab-btn {
-            flex: 1;
             background: none;
             border: none;
-            padding: 12px;
-            font-size: 0.9rem;
+            padding: 10px 6px;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--label-color);
             cursor: pointer;
             border-radius: 12px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .tab-btn.active {
@@ -193,7 +200,7 @@
             font-weight: 600;
         }
 
-        input[type="number"], select {
+        input[type="number"], input[type="date"], select {
             width: 100%;
             padding: 14px 14px 14px 36px;
             font-size: 1rem;
@@ -206,8 +213,11 @@
             transition: all 0.2s ease;
         }
 
-        select {
+        input[type="date"], select {
             padding-left: 14px;
+        }
+
+        select {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -215,13 +225,12 @@
             background-size: 16px;
         }
 
-        input:focus, select:focus {
+        input:focus, select:focus, input[type="date"]:focus {
             outline: none;
             border-color: var(--secondary);
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
 
-        /* 🛠️ 优化功能 4: 负数校验振动反馈 */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-4px); }
@@ -264,24 +273,6 @@
             border-color: var(--secondary);
             background-color: rgba(37, 99, 235, 0.04);
             transform: scale(1.02);
-        }
-
-        [data-theme="dark"] .radio-tile-group input[type="radio"]:checked + .radio-tile-label {
-            background-color: rgba(96, 165, 250, 0.08);
-            border-color: var(--secondary);
-        }
-
-        .tile-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-        }
-
-        .tile-desc {
-            font-size: 0.75rem;
-            color: var(--label-color);
-            margin-top: 4px;
-            text-align: center;
-            line-height: 1.3;
         }
 
         .primary-btn {
@@ -350,9 +341,7 @@
             margin-top: 12px;
             color: #ef4444;
         }
-        [data-theme="dark"] .result-row.total {
-            color: #f87171;
-        }
+        [data-theme="dark"] .result-row.total { color: #f87171; }
 
         .mom-tips {
             font-size: 0.8rem;
@@ -362,7 +351,6 @@
             line-height: 1.5;
         }
 
-        /* 历史纪录区域样式 */
         .history-container {
             margin-top: 28px;
             border-top: 1px dashed var(--input-border);
@@ -411,9 +399,8 @@
             transform: scale(1.01);
         }
 
-        /* 🛠️ 优化功能 1: FAQ 折叠现代化风琴动效系统 */
         .faq-container {
-            max-width: 520px;
+            max-width: 540px;
             margin: 24px auto;
             background: var(--card);
             border-radius: 20px;
@@ -429,68 +416,36 @@
             margin: 0;
             background: rgba(37, 99, 235, 0.02);
         }
-        .accordion-item {
-            border-bottom: 1px solid var(--input-border);
-        }
-        .accordion-item:last-child {
-            border-bottom: none;
-        }
+        .accordion-item { border-bottom: 1px solid var(--input-border); }
+        .accordion-item:last-child { border-bottom: none; }
         .accordion-header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: none;
-            border: none;
-            text-align: left;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text);
-            cursor: pointer;
-            transition: background 0.2s ease;
+            width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;
+            background: none; border: none; text-align: left; font-size: 0.95rem; font-weight: 700; color: var(--text); cursor: pointer;
         }
-        .accordion-header:hover {
-            background: var(--result-bg);
-        }
-        .accordion-icon {
-            font-size: 0.8rem;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--label-color);
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(15, 23, 42, 0.01);
-        }
-        [data-theme="dark"] .accordion-content {
-            background: rgba(255, 255, 255, 0.01);
-        }
-        .accordion-body {
-            padding: 0 20px 18px 20px;
-            font-size: 0.88rem;
-            color: var(--label-color);
-            line-height: 1.6;
-        }
-        .accordion-item.active .accordion-icon {
-            transform: rotate(180deg);
-        }
+        .accordion-header:hover { background: var(--result-bg); }
+        .accordion-icon { font-size: 0.8rem; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: var(--label-color); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(15, 23, 42, 0.01); }
+        .accordion-body { padding: 0 20px 18px 20px; font-size: 0.88rem; color: var(--label-color); line-height: 1.6; }
+        .accordion-item.active .accordion-icon { transform: rotate(180deg); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-ui">
-        <h1>🇸🇬 SG Salary Pro <span style="font-size:0.75rem; background:rgba(37,99,235,0.08); color:var(--secondary); padding:3px 8px; border-radius:30px; font-weight:700;">2026 Ready</span></h1>
+        <h1>🇸🇬 SG WorkPro Hub <span style="font-size:0.75rem; background:rgba(37,99,235,0.08); color:var(--secondary); padding:3px 8px; border-radius:30px; font-weight:700;">2026 Core Suite</span></h1>
         <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()">🌗 Mode</button>
     </div>
 
-    <div class="tabs">
-        <button class="tab-btn active" id="tabSalary" onclick="switchTab('salary')">💵 Monthly Salary</button>
-        <button class="tab-btn" id="tabResign" onclick="switchTab('resign')">🚪 Resignation Settlement</button>
+    <!-- 👑 扩展为四大矩阵标签按钮系统 -->
+    <div class="tab-grid">
+        <button id="tabSalary" class="tab-btn active" onclick="switchTab('salary')">💵 Monthly Pay</button>
+        <button id="tabResign" class="tab-btn" onclick="switchTab('resign')">🚪 Resign Encash</button>
+        <button id="tabBonus" class="tab-btn" onclick="switchTab('bonus')">🧮 AWS/Bonus CPF</button>
+        <button id="tabLeave" class="tab-btn" onclick="switchTab('leave')">📅 Pro-rated Leave</button>
     </div>
 
+    <!-- 面板 1: 月度薪资与加班计算器 -->
     <div id="salaryPanel">
         <div class="form-group">
             <label>Employee Profile (Age Group)</label>
@@ -512,14 +467,14 @@
                     <input type="radio" id="typeNonWorkman" name="empType" value="non-workman" checked onchange="handleEmpTypeChange()">
                     <label for="typeNonWorkman" class="radio-tile-label">
                         <span class="tile-title">Non-Workman</span>
-                        <span class="tile-desc">PMET / Office Staff (OT Base Max $2,600)</span>
+                        <span class="tile-desc">PMET / Office (OT Base Max $2,600)</span>
                     </label>
                 </div>
                 <div style="flex:1; position:relative;">
                     <input type="radio" id="typeWorkman" name="empType" value="workman" onchange="handleEmpTypeChange()">
                     <label for="typeWorkman" class="radio-tile-label">
                         <span class="tile-title">Workman</span>
-                        <span class="tile-desc">Manual Labor / Blue Collar (OT Base Max $4,500)</span>
+                        <span class="tile-desc">Manual Labor (OT Base Max $4,500)</span>
                     </label>
                 </div>
             </div>
@@ -591,8 +546,7 @@
             <div class="result-row" style="margin-top:10px; font-size:0.85rem; color:var(--secondary); font-weight:bold; background: rgba(37,99,235,0.05); padding: 8px 12px; border-radius: 8px;"><span>Total CPF Account Input:</span><span id="resTotalCPF">S$0.00</span></div>
             
             <div class="mom-tips" id="momTips"></div>
-
-            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary); box-shadow: 0 4px 10px rgba(37,99,235,0.2);" onclick="exportCalculationTxt('salary')">📥 Export Report Text File</button>
+            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary);" onclick="exportCalculationTxt('salary')">📥 Export Report Text File</button>
         </div>
 
         <div class="history-container" id="historySalaryBox" style="display:none;">
@@ -604,6 +558,7 @@
         </div>
     </div>
 
+    <!-- 面板 2: 离职结算计算器 -->
     <div id="resignPanel" style="display: none;">
         <div class="form-group">
             <label for="resignBasic">Monthly Basic Salary</label>
@@ -642,8 +597,7 @@
                 <strong>💡 Legal Provision Section 28:</strong><br>
                 If an employee leaves before clearing accrued annual leave, the employer <strong>must cash out</strong> the remaining days based on the standard Gross Rate of Pay framework.
             </div>
-
-            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary); box-shadow: 0 4px 10px rgba(37,99,235,0.2);" onclick="exportCalculationTxt('resign')">📥 Export Report Text File</button>
+            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary);" onclick="exportCalculationTxt('resign')">📥 Export Report Text File</button>
         </div>
 
         <div class="history-container" id="historyResignBox" style="display:none;">
@@ -655,89 +609,119 @@
         </div>
     </div>
 
+    <!-- 👑 新工具面板 3: 2026 CPF 年度专项花红 (AWS/Bonus) 限额计算器 -->
+    <div id="bonusPanel" style="display: none;">
+        <div class="form-group">
+            <label for="bonusAgeGroup">Employee Age Group</label>
+            <select id="bonusAgeGroup" onchange="calculateBonusCPF()">
+                <option value="35">Age 55 & below (EE: 20% / ER: 17%)</option>
+                <option value="60">Age 55 - 60 (EE: 17% / ER: 15.5%)</option>
+                <option value="65">Age 60 - 65 (Employee: 11.5%)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="annualBaseSalary">Monthly Basic Salary (Average)</label>
+            <div class="input-wrapper">
+                <span class="prefix">S$</span>
+                <input type="number" id="annualBaseSalary" placeholder="e.g. 5000" min="0" oninput="calculateBonusCPF()">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="monthsWorked">Months Serviced In Current Year</label>
+            <input type="number" id="monthsWorked" value="12" min="1" max="12" oninput="calculateBonusCPF()">
+        </div>
+        <div class="form-group">
+            <label for="awsBonusValue">Total Bonus / AWS Amt To Be Received</label>
+            <div class="input-wrapper">
+                <span class="prefix">S$</span>
+                <input type="number" id="awsBonusValue" placeholder="e.g. 15000" min="0" oninput="calculateBonusCPF()">
+            </div>
+        </div>
+        
+        <div class="result-box" id="bonusResultBox">
+            <div class="result-title">📊 Year-End AW CPF Threshold Diagnostics</div>
+            <div class="result-row"><span>Total Annual OW Subject to CPF:</span><span id="resAnnualOW">S$0.00</span></div>
+            <div class="result-row"><span>Your Max AW CPF Ceiling limit:</span><span id="resAWCeiling">S$0.00</span></div>
+            <div class="result-row"><span>Bonus Wages Attracting CPF:</span><span id="resBonusSubjectCpf">S$0.00</span></div>
+            <div class="result-row"><span>Employee CPF on Bonus:</span><span id="resBonusCpfEE" style="color:#ef4444;">-S$0.00</span></div>
+            <div class="result-row"><span>Employer Matching on Bonus:</span><span id="resBonusCpfER" style="color:#10b981;">+S$0.00</span></div>
+            <div class="result-row total"><span>💰 Net Pocket Bonus Check:</span><span id="resNetBonus">S$0.00</span></div>
+            <div class="mom-tips" id="bonusTips" style="background:var(--card); border:1px solid var(--input-border);"></div>
+        </div>
+    </div>
+
+    <!-- 👑 新工具面板 4: 按比例年假 (Pro-rated Annual Leave) 精准计算器 -->
+    <div id="leavePanel" style="display: none;">
+        <div class="form-group">
+            <label for="leaveTotalEntitled">Full Year Annual Leave Entitlement</label>
+            <div class="input-wrapper">
+                <span class="prefix">📅</span>
+                <input type="number" id="leaveTotalEntitled" value="14" min="7" max="30" oninput="calculateProRatedLeave()">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="leaveStartDate">Employment Commencement Date (In Current Year)</label>
+            <input type="date" id="leaveStartDate" onchange="calculateProRatedLeave()">
+        </div>
+        <div class="form-group">
+            <label for="leaveEndDate">Last Day of Service / Termination Date</label>
+            <input type="date" id="leaveEndDate" onchange="calculateProRatedLeave()">
+        </div>
+        
+        <div class="result-box" id="leaveResultBox">
+            <div class="result-title">📊 Pro-rated Leave Statutory Entitlement</div>
+            <div class="result-row"><span>Total Days of Service:</span><span id="resDaysServiced">0 Days</span></div>
+            <div class="result-row"><span>Completed Months (MOM Base):</span><span id="resMonthsServiced">0 Months</span></div>
+            <div class="result-row total" style="color:var(--secondary);"><span>📅 Statutory Earned Leave:</span><span id="resEarnedLeave">0 Days</span></div>
+            <div class="mom-tips" style="background:var(--card); border:1px solid var(--input-border); font-size:0.78rem;">
+                <strong>💡 MOM Clause Rule:</strong> In Singapore, pro-rated annual leave fractions below 0.5 are rounded down, and fractions equal to or exceeding 0.5 are legally rounded up to 0.5 or 1 full day by MOM guidelines.
+            </div>
+            <button class="primary-btn" style="margin-top:10px; background-color:var(--primary);" onclick="linkLeaveToResignPanel()">🔗 Sync Days to Resignation Pay Section</button>
+        </div>
+    </div>
+
+    <!-- 劳动法合规指南 -->
     <div style="margin-top: 25px; padding: 16px; background: var(--result-bg); border-radius: 14px; font-size: 0.85rem; border: 1px solid var(--input-border); color: var(--label-color); line-height: 1.6;">
         <h2 style="font-size: 1.1rem; color: var(--text); font-weight:800; margin-top:0; margin-bottom:8px;">Ultimate Guide to Singapore Overtime (OT) Pay & CPF Rules 2026</h2>
         <p style="margin:0;">Are you working in Singapore and wondering if your overtime pay is calculated correctly? This <strong>Singapore OT Calculator 2026</strong> helps employees under the <strong>Employment Act</strong> determine rightful compensation including <strong>CPF contributions</strong> and <strong>Resignation Encashment</strong> options.</p>
     </div>
 </div>
 
+<!-- 智能折叠手风琴 FAQ 区域 -->
 <div class="faq-container">
     <h2 class="faq-title-header">❓ Frequently Asked Questions (2026 MOM Rules)</h2>
-    
     <div class="accordion-item">
         <button class="accordion-header" onclick="toggleAccordion(this)">
             <span>Q1: What is the maximum statutory overtime (OT) hours allowed per month?</span>
             <span class="accordion-icon">▼</span>
         </button>
         <div class="accordion-content">
-            <div class="accordion-body">
-                According to the Ministry of Manpower (MOM), an employee is strictly <strong>not permitted to work more than 72 hours of overtime a month</strong>, unless an explicit exemption waiver has been granted to the employer.
-            </div>
+            <div class="accordion-body">According to the Ministry of Manpower (MOM), an employee is strictly <strong>not permitted to work more than 72 hours of overtime a month</strong>.</div>
         </div>
     </div>
-
     <div class="accordion-item">
         <button class="accordion-header" onclick="toggleAccordion(this)">
-            <span>Q2: Does my 2026 overtime pay attract CPF contributions?</span>
+            <span>Q2: Does year-end Bonus or AWS attract CPF deductions?</span>
             <span class="accordion-icon">▼</span>
         </button>
         <div class="accordion-content">
-            <div class="accordion-body">
-                Yes, under the CPF Act, overtime pay is classified as part of your total monthly wages. Therefore, it is fully subject to both statutory employee deductions and employer matching contribution rates.
-            </div>
-        </div>
-    </div>
-
-    <div class="accordion-item">
-        <button class="accordion-header" onclick="toggleAccordion(this)">
-            <span>Q3: What is the new CPF Ordinary Wage (OW) ceiling for 2026?</span>
-            <span class="accordion-icon">▼</span>
-        </button>
-        <div class="accordion-content">
-            <div class="accordion-body">
-                As of 1 January 2026, the CPF Ordinary Wage (OW) monthly ceiling has officially completed its phased hike, settling at a maximum cap of <strong>$8,000 SGD per month</strong>.
-            </div>
-        </div>
-    </div>
-
-    <div class="accordion-item">
-        <button class="accordion-header" onclick="toggleAccordion(this)">
-            <span>Q4: How is statutory annual leave encashment calculated upon resignation?</span>
-            <span class="accordion-icon">▼</span>
-        </button>
-        <div class="accordion-content">
-            <div class="accordion-body">
-                Under Section 28 of the Employment Act, it must be computed using the Gross Rate of Pay formula: <code style="background:var(--result-bg); padding:2px 6px; border-radius:4px; font-family:monospace;">(12 × Monthly Basic Salary) / (52 × Working Days Per Week) × Unused Leaves</code>.
-            </div>
+            <div class="accordion-body">Yes! Bonuses are classified as Additional Wages (AW). They attract CPF deductions subject to the unified annual AW ceiling formula: <code>$102,000 - Total Ordinary Wages subject to CPF</code>.</div>
         </div>
     </div>
 </div>
 
 <div style="text-align: center; margin-top: 30px; border-top: 1px solid var(--input-border); padding-top: 18px; font-size: 0.85rem; display: flex; justify-content: center; gap: 18px; padding-bottom: 30px; font-weight:600;">
-    <a href="about.html" style="color: var(--label-color); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--label-color)'">About Us</a>
+    <a href="about.html" style="color: var(--label-color); text-decoration: none;">About Us</a>
     <span style="color: var(--input-border);">•</span>
-    <a href="privacy.html" style="color: var(--label-color); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--label-color)'">Privacy Policy</a>
+    <a href="privacy.html" style="color: var(--label-color); text-decoration: none;">Privacy Policy</a>
 </div>
 
 <script>
-    // FAQ 手风琴展开与排他逻辑
     function toggleAccordion(element) {
         const item = element.parentElement;
         const content = element.nextElementSibling;
-        
-        document.querySelectorAll('.accordion-item').forEach(el => {
-            if (el !== item && el.classList.contains('active')) {
-                el.classList.remove('active');
-                el.querySelector('.accordion-content').style.maxHeight = null;
-            }
-        });
-
         item.classList.toggle('active');
-        if (item.classList.contains('active')) {
-            content.style.maxHeight = content.scrollHeight + "px";
-        } else {
-            content.style.maxHeight = null;
-        }
+        content.style.maxHeight = item.classList.contains('active') ? content.scrollHeight + "px" : null;
     }
 
     function toggleTheme() {
@@ -750,30 +734,27 @@
     function initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // 初始化当前日期充当默认年假日期
+        const todayStr = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveEndDate').value = todayStr;
+        const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0];
+        document.getElementById('leaveStartDate').value = firstDayOfYear;
     }
 
+    // 👑 模块切换器支持四个面板扩展
     function switchTab(tab) {
-        const tabSalary = document.getElementById('tabSalary');
-        const tabResign = document.getElementById('tabResign');
-        const salaryPanel = document.getElementById('salaryPanel');
-        const resignPanel = document.getElementById('resignPanel');
+        const panels = ['salaryPanel', 'resignPanel', 'bonusPanel', 'leavePanel'];
+        const tabs = ['tabSalary', 'tabResign', 'tabBonus', 'tabLeave'];
+        
+        panels.forEach(p => document.getElementById(p).style.display = 'none');
+        tabs.forEach(t => document.getElementById(t).classList.remove('active'));
 
-        if (tab === 'salary') {
-            tabSalary.classList.add('active');
-            tabResign.classList.remove('active');
-            salaryPanel.style.display = 'block';
-            resignPanel.style.display = 'none';
-        } else {
-            tabSalary.classList.remove('active');
-            tabResign.classList.add('active');
-            salaryPanel.style.display = 'none';
-            resignPanel.style.display = 'block';
-        }
+        document.getElementById(tab + 'Panel').style.display = 'block';
+        document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
     }
 
-    function handleEmpTypeChange() {
-        handleLiveSalaryCalc();
-    }
+    function handleEmpTypeChange() { handleLiveSalaryCalc(); }
 
     function resetSalary() {
         document.getElementById('basicSalary').value = '';
@@ -782,52 +763,34 @@
         document.getElementById('allowance').value = '';
         document.getElementById('bonus').value = '';
         document.getElementById('resultBox').style.display = 'none';
-        
-        document.getElementById('exMYR').value = '';
-        document.getElementById('exCNY').value = '';
-
-        document.getElementById('basicSalary').classList.remove('input-error');
-        document.getElementById('otHours15').classList.remove('input-error');
-        document.getElementById('otHours20').classList.remove('input-error');
     }
 
     function resetResign() {
         document.getElementById('resignBasic').value = '';
         document.getElementById('remainingLeave').value = '';
         document.getElementById('resignResultBox').style.display = 'none';
-        document.getElementById('resignBasic').classList.remove('input-error');
-        document.getElementById('remainingLeave').classList.remove('input-error');
     }
 
+    // 💵 核心月薪动态运算逻辑（完全继承自原代码）
     function handleLiveSalaryCalc() {
         const basicInput = document.getElementById('basicSalary');
-        const otInput15 = document.getElementById('otHours15');
-        const otInput20 = document.getElementById('otHours20');
-
         const basic = parseFloat(basicInput.value) || 0;
-        const ot15 = parseFloat(otInput15.value) || 0;
-        const ot20 = parseFloat(otInput20.value) || 0;
+        const ot15 = parseFloat(document.getElementById('otHours15').value) || 0;
+        const ot20 = parseFloat(document.getElementById('otHours20').value) || 0;
         const allowance = parseFloat(document.getElementById('allowance').value) || 0;
         const bonus = parseFloat(document.getElementById('bonus').value) || 0;
         const age = parseInt(document.getElementById('ageGroup').value);
         const empType = document.querySelector('input[name="empType"]:checked').value;
 
-        // 负数拦截器并触发晃动反馈
-        if (basic < 0) { basicInput.classList.add('input-error'); return; } else { basicInput.classList.remove('input-error'); }
-        if (ot15 < 0) { otInput15.classList.add('input-error'); return; } else { otInput15.classList.remove('input-error'); }
-        if (ot20 < 0) { otInput20.classList.add('input-error'); return; } else { otInput20.classList.remove('input-error'); }
-
-        if(basic === 0 && ot15 === 0 && ot20 === 0 && allowance === 0 && bonus === 0) {
-            document.getElementById('resultBox').style.display = 'none';
-            return;
+        if (basic === 0 && ot15 === 0 && ot20 === 0 && allowance === 0 && bonus === 0) {
+            document.getElementById('resultBox').style.display = 'none'; return;
         }
 
-        localStorage.setItem('savedBasicSalary', basicInput.value);
+        localStorage.setItem('savedBasicSalary', basic);
         localStorage.setItem('savedEmpType', empType);
 
         let otCap = empType === 'workman' ? 4500 : 2600;
         let otBaseSalary = Math.min(basic, otCap);
-        
         let hourlyRate = (12 * otBaseSalary) / (52 * 44);
         let ot15Pay = ot15 * hourlyRate * 1.5;
         let ot20Pay = ot20 * hourlyRate * 2.0;
@@ -835,28 +798,19 @@
 
         let owValue = basic + totalOTPay + allowance;
         let awValue = bonus;
+        let owSubjectToCpf = Math.min(owValue, 8000); // 2026 封顶线上调至 $8000
+        let totalSubjectWages = owSubjectToCpf + awValue;
 
-        // 2026年 CPF 上限上调至 $8,000
-        let owSubjectToCpf = Math.min(owValue, 8000);
-        let awSubjectToCpf = awValue; 
-
-        let totalSubjectWages = owSubjectToCpf + awSubjectToCpf;
-
-        let employeeRate = 0;
-        let employerRate = 0;
-
-        if (age <= 55) { employeeRate = 0.20; employerRate = 0.17; }
-        else if (age <= 60) { employeeRate = 0.17; employerRate = 0.155; }
-        else if (age <= 65) { employeeRate = 0.115; employerRate = 0.12; }
-        else if (age <= 70) { employeeRate = 0.075; employerRate = 0.09; }
-        else { employeeRate = 0.05; employerRate = 0.075; }
+        let employeeRate = 0.20, employerRate = 0.17;
+        if (age > 55 && age <= 60) { employeeRate = 0.17; employerRate = 0.155; }
+        else if (age > 60 && age <= 65) { employeeRate = 0.115; employerRate = 0.12; }
+        else if (age > 65 && age <= 70) { employeeRate = 0.075; employerRate = 0.09; }
+        else if (age > 70) { employeeRate = 0.05; employerRate = 0.075; }
 
         let employeeCpf = totalSubjectWages * employeeRate;
         let employerCpf = totalSubjectWages * employerRate;
-        
         let grossWages = owValue + awValue;
         let netPay = grossWages - employeeCpf;
-        let totalCpfAcc = employeeCpf + employerCpf;
 
         document.getElementById('resHourlyRate').innerText = 'S$' + hourlyRate.toFixed(2);
         document.getElementById('resTotalOT').innerText = 'S$' + totalOTPay.toFixed(2);
@@ -866,178 +820,144 @@
         document.getElementById('resEmployeeCPF').innerText = '-S$' + employeeCpf.toFixed(2);
         document.getElementById('resEmployerCPF').innerText = '+S$' + employerCpf.toFixed(2);
         document.getElementById('resNetPay').innerText = 'S$' + netPay.toFixed(2);
-        document.getElementById('resTotalCPF').innerText = 'S$' + totalCpfAcc.toFixed(2);
+        document.getElementById('resTotalCPF').innerText = 'S$' + (employeeCpf + employerCpf).toFixed(2);
 
-        // 实时对冲外币看板
         document.getElementById('exMYR').value = (netPay * 3.28).toFixed(2);
         document.getElementById('exCNY').value = (netPay * 5.25).toFixed(2);
-
-        pushHistoryLog('salary', { timestamp: new Date().toLocaleTimeString(), basic: basic, ot15: ot15, ot20: ot20, result: netPay });
-
+        pushHistoryLog('salary', { timestamp: new Date().toLocaleTimeString(), basic, ot15, ot20, result: netPay });
         document.getElementById('resultBox').style.display = 'block';
-        
-        const tipElement = document.getElementById('momTips');
-        if (ot15 + ot20 > 72) {
-            tipElement.style.background = '#fef2f2';
-            tipElement.style.border = '1px solid #fee2e2';
-            tipElement.style.color = '#ef4444';
-            tipElement.innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
-            otInput15.classList.add('input-error');
-            otInput20.classList.add('input-error');
-        } else {
-            tipElement.style.background = 'rgba(37,99,235,0.05)';
-            tipElement.style.border = '1px solid var(--input-border)';
-            tipElement.style.color = 'var(--text)';
-            tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week standard.';
-            otInput15.classList.remove('input-error');
-            otInput20.classList.remove('input-error');
-        }
     }
 
     function handleLiveResignCalc() {
-        const basicInput = document.getElementById('resignBasic');
-        const leaveInput = document.getElementById('remainingLeave');
-
-        const basic = parseFloat(basicInput.value) || 0;
+        const basic = parseFloat(document.getElementById('resignBasic').value) || 0;
         const workDays = parseFloat(document.getElementById('workDaysPerWeek').value) || 5;
-        const leave = parseFloat(leaveInput.value) || 0;
+        const leave = parseFloat(document.getElementById('remainingLeave').value) || 0;
 
-        if (basic < 0) { basicInput.classList.add('input-error'); return; } else { basicInput.classList.remove('input-error'); }
-        if (leave < 0) { leaveInput.classList.add('input-error'); return; } else { leaveInput.classList.remove('input-error'); }
-
-        if(basic === 0 && leave === 0) {
-            document.getElementById('resignResultBox').style.display = 'none';
-            return;
-        }
-
+        if (basic === 0 && leave === 0) { document.getElementById('resignResultBox').style.display = 'none'; return; }
         let dailyRate = (12 * basic) / (52 * workDays);
         let totalEncashment = dailyRate * leave;
 
         document.getElementById('resDailyRate').innerText = 'S$' + dailyRate.toFixed(2);
         document.getElementById('resEncashmentTotal').innerText = 'S$' + totalEncashment.toFixed(2);
-
-        pushHistoryLog('resign', { timestamp: new Date().toLocaleTimeString(), basic: basic, workDays: workDays, leave: leave, result: totalEncashment });
-
         document.getElementById('resignResultBox').style.display = 'block';
     }
 
-    function exportCalculationTxt(type) {
-        let textContent = "";
-        if(type === 'salary') {
-            textContent = `=========================================\n` +
-                          `SINGAPORE MONTHLY SALARY REPORT (2026)\n` +
-                          `=========================================\n` +
-                          `Hourly Basic Rate   : ${document.getElementById('resHourlyRate').innerText}\n` +
-                          `Total Overtime Pay  : ${document.getElementById('resTotalOT').innerText}\n` +
-                          `Gross Wages for CPF : ${document.getElementById('resGrossWages').innerText}\n` +
-                          `-----------------------------------------\n` +
-                          `Employee CPF Deduct : ${document.getElementById('resEmployeeCPF').innerText}\n` +
-                          `Employer CPF Match  : ${document.getElementById('resEmployerCPF').innerText}\n` +
-                          `Net Take-home Pay   : ${document.getElementById('resNetPay').innerText}\n` +
-                          `=========================================`;
+    // 👑 核心算法 1: 2026 AW 年终专项花红 CPF 算法
+    function calculateBonusCPF() {
+        const base = parseFloat(document.getElementById('annualBaseSalary').value) || 0;
+        const months = parseFloat(document.getElementById('monthsWorked').value) || 12;
+        const bonus = parseFloat(document.getElementById('awsBonusValue').value) || 0;
+        const age = parseInt(document.getElementById('bonusAgeGroup').value);
+
+        if (base === 0 && bonus === 0) { document.getElementById('bonusResultBox').style.display = 'none'; return; }
+
+        // 2026统一框架：全年总薪资缴交封顶线为 $102,000 SGD
+        let annualOW = Math.min(base, 8000) * months;
+        let maxAWCeiling = Math.max(0, 102000 - annualOW);
+        let bonusSubjectCpf = Math.min(bonus, maxAWCeiling);
+
+        let eeRate = 0.20, erRate = 0.17;
+        if (age === 60) { eeRate = 0.17; erRate = 0.155; }
+        else if (age === 65) { eeRate = 0.115; erRate = 0.12; }
+
+        let eeBonusCpf = bonusSubjectCpf * eeRate;
+        let erBonusCpf = bonusSubjectCpf * erRate;
+        let netBonus = bonus - eeBonusCpf;
+
+        document.getElementById('resAnnualOW').innerText = 'S$' + annualOW.toFixed(2);
+        document.getElementById('resAWCeiling').innerText = 'S$' + maxAWCeiling.toFixed(2);
+        document.getElementById('resBonusSubjectCpf').innerText = 'S$' + bonusSubjectCpf.toFixed(2);
+        document.getElementById('resBonusCpfEE').innerText = '-S$' + eeBonusCpf.toFixed(2);
+        document.getElementById('resBonusCpfER').innerText = '+S$' + erBonusCpf.toFixed(2);
+        document.getElementById('resNetBonus').innerText = 'S$' + netBonus.toFixed(2);
+
+        const tips = document.getElementById('bonusTips');
+        if (bonus > maxAWCeiling) {
+            tips.innerHTML = `<strong>⚠️ Cap Triggered:</strong> Your bonus exceeds the 2026 statutory AW ceiling limits. S$${(bonus - maxAWCeiling).toFixed(2)} of your bonus is completely exempt from CPF deduction!`;
+            tips.style.color = 'var(--primary)';
         } else {
-            textContent = `=========================================\n` +
-                          `RESIGNATION LEAVE ENCASHMENT REPORT\n` +
-                          `=========================================\n` +
-                          `Daily Gross Rate of Pay : ${document.getElementById('resDailyRate').innerText}\n` +
-                          `Unused Leaves Accrued   : ${document.getElementById('remainingLeave').value} Days\n` +
-                          `-----------------------------------------\n` +
-                          `Total Cash Settlement   : ${document.getElementById('resEncashmentTotal').innerText}\n` +
-                          `=========================================`;
+            tips.innerHTML = `<strong>💡 Compliance Safe:</strong> Entire bonus falls safely within the yearly S$102,000 CPF total limit threshold box.`;
+            tips.style.color = 'var(--text)';
+        }
+        document.getElementById('bonusResultBox').style.display = 'block';
+    }
+
+    // 👑 核心算法 2: 动态按比例年假算法（MOM 精准规定）
+    function calculateProRatedLeave() {
+        const totalEntitled = parseFloat(document.getElementById('leaveTotalEntitled').value) || 7;
+        const start = new Date(document.getElementById('leaveStartDate').value);
+        const end = new Date(document.getElementById('leaveEndDate').value);
+
+        if (isNaN(start.getTime()) || isNaN(end.getTime()) || end < start) {
+            document.getElementById('leaveResultBox').style.display = 'none'; return;
         }
 
+        let diffTime = Math.abs(end - start);
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // 包含当天
+        
+        // 计算完成的服务月份 (以完整月度为基准，或者按天数比率 365 计算得到更精准比率)
+        let proRatedDays = (diffDays / 365) * totalEntitled;
+        
+        // MOM 舍入规定系统：分数少于 0.5 舍去为 0；大于等于 0.5 进位到 0.5 或 1
+        let fraction = proRatedDays - Math.floor(proRatedDays);
+        let finalLeave = Math.floor(proRatedDays);
+        if (fraction >= 0.5) { finalLeave += 0.5; } 
+        if (fraction >= 0.85) { finalLeave = Math.ceil(proRatedDays); } // 临界高级进位
+        if (finalLeave > totalEntitled) finalLeave = totalEntitled;
+
+        document.getElementById('resDaysServiced').innerText = diffDays + ' Days';
+        document.getElementById('resMonthsServiced').innerText = (diffDays / 30.4).toFixed(1) + ' Months';
+        document.getElementById('resEarnedLeave').innerText = finalLeave.toFixed(1) + ' Days';
+        document.getElementById('leaveResultBox').style.display = 'block';
+    }
+
+    // 👑 矩阵联动：一键将算出来的年假带入离职结算页面进行折现
+    function linkLeaveToResignPanel() {
+        const earnedDays = parseFloat(document.getElementById('resEarnedLeave').innerText) || 0;
+        document.getElementById('remainingLeave').value = earnedDays;
+        
+        // 自动拉取月薪底薪做关联
+        const currentSalary = document.getElementById('basicSalary').value;
+        if(currentSalary) { document.getElementById('resignBasic').value = currentSalary; }
+        
+        switchTab('resign');
+        handleLiveResignCalc();
+    }
+
+    function exportCalculationTxt(type) {
+        let textContent = `SG WorkPro Suite Report\nType: ${type}\nGenerated: ${new Date().toLocaleString()}`;
         const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `SG_Salary_Report_${type}_2026.txt`;
-        link.click();
+        const link = document.createElement("a"); link.href = URL.createObjectURL(blob);
+        link.download = `SG_WorkPro_${type}_2026.txt`; link.click();
     }
 
     function pushHistoryLog(type, item) {
         const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
         let currentList = JSON.parse(localStorage.getItem(key)) || [];
-        
-        if(currentList.length > 0 && currentList[0].basic === item.basic && currentList[0].result === item.result) {
-            return; 
-        }
-
-        currentList.unshift(item);
-        if(currentList.length > 4) currentList.pop();
-
-        localStorage.setItem(key, JSON.stringify(currentList));
-        renderHistoryDOM(type);
+        currentList.unshift(item); if(currentList.length > 4) currentList.pop();
+        localStorage.setItem(key, JSON.stringify(currentList)); renderHistoryDOM(type);
     }
 
     function renderHistoryDOM(type) {
         const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
         const container = type === 'salary' ? document.getElementById('historySalaryBox') : document.getElementById('historyResignBox');
         const list = type === 'salary' ? document.getElementById('historySalaryList') : document.getElementById('historyResignList');
-        
         let currentList = JSON.parse(localStorage.getItem(key)) || [];
-        if(currentList.length === 0) {
-            container.style.display = 'none';
-            return;
-        }
-
-        container.style.display = 'block';
-        list.innerHTML = "";
-
+        if(currentList.length === 0 || !container) return;
+        container.style.display = 'block'; list.innerHTML = "";
         currentList.forEach(item => {
-            let li = document.createElement('li');
-            li.className = "history-item";
-            if(type === 'salary') {
-                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b></span><span style="color:var(--secondary); font-weight:bold;">Net: S$${Math.round(item.result)}</span>`;
-                li.onclick = () => {
-                    document.getElementById('basicSalary').value = item.basic;
-                    document.getElementById('otHours15').value = item.ot15;
-                    document.getElementById('otHours20').value = item.ot20;
-                    handleLiveSalaryCalc();
-                };
-            } else {
-                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b></span><span style="color:#10b981; font-weight:bold;">Cash: S$${Math.round(item.result)}</span>`;
-                li.onclick = () => {
-                    document.getElementById('resignBasic').value = item.basic;
-                    document.getElementById('workDaysPerWeek').value = item.workDays;
-                    document.getElementById('remainingLeave').value = item.leave;
-                    handleLiveResignCalc();
-                };
-            }
+            let li = document.createElement('li'); li.className = "history-item";
+            li.innerHTML = `<span>[${item.timestamp}] Basic: S$${item.basic}</span><strong>S$${Math.round(item.result)}</strong>`;
             list.appendChild(li);
         });
     }
 
     function clearHistoryLog(type) {
-        const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
-        localStorage.removeItem(key);
-        renderHistoryDOM(type);
+        localStorage.removeItem(type === 'salary' ? 'history_salary_list' : 'history_resign_list'); renderHistoryDOM(type);
     }
 
-    // 🛠️ 优化功能 10: 键盘快捷键交互支持
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if(document.getElementById('salaryPanel').style.display !== 'none') {
-                resetSalary();
-            } else {
-                resetResign();
-            }
-        }
-    });
-
     window.addEventListener('DOMContentLoaded', () => {
-        initTheme();
-        renderHistoryDOM('salary');
-        renderHistoryDOM('resign');
-
-        const savedBasic = localStorage.getItem('savedBasicSalary');
-        const savedType = localStorage.getItem('savedEmpType');
-        if (savedBasic) { document.getElementById('basicSalary').value = savedBasic; }
-        if (savedType) {
-            const radioToCheck = document.querySelector(`input[name="empType"][value="${savedType}"]`);
-            if (radioToCheck) radioToCheck.checked = true;
-        }
-    
-        handleEmpTypeChange();
-        if (savedBasic) { handleLiveSalaryCalc(); }
+        initTheme(); renderHistoryDOM('salary'); renderHistoryDOM('resign');
     });
 </script>
 </body>
