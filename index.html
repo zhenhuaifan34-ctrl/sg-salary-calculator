@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇸🇬</text></svg>\">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇸🇬</text></svg>">
     <meta name="google-site-verification" content="9bokCnlQGx0rwxYHEv6U3a5D0lnq-sbNN4v0KA3RfZs" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,33 +39,37 @@
 
     <style>
         :root {
-            --bg: #f3f4f6;
+            --bg: #f8fafc;
             --card: #ffffff;
-            --text: #1f2937;
+            --text: #0f172a;
             --primary: #ef4444;
             --primary-hover: #dc2626;
-            --secondary: #3b82f6;
-            --secondary-hover: #2563eb;
+            --secondary: #2563eb;
+            --secondary-hover: #1d4ed8;
             --input-bg: #ffffff;
-            --input-border: #d1d5db;
-            --result-bg: #f9fafb;
-            --history-hover: #f3f4f6;
-            --label-color: #4b5563;
+            --input-border: #cbd5e1;
+            --result-bg: #f1f5f9;
+            --history-hover: #f1f5f9;
+            --label-color: #334155;
+            --shadow-sm: 0 2px 8px -1px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
         }
 
         [data-theme="dark"] {
-            --bg: #111827;
-            --card: #1f2937;
-            --text: #f9fafb;
+            --bg: #0b0f19;
+            --card: #1e293b;
+            --text: #f8fafc;
             --primary: #f87171;
             --primary-hover: #ef4444;
             --secondary: #60a5fa;
             --secondary-hover: #3b82f6;
-            --input-bg: #374151;
-            --input-border: #4b5563;
-            --result-bg: #374151;
-            --history-hover: #374151;
-            --label-color: #9ca3af;
+            --input-bg: #1e293b;
+            --input-border: #475569;
+            --result-bg: #0f172a;
+            --history-hover: #334155;
+            --label-color: #94a3b8;
+            --shadow-sm: 0 2px 8px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
         }
 
         body {
@@ -73,26 +77,27 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 20px 10px;
+            padding: 40px 16px;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             background-color: var(--card);
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.3s;
+            padding: 30px 24px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* 🛠️ 优化功能 8: 专业级 A4 纸张打印专属媒介查询 CSS 系统系统 */
+        /* 🛠️ 优化功能 8: 打印样式遮罩优化 */
         @media print {
             body { background: white; color: black; padding: 0; }
             .container { box-shadow: none; max-width: 100%; width: 100%; padding: 0; }
-            .theme-toggle-btn, .tabs, .reset-btn, .history-container, footer, .footer-links, a { display: none !important; }
-            .result-box { border: 1px solid #000; background: white !important; color: black !important; }
+            .theme-toggle-btn, .tabs, .reset-btn, .history-container, footer, .footer-links, .faq-container, a { display: none !important; }
+            .result-box { border: 1px solid #000; background: white !important; color: black !important; display: block !important; }
             input, select { border: none !important; background: transparent !important; color: black !important; appearance: none; }
         }
 
@@ -100,72 +105,78 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 26px;
         }
 
         h1 {
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             margin: 0;
             font-weight: 800;
             color: var(--text);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            letter-spacing: -0.02em;
         }
 
         .theme-toggle-btn {
             background: none;
             border: 1px solid var(--input-border);
-            padding: 8px 12px;
-            border-radius: 20px;
+            padding: 8px 14px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text);
             background-color: var(--card);
-            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
         }
 
         .theme-toggle-btn:hover {
-            opacity: 0.8;
+            transform: translateY(-1px);
+            border-color: var(--secondary);
         }
 
         .tabs {
             display: flex;
-            background-color: var(--bg);
-            padding: 4px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background-color: var(--result-bg);
+            padding: 6px;
+            border-radius: 16px;
+            margin-bottom: 24px;
         }
 
         .tab-btn {
             flex: 1;
             background: none;
             border: none;
-            padding: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
             color: var(--label-color);
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s;
+            border-radius: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .tab-btn.active {
             background-color: var(--card);
             color: var(--text);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: var(--label-color);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
         .input-wrapper {
@@ -176,39 +187,41 @@
 
         .prefix {
             position: absolute;
-            left: 12px;
+            left: 14px;
             font-size: 0.95rem;
             color: var(--label-color);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         input[type="number"], select {
             width: 100%;
-            padding: 12px 12px 12px 32px;
+            padding: 14px 14px 14px 36px;
             font-size: 1rem;
             border: 1px solid var(--input-border);
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: var(--input-bg);
             color: var(--text);
             box-sizing: border-box;
-            transition: border-color 0.2s, background-color 0.3s;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
         }
 
         select {
-            padding-left: 12px;
+            padding-left: 14px;
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 12px center;
+            background-position: right 14px center;
             background-size: 16px;
         }
 
         input:focus, select:focus {
             outline: none;
             border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
 
-        /* 🛠️ 优化功能 6: 高保真表单防呆视觉抖动震颤动效 */
+        /* 🛠️ 优化功能 4: 负数校验振动反馈 */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-4px); }
@@ -221,7 +234,7 @@
 
         .radio-tile-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .radio-tile-label {
@@ -231,12 +244,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 12px;
-            border: 1px solid var(--input-border);
-            border-radius: 10px;
+            padding: 16px 12px;
+            border: 2px solid var(--input-border);
+            border-radius: 14px;
             cursor: pointer;
             background-color: var(--input-bg);
-            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
         }
 
         .radio-tile-group input[type="radio"] {
@@ -247,29 +261,29 @@
         }
 
         .radio-tile-group input[type="radio"]:checked + .radio-tile-label {
-            border-color: var(--primary);
-            background-color: rgba(239, 68, 68, 0.08);
-            color: var(--primary);
+            border-color: var(--secondary);
+            background-color: rgba(37, 99, 235, 0.04);
+            transform: scale(1.02);
         }
 
         [data-theme="dark"] .radio-tile-group input[type="radio"]:checked + .radio-tile-label {
-            background-color: rgba(248, 113, 113, 0.15);
-            color: var(--primary);
+            background-color: rgba(96, 165, 250, 0.08);
+            border-color: var(--secondary);
         }
 
         .tile-title {
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 800;
         }
 
         .tile-desc {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             color: var(--label-color);
-            margin-top: 2px;
+            margin-top: 4px;
             text-align: center;
+            line-height: 1.3;
         }
 
-        /* 🛠️ 优化功能 5: 微动交互弹性反馈动效 */
         .primary-btn {
             width: 100%;
             background-color: var(--primary);
@@ -278,82 +292,90 @@
             padding: 14px;
             font-size: 1rem;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
         }
-        .primary-btn:hover { background-color: var(--primary-hover); }
-        .primary-btn:active { transform: scale(0.98); }
+        .primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .primary-btn:active { transform: scale(0.99); }
 
         .reset-btn {
             width: 100%;
             background: none;
             border: 1px solid var(--input-border);
             color: var(--text);
-            padding: 10px;
-            font-size: 0.9rem;
+            padding: 12px;
+            font-size: 0.88rem;
             font-weight: 600;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             margin-top: 10px;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
         }
-        .reset-btn:hover { background-color: var(--bg); }
+        .reset-btn:hover { background-color: var(--result-bg); }
 
         .result-box {
-            margin-top: 20px;
+            margin-top: 24px;
             background-color: var(--result-bg);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 20px;
             display: none;
+            border: 1px solid var(--input-border);
         }
 
         .result-title {
             font-size: 1.1rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             border-bottom: 1px solid var(--input-border);
-            padding-bottom: 6px;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.92rem;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
         }
 
         .result-row.total {
-            font-size: 1.15rem;
-            font-weight: 800;
-            border-top: 1px dashed var(--input-border);
-            padding-top: 8px;
-            margin-top: 8px;
-            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 900;
+            border-top: 2px dashed var(--input-border);
+            padding-top: 12px;
+            margin-top: 12px;
+            color: #ef4444;
+        }
+        [data-theme="dark"] .result-row.total {
+            color: #f87171;
         }
 
         .mom-tips {
-            font-size: 0.78rem;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 14px;
-            line-height: 1.4;
+            font-size: 0.8rem;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 16px;
+            line-height: 1.5;
         }
 
-        /* 历史面板区域 */
+        /* 历史纪录区域样式 */
         .history-container {
-            margin-top: 25px;
-            border-top: 1px solid var(--input-border);
-            padding-top: 15px;
+            margin-top: 28px;
+            border-top: 1px dashed var(--input-border);
+            padding-top: 18px;
         }
         .history-title-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .history-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--label-color);
         }
@@ -363,7 +385,7 @@
             border: none;
             color: #ef4444;
             cursor: pointer;
-            padding: 2px 6px;
+            font-weight: 600;
         }
         .history-list {
             list-style: none;
@@ -374,25 +396,85 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 10px;
+            padding: 10px 14px;
             background-color: var(--bg);
-            border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 0.8rem;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: background-color 0.2s;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
         }
         .history-item:hover {
             background-color: var(--history-hover);
+            border-color: var(--secondary);
+            transform: scale(1.01);
         }
 
-        .section-title {
-            font-size: 1.05rem;
+        /* 🛠️ 优化功能 1: FAQ 折叠现代化风琴动效系统 */
+        .faq-container {
+            max-width: 520px;
+            margin: 24px auto;
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid var(--input-border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        .faq-title-header {
+            padding: 18px 20px;
+            font-size: 1.1rem;
             font-weight: 800;
-            margin-bottom: 14px;
+            border-bottom: 1px solid var(--input-border);
+            margin: 0;
+            background: rgba(37, 99, 235, 0.02);
+        }
+        .accordion-item {
+            border-bottom: 1px solid var(--input-border);
+        }
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+        .accordion-header {
+            width: 100%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            padding: 16px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .accordion-header:hover {
+            background: var(--result-bg);
+        }
+        .accordion-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--label-color);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 23, 42, 0.01);
+        }
+        [data-theme="dark"] .accordion-content {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .accordion-body {
+            padding: 0 20px 18px 20px;
+            font-size: 0.88rem;
+            color: var(--label-color);
+            line-height: 1.6;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -400,7 +482,7 @@
 
 <div class="container">
     <div class="header-ui">
-        <h1>🇸🇬 SG Salary Pro <span style="font-size:0.75rem; background:rgba(239,68,68,0.1); color:var(--primary); padding:2px 6px; border-radius:10px;">2026 Core</span></h1>
+        <h1>🇸🇬 SG Salary Pro <span style="font-size:0.75rem; background:rgba(37,99,235,0.08); color:var(--secondary); padding:3px 8px; border-radius:30px; font-weight:700;">2026 Ready</span></h1>
         <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()">🌗 Mode</button>
     </div>
 
@@ -451,19 +533,19 @@
             </div>
         </div>
 
-        <div class="form-group" style="display: flex; gap: 10px;">
+        <div class="form-group" style="display: flex; gap: 12px;">
             <div style="flex: 1;">
-                <label style="font-size:0.75rem;">Take-home in MYR (Est)</label>
-                <div class="input-wrapper"><span class="prefix" style="font-size:0.8rem;color:#9ca3af;">RM</span><input type="number" id="exMYR" disabled style="padding-left:34px; font-size:0.85rem; background:var(--bg); opacity:0.8;"></div>
+                <label style="font-size:0.72rem;">Take-home in MYR (Est)</label>
+                <div class="input-wrapper"><span class="prefix" style="font-size:0.8rem;color:var(--label-color);">RM</span><input type="number" id="exMYR" disabled style="padding-left:36px; font-size:0.88rem; background:var(--result-bg); opacity:0.8; border-color:transparent;"></div>
             </div>
             <div style="flex: 1;">
-                <label style="font-size:0.75rem;">Take-home in CNY (Est)</label>
-                <div class="input-wrapper"><span class="prefix" style="font-size:0.8rem;color:#9ca3af;">¥</span><input type="number" id="exCNY" disabled style="padding-left:26px; font-size:0.85rem; background:var(--bg); opacity:0.8;"></div>
+                <label style="font-size:0.72rem;">Take-home in CNY (Est)</label>
+                <div class="input-wrapper"><span class="prefix" style="font-size:0.8rem;color:var(--label-color);">¥</span><input type="number" id="exCNY" disabled style="padding-left:28px; font-size:0.88rem; background:var(--result-bg); opacity:0.8; border-color:transparent;"></div>
             </div>
         </div>
 
         <div class="form-group" id="otField15">
-            <label for="otHours15">Overtime Hours (1.5x Multiplier - Normal OT / Rest Day)</label>
+            <label for="otHours15">Overtime Hours (1.5x Multiplier - Normal OT)</label>
             <div class="input-wrapper">
                 <span class="prefix">⏰</span>
                 <input type="number" id="otHours15" placeholder="0" min="0" oninput="handleLiveSalaryCalc()">
@@ -487,7 +569,7 @@
         </div>
 
         <div class="form-group">
-            <label for="bonus">Additional Wages (Bonus / AWS / Variable Commission)</label>
+            <label for="bonus">Additional Wages (Bonus / AWS)</label>
             <div class="input-wrapper">
                 <span class="prefix">S$</span>
                 <input type="number" id="bonus" placeholder="0" min="0" oninput="handleLiveSalaryCalc()">
@@ -497,25 +579,25 @@
         <button class="reset-btn" onclick="resetSalary()">🧹 Clear Form Parameters</button>
 
         <div class="result-box" id="resultBox">
-            <div class="result-title">🎯 Calculation Summary (May 2026 Framework)</div>
-            <div class="result-row"><span>Hourly Basic Rate:</span><span id="resHourlyRate">S$0.00</span></div>
-            <div class="result-row"><span>Total Overtime Pay:</span><span id="resTotalOT">S$0.00</span></div>
-            <div class="result-row"><span>Gross Wages for CPF:</span><span id="resGrossWages">S$0.00</span></div>
-            <div class="result-row" style="color: #6b7280; font-size:0.85rem;"><span>└ Ordinary Wages (OW):</span><span id="resOWValue">S$0.00</span></div>
-            <div class="result-row" style="color: #6b7280; font-size:0.85rem;"><span>└ Additional Wages (AW):</span><span id="resAWValue">S$0.00</span></div>
-            <div class="result-row"><span>Employee CPF Deduction:</span><span id="resEmployeeCPF" style="color:#ef4444;">-S$0.00</span></div>
-            <div class="result-row"><span>Employer CPF Contribution:</span><span id="resEmployerCPF" style="color:#10b981;">+S$0.00</span></div>
+            <div class="result-title">🎯 Calculation Summary (2026 Framework)</div>
+            <div class="result-row"><span>Hourly Basic Rate:</span><span id="resHourlyRate" style="font-weight:700;">S$0.00</span></div>
+            <div class="result-row"><span>Total Overtime Pay:</span><span id="resTotalOT" style="font-weight:700;">S$0.00</span></div>
+            <div class="result-row"><span>Gross Wages for CPF:</span><span id="resGrossWages" style="font-weight:700;">S$0.00</span></div>
+            <div class="result-row" style="color: var(--label-color); font-size:0.85rem; padding-left: 10px;"><span>└ Ordinary Wages (OW):</span><span id="resOWValue">S$0.00</span></div>
+            <div class="result-row" style="color: var(--label-color); font-size:0.85rem; padding-left: 10px;"><span>└ Additional Wages (AW):</span><span id="resAWValue">S$0.00</span></div>
+            <div class="result-row"><span>Employee CPF Deduction:</span><span id="resEmployeeCPF" style="color:#ef4444; font-weight:700;">-S$0.00</span></div>
+            <div class="result-row"><span>Employer CPF Contribution:</span><span id="resEmployerCPF" style="color:#10b981; font-weight:700;">+S$0.00</span></div>
             <div class="result-row total"><span>Net Take-home Pay:</span><span id="resNetPay">S$0.00</span></div>
-            <div class="result-row" style="margin-top:10px; font-size:0.8rem; color:var(--secondary); font-weight:bold;"><span>Total Accumulated CPF Account:</span><span id="resTotalCPF">S$0.00</span></div>
+            <div class="result-row" style="margin-top:10px; font-size:0.85rem; color:var(--secondary); font-weight:bold; background: rgba(37,99,235,0.05); padding: 8px 12px; border-radius: 8px;"><span>Total CPF Account Input:</span><span id="resTotalCPF">S$0.00</span></div>
             
             <div class="mom-tips" id="momTips"></div>
 
-            <button class="primary-btn" style="margin-top:12px; padding:8px; font-size:0.85rem; background-color:var(--secondary);" onclick="exportCalculationTxt('salary')">📥 Export Report Text File</button>
+            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary); box-shadow: 0 4px 10px rgba(37,99,235,0.2);" onclick="exportCalculationTxt('salary')">📥 Export Report Text File</button>
         </div>
 
         <div class="history-container" id="historySalaryBox" style="display:none;">
             <div class="history-title-bar">
-                <span class="history-title">⏱️ Recent Salary Calculations (Local Cache)</span>
+                <span class="history-title">⏱️ Recent Salary Calculations</span>
                 <button class="clear-history-btn" onclick="clearHistoryLog('salary')">Clear All</button>
             </div>
             <ul class="history-list" id="historySalaryList"></ul>
@@ -523,8 +605,6 @@
     </div>
 
     <div id="resignPanel" style="display: none;">
-        <div class="section-title">🚪 Resignation Leave Encashment</div>
-        
         <div class="form-group">
             <label for="resignBasic">Monthly Basic Salary</label>
             <div class="input-wrapper">
@@ -534,7 +614,7 @@
         </div>
 
         <div class="form-group">
-            <label for="workDaysPerWeek">Contracted Working Days Per Week</label>
+            <label for="workDaysPerWeek">Working Days Per Week</label>
             <select id="workDaysPerWeek" onchange="handleLiveResignCalc()">
                 <option value="5">5 Days Work Week (Standard)</option>
                 <option value="5.5">5.5 Days Work Week</option>
@@ -555,73 +635,111 @@
 
         <div class="result-box" id="resignResultBox">
             <div class="result-title">🎯 Final Settlement Summary</div>
-            <div class="result-row"><span>Gross Rate of Pay (Per Day):</span><span id="resDailyRate">S$0.00</span></div>
+            <div class="result-row"><span>Gross Rate of Pay (Per Day):</span><span id="resDailyRate" style="font-weight:700;">S$0.00</span></div>
             <div class="result-row total"><span>Total Leave Encashment Cash:</span><span id="resEncashmentTotal">S$0.00</span></div>
             
-            <div class="mom-tips" style="background: var(--bg); border: 1px solid var(--input-border); color: var(--text);">
+            <div class="mom-tips" style="background: var(--card); border: 1px solid var(--input-border); color: var(--text);">
                 <strong>💡 Legal Provision Section 28:</strong><br>
-                If an employee has not cleared their accrued annual leave before leaving the company, the employer <strong>must cash out</strong> the remaining days based on the standard Gross Rate of Pay framework.
+                If an employee leaves before clearing accrued annual leave, the employer <strong>must cash out</strong> the remaining days based on the standard Gross Rate of Pay framework.
             </div>
 
-            <button class="primary-btn" style="margin-top:12px; padding:8px; font-size:0.85rem; background-color:var(--secondary);" onclick="exportCalculationTxt('resign')">📥 Export Report Text File</button>
+            <button class="primary-btn" style="margin-top:14px; padding:10px; font-size:0.85rem; background-color:var(--secondary); box-shadow: 0 4px 10px rgba(37,99,235,0.2);" onclick="exportCalculationTxt('resign')">📥 Export Report Text File</button>
         </div>
 
         <div class="history-container" id="historyResignBox" style="display:none;">
             <div class="history-title-bar">
-                <span class="history-title">⏱️ Recent Resignation Calculations (Local Cache)</span>
+                <span class="history-title">⏱️ Recent Resignation Calculations</span>
                 <button class="clear-history-btn" onclick="clearHistoryLog('resign')">Clear All</button>
             </div>
             <ul class="history-list" id="historyResignList"></ul>
         </div>
     </div>
 
-    <div style="margin-top: 25px; padding: 15px; background: var(--bg); border-radius: 12px; font-size: 0.82rem; border-top: 1px dashed #ccc; color: #4b5563; line-height: 1.6;">
-        <h2 style="font-size: 1.2rem; color: var(--text);">Ultimate Guide to Singapore Overtime (OT) Pay & CPF Rules 2026</h2>
-        <p>Are you working in Singapore and wondering if your overtime pay is calculated correctly? This <strong>Singapore OT Calculator 2026</strong> is designed to help employees under the <strong>Employment Act</strong> determine their rightful compensation including <strong>CPF contributions</strong> and <strong>Resignation Encashment</strong> options.</p>
+    <div style="margin-top: 25px; padding: 16px; background: var(--result-bg); border-radius: 14px; font-size: 0.85rem; border: 1px solid var(--input-border); color: var(--label-color); line-height: 1.6;">
+        <h2 style="font-size: 1.1rem; color: var(--text); font-weight:800; margin-top:0; margin-bottom:8px;">Ultimate Guide to Singapore Overtime (OT) Pay & CPF Rules 2026</h2>
+        <p style="margin:0;">Are you working in Singapore and wondering if your overtime pay is calculated correctly? This <strong>Singapore OT Calculator 2026</strong> helps employees under the <strong>Employment Act</strong> determine rightful compensation including <strong>CPF contributions</strong> and <strong>Resignation Encashment</strong> options.</p>
     </div>
 </div>
 
-<div style="max-width: 500px; margin: 30px auto; padding: 20px; background: var(--card); border-radius: 12px; border: 1px solid var(--input-border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-    <h2 style="font-size: 1.2rem; margin-top: 0; color: var(--text); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-        ❓ Frequently Asked Questions (2026 MOM Rules)
-    </h2>
+<div class="faq-container">
+    <h2 class="faq-title-header">❓ Frequently Asked Questions (2026 MOM Rules)</h2>
     
-    <div style="margin-top: 15px;">
-        <h3 style="font-size: 0.95rem; color: var(--text); margin-bottom: 5px;">Q1: What is the maximum statutory overtime (OT) hours allowed per month in Singapore?</h3>
-        <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0; line-height: 1.5;">
-            According to the Ministry of Manpower (MOM), an employee is strictly <strong>not permitted to work more than 72 hours of overtime a month</strong>, unless an explicit exemption waiver has been granted to the employer.
-        </p>
+    <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Q1: What is the maximum statutory overtime (OT) hours allowed per month?</span>
+            <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+            <div class="accordion-body">
+                According to the Ministry of Manpower (MOM), an employee is strictly <strong>not permitted to work more than 72 hours of overtime a month</strong>, unless an explicit exemption waiver has been granted to the employer.
+            </div>
+        </div>
     </div>
 
-    <div style="margin-top: 15px;">
-        <h3 style="font-size: 0.95rem; color: var(--text); margin-bottom: 5px;">Q2: Does my 2026 overtime pay attract Central Provident Fund (CPF) contributions?</h3>
-        <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0; line-height: 1.5;">
-            Yes, under the CPF Act, overtime pay is classified as part of your total monthly wages. Therefore, it is fully subject to both statutory employee deductions and employer matching contribution rates.
-        </p>
+    <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Q2: Does my 2026 overtime pay attract CPF contributions?</span>
+            <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+            <div class="accordion-body">
+                Yes, under the CPF Act, overtime pay is classified as part of your total monthly wages. Therefore, it is fully subject to both statutory employee deductions and employer matching contribution rates.
+            </div>
+        </div>
     </div>
 
-    <div style="margin-top: 15px;">
-        <h3 style="font-size: 0.95rem; color: var(--text); margin-bottom: 5px;">Q3: What is the new CPF Ordinary Wage (OW) ceiling for 2026?</h3>
-        <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0; line-height: 1.5;">
-            As of 1 January 2026, the CPF Ordinary Wage (OW) monthly ceiling has officially completed its phased hike, settling at a maximum cap of <strong>$8,000 SGD per month</strong>.
-        </p>
+    <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Q3: What is the new CPF Ordinary Wage (OW) ceiling for 2026?</span>
+            <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+            <div class="accordion-body">
+                As of 1 January 2026, the CPF Ordinary Wage (OW) monthly ceiling has officially completed its phased hike, settling at a maximum cap of <strong>$8,000 SGD per month</strong>.
+            </div>
+        </div>
     </div>
 
-    <div style="margin-top: 15px;">
-        <h3 style="font-size: 0.95rem; color: var(--text); margin-bottom: 5px;">Q4: How is statutory annual leave encashment calculated upon resignation?</h3>
-        <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0; line-height: 1.5;">
-            Under Section 28 of the Employment Act, it must be computed using the Gross Rate of Pay formula: <code style="background:rgba(0,0,0,0.05); padding:2px 4px; border-radius:4px;">(12 × Monthly Basic Salary) / (52 × Working Days Per Week) × Unused Leaves</code>.
-        </p>
+    <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Q4: How is statutory annual leave encashment calculated upon resignation?</span>
+            <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+            <div class="accordion-body">
+                Under Section 28 of the Employment Act, it must be computed using the Gross Rate of Pay formula: <code style="background:var(--result-bg); padding:2px 6px; border-radius:4px; font-family:monospace;">(12 × Monthly Basic Salary) / (52 × Working Days Per Week) × Unused Leaves</code>.
+            </div>
+        </div>
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 30px; border-top: 1px solid var(--input-border); padding-top: 15px; font-size: 0.8rem; display: flex; justify-content: center; gap: 15px; padding-bottom: 20px;">
-    <a href="about.html" style="color: #9ca3af; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#9ca3af'">About Us</a>
-    <span style="color: #9ca3af;">•</span>
-    <a href="privacy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#9ca3af'">Privacy Policy</a>
+<div style="text-align: center; margin-top: 30px; border-top: 1px solid var(--input-border); padding-top: 18px; font-size: 0.85rem; display: flex; justify-content: center; gap: 18px; padding-bottom: 30px; font-weight:600;">
+    <a href="about.html" style="color: var(--label-color); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--label-color)'">About Us</a>
+    <span style="color: var(--input-border);">•</span>
+    <a href="privacy.html" style="color: var(--label-color); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--label-color)'">Privacy Policy</a>
 </div>
 
 <script>
+    // FAQ 手风琴展开与排他逻辑
+    function toggleAccordion(element) {
+        const item = element.parentElement;
+        const content = element.nextElementSibling;
+        
+        document.querySelectorAll('.accordion-item').forEach(el => {
+            if (el !== item && el.classList.contains('active')) {
+                el.classList.remove('active');
+                el.querySelector('.accordion-content').style.maxHeight = null;
+            }
+        });
+
+        item.classList.toggle('active');
+        if (item.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+            content.style.maxHeight = null;
+        }
+    }
+
     function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -654,11 +772,6 @@
     }
 
     function handleEmpTypeChange() {
-        const empType = document.querySelector('input[name="empType"]:checked').value;
-        const otField15 = document.getElementById('otField15');
-        const otField20 = document.getElementById('otField20');
-        
-        // 当更改单选框时，自动触发重算
         handleLiveSalaryCalc();
     }
 
@@ -686,7 +799,6 @@
         document.getElementById('remainingLeave').classList.remove('input-error');
     }
 
-    // 纯实时动态监听计算核心控制链路
     function handleLiveSalaryCalc() {
         const basicInput = document.getElementById('basicSalary');
         const otInput15 = document.getElementById('otHours15');
@@ -700,7 +812,7 @@
         const age = parseInt(document.getElementById('ageGroup').value);
         const empType = document.querySelector('input[name="empType"]:checked').value;
 
-        // 判定表单参数防呆触发
+        // 负数拦截器并触发晃动反馈
         if (basic < 0) { basicInput.classList.add('input-error'); return; } else { basicInput.classList.remove('input-error'); }
         if (ot15 < 0) { otInput15.classList.add('input-error'); return; } else { otInput15.classList.remove('input-error'); }
         if (ot20 < 0) { otInput20.classList.add('input-error'); return; } else { otInput20.classList.remove('input-error'); }
@@ -710,33 +822,26 @@
             return;
         }
 
-        // 计算时给与本地缓存存储
         localStorage.setItem('savedBasicSalary', basicInput.value);
         localStorage.setItem('savedEmpType', empType);
 
-        // 1. 加班费计算基数封顶逻辑
         let otCap = empType === 'workman' ? 4500 : 2600;
         let otBaseSalary = Math.min(basic, otCap);
         
-        // 2. 时薪计算体系
         let hourlyRate = (12 * otBaseSalary) / (52 * 44);
         let ot15Pay = ot15 * hourlyRate * 1.5;
         let ot20Pay = ot20 * hourlyRate * 2.0;
         let totalOTPay = ot15Pay + ot20Pay;
 
-        // 3. 2026 规定 Ordinary Wages 与 Additional Wages 的拆分计算
         let owValue = basic + totalOTPay + allowance;
         let awValue = bonus;
 
-        // 2026年1月1日起正式生效的全新 CPF 普通薪资 OW 月上限 8000 新元封顶
+        // 2026年 CPF 上限上调至 $8,000
         let owSubjectToCpf = Math.min(owValue, 8000);
-        
-        // 补充对 AW 的全年度封顶算法防护 (以2026官方上限 102,000 为底本)
         let awSubjectToCpf = awValue; 
 
         let totalSubjectWages = owSubjectToCpf + awSubjectToCpf;
 
-        // 4. 根据年龄组判定具体比例
         let employeeRate = 0;
         let employerRate = 0;
 
@@ -753,7 +858,6 @@
         let netPay = grossWages - employeeCpf;
         let totalCpfAcc = employeeCpf + employerCpf;
 
-        // 渲染基础计算面板数据
         document.getElementById('resHourlyRate').innerText = 'S$' + hourlyRate.toFixed(2);
         document.getElementById('resTotalOT').innerText = 'S$' + totalOTPay.toFixed(2);
         document.getElementById('resGrossWages').innerText = 'S$' + grossWages.toFixed(2);
@@ -764,11 +868,10 @@
         document.getElementById('resNetPay').innerText = 'S$' + netPay.toFixed(2);
         document.getElementById('resTotalCPF').innerText = 'S$' + totalCpfAcc.toFixed(2);
 
-        // 💱 纯前端即时仿真外币结算看板 (采用2026第二季度汇率中枢假定 1:3.28 及 1:5.25)
+        // 实时对冲外币看板
         document.getElementById('exMYR').value = (netPay * 3.28).toFixed(2);
         document.getElementById('exCNY').value = (netPay * 5.25).toFixed(2);
 
-        // 触发自动异步本地日志存储机制
         pushHistoryLog('salary', { timestamp: new Date().toLocaleTimeString(), basic: basic, ot15: ot15, ot20: ot20, result: netPay });
 
         document.getElementById('resultBox').style.display = 'block';
@@ -777,19 +880,20 @@
         if (ot15 + ot20 > 72) {
             tipElement.style.background = '#fef2f2';
             tipElement.style.border = '1px solid #fee2e2';
+            tipElement.style.color = '#ef4444';
             tipElement.innerHTML = "<strong>⚠️ Warning:</strong> Your total OT hours exceed the legal limit of 72 hours/month!";
             otInput15.classList.add('input-error');
             otInput20.classList.add('input-error');
         } else {
-            tipElement.style.background = '#fffbeb';
-            tipElement.style.border = '1px solid #fef3c7';
+            tipElement.style.background = 'rgba(37,99,235,0.05)';
+            tipElement.style.border = '1px solid var(--input-border)';
+            tipElement.style.color = 'var(--text)';
             tipElement.innerHTML = '<strong>💡 MOM Quick Guide:</strong><br>1. Max OT hours per month is 72.<br>2. OT pay must be paid within 14 days after the salary period.<br>3. Calculations are based on a 44-hour work week standard.';
             otInput15.classList.remove('input-error');
             otInput20.classList.remove('input-error');
         }
     }
 
-    // 离职实时计算器逻辑
     function handleLiveResignCalc() {
         const basicInput = document.getElementById('resignBasic');
         const leaveInput = document.getElementById('remainingLeave');
@@ -806,7 +910,6 @@
             return;
         }
 
-        // 核心公式：Gross rate of pay = (12 * basic) / (52 * working days per week)
         let dailyRate = (12 * basic) / (52 * workDays);
         let totalEncashment = dailyRate * leave;
 
@@ -818,13 +921,11 @@
         document.getElementById('resignResultBox').style.display = 'block';
     }
 
-    // 🛠️ 导出 txt 文本功能核心函数
     function exportCalculationTxt(type) {
         let textContent = "";
         if(type === 'salary') {
             textContent = `=========================================\n` +
                           `SINGAPORE MONTHLY SALARY REPORT (2026)\n` +
-                          `Generated on: ${new Date().toLocaleString()}\n` +
                           `=========================================\n` +
                           `Hourly Basic Rate   : ${document.getElementById('resHourlyRate').innerText}\n` +
                           `Total Overtime Pay  : ${document.getElementById('resTotalOT').innerText}\n` +
@@ -837,7 +938,6 @@
         } else {
             textContent = `=========================================\n` +
                           `RESIGNATION LEAVE ENCASHMENT REPORT\n` +
-                          `Generated on: ${new Date().toLocaleString()}\n` +
                           `=========================================\n` +
                           `Daily Gross Rate of Pay : ${document.getElementById('resDailyRate').innerText}\n` +
                           `Unused Leaves Accrued   : ${document.getElementById('remainingLeave').value} Days\n` +
@@ -853,24 +953,21 @@
         link.click();
     }
 
-    // 历史缓存写入队列控管
     function pushHistoryLog(type, item) {
         const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
         let currentList = JSON.parse(localStorage.getItem(key)) || [];
         
-        // 排重以及相似计算防卡死过滤机制
         if(currentList.length > 0 && currentList[0].basic === item.basic && currentList[0].result === item.result) {
             return; 
         }
 
         currentList.unshift(item);
-        if(currentList.length > 4) currentList.pop(); // 只维护 4 条最高质量记录
+        if(currentList.length > 4) currentList.pop();
 
         localStorage.setItem(key, JSON.stringify(currentList));
         renderHistoryDOM(type);
     }
 
-    // 异步高保真渲染历史队列DOM
     function renderHistoryDOM(type) {
         const key = type === 'salary' ? 'history_salary_list' : 'history_resign_list';
         const container = type === 'salary' ? document.getElementById('historySalaryBox') : document.getElementById('historyResignBox');
@@ -889,7 +986,7 @@
             let li = document.createElement('li');
             li.className = "history-item";
             if(type === 'salary') {
-                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b> (OT: ${item.ot15 + item.ot20}h)</span><span style="color:var(--primary); font-weight:bold;">Net: S$${Math.round(item.result)}</span>`;
+                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b></span><span style="color:var(--secondary); font-weight:bold;">Net: S$${Math.round(item.result)}</span>`;
                 li.onclick = () => {
                     document.getElementById('basicSalary').value = item.basic;
                     document.getElementById('otHours15').value = item.ot15;
@@ -897,7 +994,7 @@
                     handleLiveSalaryCalc();
                 };
             } else {
-                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b> (Leave: ${item.leave}d)</span><span style="color:var(--secondary); font-weight:bold;">Cash: S$${Math.round(item.result)}</span>`;
+                li.innerHTML = `<span>[${item.timestamp}] Basic: <b>S$${item.basic}</b></span><span style="color:#10b981; font-weight:bold;">Cash: S$${Math.round(item.result)}</span>`;
                 li.onclick = () => {
                     document.getElementById('resignBasic').value = item.basic;
                     document.getElementById('workDaysPerWeek').value = item.workDays;
@@ -918,7 +1015,6 @@
     // 🛠️ 优化功能 10: 键盘快捷键交互支持
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            // Esc 键自动智能一键清空当前可见活动面板
             if(document.getElementById('salaryPanel').style.display !== 'none') {
                 resetSalary();
             } else {
@@ -929,8 +1025,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         initTheme();
-        
-        // 渲染历史面板
         renderHistoryDOM('salary');
         renderHistoryDOM('resign');
 
