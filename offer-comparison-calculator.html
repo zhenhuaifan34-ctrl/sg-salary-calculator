@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en-SG">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singapore Job Offer Comparison Calculator 2026 | Salary, CPF & Bonus</title>
+  <meta name="description" content="Compare two Singapore job offers by annual salary, AWS, bonus, CPF, benefits, working hours and commute time. Free 2026 job offer calculator.">
+  <meta name="keywords" content="job offer comparison calculator singapore, compare job offers singapore, salary comparison singapore, offer calculator singapore, salary bonus cpf calculator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sg-salary-calculator.vercel.app/offer-comparison-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Singapore Job Offer Comparison Calculator 2026">
+  <meta property="og:description" content="Compare salary, AWS, bonus, CPF, benefits, working hours and commute time side by side.">
+  <meta property="og:url" content="https://sg-salary-calculator.vercel.app/offer-comparison-calculator.html">
+  <meta property="og:locale" content="en_SG">
+  <meta name="theme-color" content="#075985">
+
+  <style>
+    :root {
+      --navy: #0f2742;
+      --blue: #075985;
+      --blue-2: #0284c7;
+      --pale: #eff8ff;
+      --line: #d8e3ec;
+      --ink: #172433;
+      --muted: #64748b;
+      --green: #047857;
+      --green-pale: #ecfdf5;
+      --amber: #b45309;
+      --white: #ffffff;
+      --shadow: 0 14px 40px rgba(15, 39, 66, .09);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f6f9fc;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); }
+
+    .site-header {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 4px 18px rgba(15, 39, 66, .2);
+    }
+
+    .nav {
+      width: min(1160px, calc(100% - 32px));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: var(--white);
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: .94rem;
+    }
+
+    .nav-links a {
+      color: #e0f2fe;
+      text-decoration: none;
+    }
+
+    .hero {
+      color: var(--white);
+      background:
+        radial-gradient(circle at 80% 15%, rgba(56, 189, 248, .24), transparent 30%),
+        linear-gradient(135deg, #0f2742, #075985);
+      padding: 66px 0 82px;
+    }
+
+    .hero-inner,
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 6px 11px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 5vw, 3.55rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0;
+      color: #dbeafe;
+      font-size: 1.08rem;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .hero-points span {
+      padding: 7px 11px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.1);
+      color: #e0f2fe;
+      font-size: .88rem;
+    }
+
+    .page {
+      margin-top: -36px;
+      padding-bottom: 56px;
+    }
+
+    .calculator-shell,
+    .content-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .calculator-shell { padding: 26px; }
+
+    .global-settings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+      padding: 18px;
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      background: var(--pale);
+    }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .offer-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+
+    .offer-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    .offer-card:nth-child(2) .offer-title { background: var(--blue); }
+
+    .offer-title h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .offer-title input {
+      width: 55%;
+      padding: 8px 10px;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 8px;
+      outline: none;
+      background: rgba(255,255,255,.1);
+      font: inherit;
+      font-size: .9rem;
+    }
+
+    .offer-title input::placeholder { color: #dbeafe; }
+
+    .offer-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      padding: 18px;
+    }
+
+    .field { min-width: 0; }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #334155;
+      font-size: .86rem;
+      font-weight: 720;
+    }
+
+    .hint {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .73rem;
+      line-height: 1.35;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 11px;
+      color: var(--ink);
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      outline: none;
+      background: var(--white);
+      font: inherit;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue-2);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, .12);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      min-height: 46px;
+      padding: 11px 20px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      box-shadow: 0 8px 20px rgba(2, 132, 199, .25);
+    }
+
+    .secondary {
+      color: var(--navy);
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .results {
+      display: none;
+      margin-top: 26px;
+      scroll-margin-top: 20px;
+    }
+
+    .results.show { display: block; }
+
+    .verdict {
+      margin-bottom: 18px;
+      padding: 20px;
+      border: 1px solid #a7f3d0;
+      border-radius: 14px;
+      background: var(--green-pale);
+    }
+
+    .verdict h2 {
+      margin: 0 0 6px;
+      color: #065f46;
+      font-size: 1.25rem;
+    }
+
+    .verdict p { margin: 0; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--line);
+    }
+
+    .result-cell {
+      min-width: 0;
+      padding: 13px 14px;
+      background: var(--white);
+    }
+
+    .result-cell.head {
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .result-cell.head.alt { background: var(--blue); }
+
+    .metric-label {
+      color: #475569;
+      font-size: .89rem;
+      font-weight: 700;
+    }
+
+    .metric-value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+    }
+
+    .winner {
+      color: var(--green);
+      background: #f0fdf4;
+    }
+
+    .result-notes {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .content-card {
+      margin-top: 24px;
+      padding: 28px;
+    }
+
+    .content-card h2,
+    .content-card h3 {
+      color: var(--navy);
+      line-height: 1.25;
+    }
+
+    .content-card h2 { margin-top: 0; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .step {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdff;
+    }
+
+    .step strong {
+      display: block;
+      color: var(--blue);
+      margin-bottom: 5px;
+    }
+
+    .faq {
+      border-top: 1px solid var(--line);
+    }
+
+    details { border-bottom: 1px solid var(--line); }
+
+    summary {
+      padding: 16px 4px;
+      cursor: pointer;
+      color: var(--navy);
+      font-weight: 780;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 4px 16px;
+      color: #475569;
+    }
+
+    .related {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .related a {
+      display: block;
+      padding: 16px;
+      color: var(--navy);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdff;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    footer {
+      padding: 28px 16px;
+      color: #cbd5e1;
+      background: var(--navy);
+      text-align: center;
+      font-size: .88rem;
+    }
+
+    footer a { color: #e0f2fe; }
+
+    @media (max-width: 850px) {
+      .offers-grid,
+      .global-settings,
+      .steps,
+      .related { grid-template-columns: 1fr; }
+
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .result-cell:first-child,
+      .result-cell.head:first-child { grid-column: 1 / -1; }
+      .result-cell:nth-child(3n + 1) {
+        grid-column: 1 / -1;
+        border-top: 5px solid #eef2f7;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav { align-items: flex-start; padding: 14px 0; }
+      .nav-links { justify-content: flex-end; gap: 10px; font-size: .8rem; }
+      .hero { padding-top: 46px; }
+      .calculator-shell, .content-card { padding: 18px; }
+      .offer-fields { grid-template-columns: 1fr; padding: 15px; }
+      .field.full { grid-column: auto; }
+      .offer-title { align-items: flex-start; flex-direction: column; }
+      .offer-title input { width: 100%; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Singapore Job Offer Comparison Calculator 2026",
+    "url": "https://sg-salary-calculator.vercel.app/offer-comparison-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "SGD"
+    },
+    "description": "Compare two Singapore job offers by annual cash compensation, CPF, benefits, working hours and commute time."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How should I compare two job offers in Singapore?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Compare annual base salary, AWS, expected bonus, fixed allowances, benefits, CPF, working hours and commute time. Monthly salary alone can hide meaningful differences."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is AWS compulsory in Singapore?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AWS is not compulsory unless it is stated in the employment contract or collective agreement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are AWS and bonuses subject to CPF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CPF contributions are generally payable on AWS and employment bonuses, subject to the Additional Wage ceiling."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/">SG Salary Pro</a>
+      <div class="nav-links">
+        <a href="/">Salary Calculator</a>
+        <a href="/resignation-calculator.html">Resignation</a>
+        <a href="/guide-2026.html">Guides</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Free 2026 Singapore tool</div>
+        <h1>Job Offer Comparison Calculator</h1>
+        <p>Compare two offers beyond monthly salary. See annual cash, estimated CPF, benefits, working hours and the hidden cost of commuting.</p>
+        <div class="hero-points" aria-label="Calculator features">
+          <span>Salary + AWS + bonus</span>
+          <span>2026 CPF estimates</span>
+          <span>Effective hourly value</span>
+          <span>Commute-adjusted comparison</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="page">
+      <section class="calculator-shell" aria-labelledby="calculator-heading">
+        <h2 id="calculator-heading" style="margin-top:0">Compare your offers</h2>
+
+        <div class="global-settings">
+          <div class="field">
+            <label for="cpfStatus">CPF status</label>
+            <select id="cpfStatus">
+              <option value="full">Singapore Citizen / SPR (3rd year onwards)</option>
+              <option value="none">No CPF calculation</option>
+            </select>
+            <span class="hint">First- and second-year SPR graduated rates are not included.</span>
+          </div>
+          <div class="field">
+            <label for="ageGroup">Employee age in 2026</label>
+            <select id="ageGroup">
+              <option value="55">55 and below</option>
+              <option value="60">Above 55 to 60</option>
+              <option value="65">Above 60 to 65</option>
+              <option value="70">Above 65 to 70</option>
+              <option value="71">Above 70</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-title">
+              <h2>Offer A</h2>
+              <input id="aName" type="text" maxlength="40" placeholder="Current / Company A" aria-label="Offer A name">
+            </div>
+            <div class="offer-fields">
+              <div class="field">
+                <label for="aSalary">Monthly base salary (S$)</label>
+                <input id="aSalary" type="number" min="0" step="100" value="5000" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="aAllowance">Monthly fixed allowance (S$)</label>
+                <input id="aAllowance" type="number" min="0" step="50" value="0" inputmode="decimal">
+                <span class="hint">Treated as CPF-applicable Ordinary Wages.</span>
+              </div>
+              <div class="field">
+                <label for="aAws">AWS / 13th month</label>
+                <select id="aAws">
+                  <option value="0">No AWS</option>
+                  <option value=".5">0.5 month</option>
+                  <option value="1" selected>1 month</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="aBonus">Expected bonus (months)</label>
+                <input id="aBonus" type="number" min="0" max="24" step=".1" value="1" inputmode="decimal">
+                <span class="hint">Use a realistic expected amount, not the maximum.</span>
+              </div>
+              <div class="field">
+                <label for="aBenefits">Annual benefits value (S$)</label>
+                <input id="aBenefits" type="number" min="0" step="100" value="1000" inputmode="decimal">
+                <span class="hint">Insurance, flex benefits, stock value or allowances not paid monthly.</span>
+              </div>
+              <div class="field">
+                <label for="aHours">Working hours per week</label>
+                <input id="aHours" type="number" min="1" max="100" step=".5" value="44" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="aCommuteDays">Office days per week</label>
+                <input id="aCommuteDays" type="number" min="0" max="7" step=".5" value="5" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="aCommute">Round-trip commute (minutes)</label>
+                <input id="aCommute" type="number" min="0" max="600" step="5" value="60" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="aLeave">Annual leave (days)</label>
+                <input id="aLeave" type="number" min="0" max="60" step="1" value="14" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="aCost">Monthly work/commute cost (S$)</label>
+                <input id="aCost" type="number" min="0" step="20" value="150" inputmode="decimal">
+                <span class="hint">Transport, parking, extra meals or other job-linked costs.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-title">
+              <h2>Offer B</h2>
+              <input id="bName" type="text" maxlength="40" placeholder="New / Company B" aria-label="Offer B name">
+            </div>
+            <div class="offer-fields">
+              <div class="field">
+                <label for="bSalary">Monthly base salary (S$)</label>
+                <input id="bSalary" type="number" min="0" step="100" value="5800" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="bAllowance">Monthly fixed allowance (S$)</label>
+                <input id="bAllowance" type="number" min="0" step="50" value="0" inputmode="decimal">
+                <span class="hint">Treated as CPF-applicable Ordinary Wages.</span>
+              </div>
+              <div class="field">
+                <label for="bAws">AWS / 13th month</label>
+                <select id="bAws">
+                  <option value="0" selected>No AWS</option>
+                  <option value=".5">0.5 month</option>
+                  <option value="1">1 month</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="bBonus">Expected bonus (months)</label>
+                <input id="bBonus" type="number" min="0" max="24" step=".1" value="1.5" inputmode="decimal">
+                <span class="hint">Use a realistic expected amount, not the maximum.</span>
+              </div>
+              <div class="field">
+                <label for="bBenefits">Annual benefits value (S$)</label>
+                <input id="bBenefits" type="number" min="0" step="100" value="1500" inputmode="decimal">
+                <span class="hint">Insurance, flex benefits, stock value or allowances not paid monthly.</span>
+              </div>
+              <div class="field">
+                <label for="bHours">Working hours per week</label>
+                <input id="bHours" type="number" min="1" max="100" step=".5" value="45" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="bCommuteDays">Office days per week</label>
+                <input id="bCommuteDays" type="number" min="0" max="7" step=".5" value="3" inputmode="decimal">
+              </div>
+              <div class="field">
+                <label for="bCommute">Round-trip commute (minutes)</label>
+                <input id="bCommute" type="number" min="0" max="600" step="5" value="75" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="bLeave">Annual leave (days)</label>
+                <input id="bLeave" type="number" min="0" max="60" step="1" value="18" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="bCost">Monthly work/commute cost (S$)</label>
+                <input id="bCost" type="number" min="0" step="20" value="120" inputmode="decimal">
+                <span class="hint">Transport, parking, extra meals or other job-linked costs.</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="button" id="compareButton">Compare Offers</button>
+          <button class="secondary" type="button" id="resetButton">Reset</button>
+          <button class="secondary" type="button" id="copyButton">Copy Results</button>
+        </div>
+
+        <section class="results" id="results" aria-live="polite">
+          <div class="verdict">
+            <h2 id="verdictTitle">Comparison result</h2>
+            <p id="verdictText"></p>
+          </div>
+
+          <div class="result-grid" id="resultGrid">
+            <div class="result-cell head">Metric</div>
+            <div class="result-cell head" id="aResultName">Offer A</div>
+            <div class="result-cell head alt" id="bResultName">Offer B</div>
+          </div>
+          <p class="result-notes">
+            Estimates only. CPF uses full rates for Singapore Citizens and SPRs from the third year onwards, assumes monthly fixed allowance is Ordinary Wages, and treats AWS/bonus as Additional Wages. Income tax is not deducted.
+          </p>
+        </section>
+      </section>
+
+      <section class="content-card">
+        <h2>How to compare job offers in Singapore</h2>
+        <p>A higher monthly salary does not always produce the better overall offer. AWS, bonus reliability, CPF, benefits, leave, working hours and commute time can materially change the answer.</p>
+        <div class="steps">
+          <div class="step">
+            <strong>1. Compare guaranteed cash</strong>
+            Start with 12 months of base salary, contractual AWS and fixed monthly allowances.
+          </div>
+          <div class="step">
+            <strong>2. Discount uncertain bonus</strong>
+            Enter a realistic expected bonus based on written terms and past company performance.
+          </div>
+          <div class="step">
+            <strong>3. Price your time</strong>
+            Compare effective hourly value after working hours, office days and commute time.
+          </div>
+        </div>
+
+        <h3>CPF treatment used by this calculator</h3>
+        <p>For 2026, the CPF Ordinary Wage ceiling is S$8,000 per month. The Additional Wage ceiling is S$102,000 minus the Ordinary Wages subject to CPF for the year. AWS and employment bonuses generally attract CPF, subject to that ceiling.</p>
+      </section>
+
+      <section class="content-card">
+        <h2>Frequently asked questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Is a 10% salary increase enough to switch jobs?</summary>
+            <p>There is no universal threshold. Check whether the increase survives differences in AWS, bonus, CPF, leave, commute costs, working hours and role risk. A 10% headline increase can shrink quickly when the new offer removes AWS or adds longer hours.</p>
+          </details>
+          <details>
+            <summary>Is AWS compulsory in Singapore?</summary>
+            <p>No. AWS, also called a 13th-month payment, is not compulsory unless it is included in your employment contract or collective agreement.</p>
+          </details>
+          <details>
+            <summary>Are bonuses and AWS subject to CPF?</summary>
+            <p>They generally attract CPF as Additional Wages, subject to the applicable annual Additional Wage ceiling.</p>
+          </details>
+          <details>
+            <summary>Does this calculator include Singapore income tax?</summary>
+            <p>No. Personal income tax depends on tax residency, reliefs and other income. The “cash after employee CPF and work costs” result is not the same as final after-tax income.</p>
+          </details>
+          <details>
+            <summary>How is effective hourly value calculated?</summary>
+            <p>The calculator divides annual cash after employee CPF and job-linked costs, plus annual benefits, by estimated annual working and commuting hours. Annual leave reduces estimated working weeks.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>Related Singapore salary tools and guides</h2>
+        <div class="related">
+          <a href="/">Singapore Salary & CPF Calculator</a>
+          <a href="/resignation-calculator.html">Resignation & Leave Calculator</a>
+          <a href="/guide-cpf-2026.html">CPF Contribution Guide 2026</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>© 2026 Singapore Labor Tool · Estimates only, not financial or legal advice</div>
+    <div><a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const CPF_RATES = {
+        "55": { employee: 0.20, employer: 0.17 },
+        "60": { employee: 0.18, employer: 0.16 },
+        "65": { employee: 0.125, employer: 0.125 },
+        "70": { employee: 0.075, employer: 0.09 },
+        "71": { employee: 0.05, employer: 0.075 }
+      };
+
+      const OW_MONTHLY_CEILING = 8000;
+      const TOTAL_WAGE_CEILING = 102000;
+      const WORK_DAYS_PER_WEEK = 5;
+
+      const money = new Intl.NumberFormat("en-SG", {
+        style: "currency",
+        currency: "SGD",
+        maximumFractionDigits: 0
+      });
+
+      const money2 = new Intl.NumberFormat("en-SG", {
+        style: "currency",
+        currency: "SGD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      const percent = new Intl.NumberFormat("en-SG", {
+        style: "percent",
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+      });
+
+      const $ = (id) => document.getElementById(id);
+
+      function num(id) {
+        const value = Number($(id).value);
+        return Number.isFinite(value) && value >= 0 ? value : 0;
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function offerName(prefix) {
+        const entered = $(prefix + "Name").value.trim();
+        return entered || (prefix === "a" ? "Offer A" : "Offer B");
+      }
+
+      function calculateOffer(prefix) {
+        const salary = num(prefix + "Salary");
+        const allowance = num(prefix + "Allowance");
+        const awsMonths = num(prefix + "Aws");
+        const bonusMonths = num(prefix + "Bonus");
+        const benefits = num(prefix + "Benefits");
+        const weeklyHours = clamp(num(prefix + "Hours"), 1, 100);
+        const commuteDays = clamp(num(prefix + "CommuteDays"), 0, 7);
+        const commuteMinutes = clamp(num(prefix + "Commute"), 0, 600);
+        const leaveDays = clamp(num(prefix + "Leave"), 0, 60);
+        const monthlyCost = num(prefix + "Cost");
+
+        const monthlyOrdinaryCash = salary + allowance;
+        const annualBaseCash = monthlyOrdinaryCash * 12;
+        const additionalCash = salary * (awsMonths + bonusMonths);
+        const annualCash = annualBaseCash + additionalCash;
+
+        let employeeCpf = 0;
+        let employerCpf = 0;
+        let cpfApplicableWages = 0;
+
+        if ($("cpfStatus").value === "full") {
+          const rates = CPF_RATES[$("ageGroup").value];
+          const annualOwSubject = Math.min(monthlyOrdinaryCash, OW_MONTHLY_CEILING) * 12;
+          const awCeiling = Math.max(0, TOTAL_WAGE_CEILING - annualOwSubject);
+          const awSubject = Math.min(additionalCash, awCeiling);
+          cpfApplicableWages = annualOwSubject + awSubject;
+          employeeCpf = cpfApplicableWages * rates.employee;
+          employerCpf = cpfApplicableWages * rates.employer;
+        }
+
+        const annualWorkCost = monthlyCost * 12;
+        const cashAfterCpfAndCosts = annualCash - employeeCpf - annualWorkCost;
+        const paidLeaveWeeks = leaveDays / WORK_DAYS_PER_WEEK;
+        const activeWorkWeeks = clamp(52 - paidLeaveWeeks, 1, 52);
+        const annualWorkHours = weeklyHours * activeWorkWeeks;
+        const annualCommuteHours = commuteDays * (commuteMinutes / 60) * activeWorkWeeks;
+        const annualTimeHours = annualWorkHours + annualCommuteHours;
+        const effectiveHourly = annualTimeHours > 0
+          ? (cashAfterCpfAndCosts + benefits) / annualTimeHours
+          : 0;
+        const employerPackage = annualCash + employerCpf + benefits;
+
+        return {
+          name: offerName(prefix),
+          annualCash,
+          employeeCpf,
+          employerCpf,
+          cpfApplicableWages,
+          annualWorkCost,
+          cashAfterCpfAndCosts,
+          benefits,
+          employerPackage,
+          annualTimeHours,
+          effectiveHourly,
+          leaveDays,
+          weeklyHours
+        };
+      }
+
+      const metrics = [
+        { label: "Annual cash compensation", key: "annualCash", format: money.format.bind(money), higher: true },
+        { label: "Estimated employee CPF", key: "employeeCpf", format: money.format.bind(money), higher: false },
+        { label: "Estimated employer CPF", key: "employerCpf", format: money.format.bind(money), higher: true },
+        { label: "Annual work/commute costs", key: "annualWorkCost", format: money.format.bind(money), higher: false },
+        { label: "Cash after employee CPF & work costs", key: "cashAfterCpfAndCosts", format: money.format.bind(money), higher: true },
+        { label: "Annual benefits value", key: "benefits", format: money.format.bind(money), higher: true },
+        { label: "Estimated employer package", key: "employerPackage", format: money.format.bind(money), higher: true },
+        { label: "Work + commute time per year", key: "annualTimeHours", format: (v) => Math.round(v).toLocaleString("en-SG") + " hrs", higher: false },
+        { label: "Effective hourly value", key: "effectiveHourly", format: money2.format.bind(money2), higher: true },
+        { label: "Annual leave", key: "leaveDays", format: (v) => v.toLocaleString("en-SG") + " days", higher: true }
+      ];
+
+      function addCell(grid, text, className = "") {
+        const cell = document.createElement("div");
+        cell.className = "result-cell " + className;
+        cell.textContent = text;
+        grid.appendChild(cell);
+      }
+
+      function buildResults(a, b) {
+        const grid = $("resultGrid");
+        grid.innerHTML = "";
+        addCell(grid, "Metric", "head");
+        addCell(grid, a.name, "head");
+        addCell(grid, b.name, "head alt");
+
+        metrics.forEach((metric) => {
+          const aValue = a[metric.key];
+          const bValue = b[metric.key];
+          const equal = Math.abs(aValue - bValue) < 0.005;
+          const aWins = !equal && (metric.higher ? aValue > bValue : aValue < bValue);
+          const bWins = !equal && (metric.higher ? bValue > aValue : bValue < aValue);
+
+          addCell(grid, metric.label, "metric-label");
+          addCell(grid, metric.format(aValue), "metric-value" + (aWins ? " winner" : ""));
+          addCell(grid, metric.format(bValue), "metric-value" + (bWins ? " winner" : ""));
+        });
+      }
+
+      function createVerdict(a, b) {
+        const cashDiff = b.cashAfterCpfAndCosts - a.cashAfterCpfAndCosts;
+        const hourlyDiff = b.effectiveHourly - a.effectiveHourly;
+        const annualCashBase = Math.max(Math.abs(a.cashAfterCpfAndCosts), 1);
+        const cashPct = cashDiff / annualCashBase;
+        const cashWinner = cashDiff > 0 ? b.name : a.name;
+        const hourlyWinner = hourlyDiff > 0 ? b.name : a.name;
+
+        let title;
+        let text;
+
+        if (Math.abs(cashDiff) < 100 && Math.abs(hourlyDiff) < 0.1) {
+          title = "The two offers are financially very similar";
+          text = "The calculated cash and effective hourly values are almost equal. Focus on role scope, manager, stability and career progression.";
+        } else if (cashWinner === hourlyWinner) {
+          title = cashWinner + " leads on both cash and time value";
+          text = cashWinner + " provides about " + money.format(Math.abs(cashDiff)) +
+            " more annual cash after estimated employee CPF and work costs, and also has the higher effective hourly value.";
+        } else {
+          title = "The better choice depends on whether you prioritise cash or time";
+          text = cashWinner + " provides about " + money.format(Math.abs(cashDiff)) +
+            " more annual cash after estimated employee CPF and work costs, while " +
+            hourlyWinner + " has the higher effective hourly value.";
+        }
+
+        if (Math.abs(cashPct) >= 0.01) {
+          text += " The annual cash difference is approximately " + percent.format(Math.abs(cashPct)) + " versus " + a.name + ".";
+        }
+
+        $("verdictTitle").textContent = title;
+        $("verdictText").textContent = text;
+      }
+
+      function compare(scroll = true) {
+        const a = calculateOffer("a");
+        const b = calculateOffer("b");
+
+        if (a.annualCash <= 0 || b.annualCash <= 0) {
+          window.alert("Please enter a positive monthly salary for both offers.");
+          return;
+        }
+
+        createVerdict(a, b);
+        buildResults(a, b);
+        $("results").classList.add("show");
+        window.currentComparison = { a, b };
+
+        if (scroll) {
+          $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function copyResults() {
+        if (!window.currentComparison) compare(false);
+        const comparison = window.currentComparison;
+        if (!comparison) return;
+
+        const { a, b } = comparison;
+        const lines = [
+          "Singapore Job Offer Comparison 2026",
+          "",
+          `${a.name} vs ${b.name}`,
+          `Annual cash: ${money.format(a.annualCash)} vs ${money.format(b.annualCash)}`,
+          `Employee CPF: ${money.format(a.employeeCpf)} vs ${money.format(b.employeeCpf)}`,
+          `Cash after CPF & work costs: ${money.format(a.cashAfterCpfAndCosts)} vs ${money.format(b.cashAfterCpfAndCosts)}`,
+          `Effective hourly value: ${money2.format(a.effectiveHourly)} vs ${money2.format(b.effectiveHourly)}`,
+          "",
+          $("verdictTitle").textContent,
+          $("verdictText").textContent,
+          "",
+          "Calculated at: https://sg-salary-calculator.vercel.app/offer-comparison-calculator.html"
+        ];
+
+        navigator.clipboard.writeText(lines.join("\n"))
+          .then(() => {
+            const button = $("copyButton");
+            const oldText = button.textContent;
+            button.textContent = "Copied!";
+            setTimeout(() => { button.textContent = oldText; }, 1600);
+          })
+          .catch(() => window.alert("Copy failed. Please select and copy the results manually."));
+      }
+
+      function reset() {
+        document.querySelectorAll("input").forEach((input) => {
+          input.value = input.defaultValue;
+        });
+        document.querySelectorAll("select").forEach((select) => {
+          const selected = Array.from(select.options).find((option) => option.defaultSelected);
+          select.value = selected ? selected.value : select.options[0].value;
+        });
+        $("results").classList.remove("show");
+        window.currentComparison = null;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      $("compareButton").addEventListener("click", () => compare(true));
+      $("copyButton").addEventListener("click", copyResults);
+      $("resetButton").addEventListener("click", reset);
+    })();
+  </script>
+</body>
+</html>
