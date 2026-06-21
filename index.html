@@ -47,6 +47,19 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is the maximum statutory overtime hours allowed per month?","acceptedAnswer":{"@type":"Answer","text":"Employees should not work more than 72 hours of overtime a month unless an exemption has been granted."}},
+    {"@type":"Question","name":"Does overtime pay attract CPF contributions?","acceptedAnswer":{"@type":"Answer","text":"Yes. Overtime pay is generally treated as wages for CPF purposes, subject to applicable CPF wage ceilings."}},
+    {"@type":"Question","name":"What CPF Ordinary Wage ceiling is used?","acceptedAnswer":{"@type":"Answer","text":"The salary calculator is designed around the 2026 monthly Ordinary Wage ceiling of S$8,000."}},
+    {"@type":"Question","name":"How is annual leave encashment calculated?","acceptedAnswer":{"@type":"Answer","text":"Formula: (12 x Monthly Gross Rate of Pay) / (52 x Working Days Per Week) x Unused Leave Days. Gross rate usually includes basic salary and fixed allowances, but excludes overtime, bonus, reimbursement and similar non-regular payments."}}
+  ]
+}
+</script>
+
 <script>
 (function(){
   document.documentElement.setAttribute('data-theme', localStorage.getItem('theme-override') || 'light');
@@ -69,8 +82,9 @@ html[data-theme=light] {
   --muted:#64748b;
   --success:#10b981;
   --warning:#f59e0b;
-  --shadow:0 16px 40px -18px rgba(15,23,42,.28);
-  --soft-shadow:0 12px 30px -18px rgba(15,23,42,.18);
+  --purple:#7c3aed;
+  --shadow:0 18px 48px -22px rgba(15,23,42,.30);
+  --soft-shadow:0 12px 30px -18px rgba(15,23,42,.20);
 }
 
 html[data-theme=dark] {
@@ -87,43 +101,53 @@ html[data-theme=dark] {
   --muted:#94a3b8;
   --success:#10b981;
   --warning:#f59e0b;
-  --shadow:0 16px 40px -18px rgba(0,0,0,.75);
-  --soft-shadow:0 12px 30px -18px rgba(0,0,0,.65);
+  --purple:#a78bfa;
+  --shadow:0 18px 48px -22px rgba(0,0,0,.78);
+  --soft-shadow:0 12px 30px -18px rgba(0,0,0,.68);
 }
 
 * { box-sizing:border-box; }
-
 html { scroll-behavior:smooth; }
 
 body {
   margin:0;
   padding:28px 16px;
   background:
-    radial-gradient(circle at top left, rgba(37,99,235,.10), transparent 32%),
-    radial-gradient(circle at top right, rgba(239,68,68,.09), transparent 30%),
+    radial-gradient(circle at top left, rgba(37,99,235,.12), transparent 34%),
+    radial-gradient(circle at top right, rgba(239,68,68,.10), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.35), transparent 360px),
     var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-.page {
-  max-width:980px;
-  margin:0 auto;
-}
+.page { max-width:1080px; margin:0 auto; }
 
-.top {
+.site-header {
+  position:sticky;
+  top:10px;
+  z-index:20;
   display:flex;
   justify-content:space-between;
-  gap:16px;
   align-items:center;
-  margin-bottom:18px;
+  gap:16px;
+  padding:12px;
+  margin-bottom:20px;
+  border:1px solid var(--input-border);
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  box-shadow:var(--soft-shadow);
 }
+
+html[data-theme=dark] .site-header { background:rgba(15,23,42,.78); }
 
 .brand {
   font-weight:950;
   text-decoration:none;
   color:var(--text);
-  letter-spacing:-.03em;
+  letter-spacing:-.035em;
+  white-space:nowrap;
 }
 
 .badge {
@@ -135,34 +159,22 @@ body {
   margin-left:6px;
 }
 
-.mode {
-  border:1px solid var(--input-border);
-  background:var(--card);
-  color:var(--text);
-  border-radius:999px;
-  padding:8px 14px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:var(--soft-shadow);
-}
-
-.nav {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:22px;
-}
+.nav { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
 
 .nav a,
 .btn,
 .card,
+.intent-card,
 .topic-card,
-.media-card,
+.calc-card,
+.audience-card,
 .step,
-.trust-card {
+.trust-card,
+.update-card,
+.preview-card,
+.trust-strip-item {
   border:1px solid var(--input-border);
-  background:rgba(255,255,255,.72);
+  background:rgba(255,255,255,.76);
   color:var(--text);
   text-decoration:none;
   border-radius:16px;
@@ -171,62 +183,89 @@ body {
 
 html[data-theme=dark] .nav a,
 html[data-theme=dark] .card,
+html[data-theme=dark] .intent-card,
 html[data-theme=dark] .topic-card,
-html[data-theme=dark] .media-card,
+html[data-theme=dark] .calc-card,
+html[data-theme=dark] .audience-card,
 html[data-theme=dark] .step,
-html[data-theme=dark] .trust-card {
-  background:rgba(30,41,59,.72);
+html[data-theme=dark] .trust-card,
+html[data-theme=dark] .update-card,
+html[data-theme=dark] .preview-card,
+html[data-theme=dark] .trust-strip-item {
+  background:rgba(30,41,59,.78);
 }
 
 .nav a {
-  padding:9px 12px;
-  font-size:.86rem;
+  padding:8px 10px;
+  font-size:.83rem;
   font-weight:850;
 }
 
 .nav a:hover,
 .nav .active,
 .card:hover,
+.intent-card:hover,
 .topic-card:hover,
-.media-card:hover {
+.calc-card:hover {
   border-color:var(--secondary);
   transform:translateY(-1px);
+}
+
+.mode {
+  border:1px solid var(--input-border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:850;
+  cursor:pointer;
 }
 
 .hero {
   position:relative;
   overflow:hidden;
-  padding:44px 28px;
+  padding:34px;
   border:1px solid var(--input-border);
   background:
-    linear-gradient(135deg, rgba(37,99,235,.13), rgba(239,68,68,.10)),
+    linear-gradient(135deg, rgba(37,99,235,.14), rgba(239,68,68,.10)),
     var(--card);
-  border-radius:28px;
+  border-radius:30px;
   box-shadow:var(--shadow);
   margin:18px 0;
 }
 
+.hero-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);
+  gap:26px;
+  align-items:center;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--secondary);
+  background:rgba(37,99,235,.10);
+  border:1px solid rgba(37,99,235,.18);
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
 .hero h1 {
   max-width:760px;
-  font-size:clamp(2.25rem,6vw,4.6rem);
-  line-height:1.02;
-  letter-spacing:-.06em;
+  font-size:clamp(2.2rem,5.8vw,4.7rem);
+  line-height:1.01;
+  letter-spacing:-.065em;
   margin:0 0 18px;
 }
 
-.hero p {
-  max-width:720px;
-  color:var(--label);
-  line-height:1.75;
-  font-size:1.03rem;
-}
+.hero p { max-width:720px; color:var(--label); line-height:1.75; font-size:1.03rem; }
 
-.hero-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:24px;
-}
+.hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
 
 .btn {
   display:inline-flex;
@@ -237,26 +276,11 @@ html[data-theme=dark] .trust-card {
   font-weight:950;
 }
 
-.btn.primary {
-  background:var(--primary);
-  color:white;
-  border-color:var(--primary);
-}
+.btn.primary { background:var(--primary); color:white; border-color:var(--primary); }
+.btn.primary:hover { background:var(--primary-dark); }
+.btn.secondary { background:var(--card); }
 
-.btn.primary:hover {
-  background:var(--primary-dark);
-}
-
-.btn.secondary {
-  background:var(--card);
-}
-
-.hero-pills {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:24px;
-}
+.hero-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
 
 .pill {
   font-size:.78rem;
@@ -268,280 +292,126 @@ html[data-theme=dark] .trust-card {
   border-radius:999px;
 }
 
+.preview-card {
+  padding:20px;
+  box-shadow:var(--shadow);
+  background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.68));
+}
+
+html[data-theme=dark] .preview-card { background:linear-gradient(180deg,rgba(30,41,59,.88),rgba(15,23,42,.72)); }
+
+.preview-top { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:16px; }
+.preview-title { font-weight:950; letter-spacing:-.02em; }
+.preview-note { font-size:.78rem; color:var(--muted); font-weight:850; }
+
+.preview-line { display:flex; justify-content:space-between; gap:14px; padding:11px 0; border-top:1px solid var(--input-border); color:var(--label); }
+.preview-line b { color:var(--text); }
+.preview-line.negative b { color:var(--primary); }
+.preview-line.positive b { color:var(--success); }
+.preview-total { margin-top:14px; padding:14px; border-radius:16px; background:var(--result-bg); display:flex; justify-content:space-between; gap:14px; font-weight:950; }
+
+.trust-strip {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+  margin:18px 0;
+}
+
+.trust-strip-item { padding:13px 12px; text-align:center; font-size:.86rem; font-weight:900; box-shadow:var(--soft-shadow); }
+.trust-strip-item span { display:block; color:var(--muted); font-size:.74rem; font-weight:800; margin-top:4px; }
+
 .section,
 .faq {
   background:var(--card);
   border:1px solid var(--input-border);
-  border-radius:24px;
+  border-radius:26px;
   box-shadow:var(--soft-shadow);
-  padding:26px;
+  padding:28px;
   margin:18px 0;
 }
 
-.section-head {
-  display:flex;
-  justify-content:space-between;
-  gap:16px;
-  align-items:flex-end;
-  margin-bottom:14px;
-}
+.section-head { display:flex; justify-content:space-between; gap:16px; align-items:flex-end; margin-bottom:16px; }
+h2 { font-size:1.32rem; margin:0 0 10px; letter-spacing:-.025em; }
+h3 { margin:0 0 8px; }
+p { color:var(--label); line-height:1.72; }
 
-h2 {
-  font-size:1.28rem;
-  margin:0 0 10px;
-  letter-spacing:-.02em;
-}
-
-p {
-  color:var(--label);
-  line-height:1.72;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
-
-.card {
-  padding:18px;
-  min-height:176px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  box-shadow:var(--soft-shadow);
-}
-
-.card-icon {
-  width:42px;
-  height:42px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--result-bg);
-  border:1px solid var(--input-border);
-  border-radius:14px;
-  font-size:1.35rem;
-  margin-bottom:14px;
-}
-
-.card strong {
-  font-size:1.06rem;
-  display:block;
-  margin-bottom:8px;
-}
-
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.card { padding:20px; min-height:214px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--soft-shadow); }
+.card-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:var(--result-bg); border:1px solid var(--input-border); border-radius:15px; font-size:1.35rem; margin-bottom:14px; }
+.card strong { font-size:1.08rem; display:block; margin-bottom:8px; }
 .card span,
+.intent-card span,
 .topic-card span,
-.media-card span {
-  color:var(--label);
-  font-size:.9rem;
-  line-height:1.5;
-}
+.calc-card span,
+.audience-card span { color:var(--label); font-size:.9rem; line-height:1.5; }
+.card-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.mini-tag { color:var(--muted); background:var(--result-bg); border:1px solid var(--input-border); border-radius:999px; padding:5px 8px; font-size:.72rem; font-weight:850; }
+.card.featured { border-color:rgba(37,99,235,.55); background:linear-gradient(135deg,rgba(37,99,235,.10),var(--card)); }
 
-.card.featured {
-  border-color:rgba(37,99,235,.55);
-  background:linear-gradient(135deg,rgba(37,99,235,.10),var(--card));
-}
+.intent-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.intent-card { padding:15px; min-height:120px; display:flex; flex-direction:column; justify-content:space-between; font-weight:900; }
+.intent-card em { color:var(--primary); font-style:normal; font-size:1.25rem; }
 
-.topic-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
+.topic-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.topic-group { border:1px solid var(--input-border); border-radius:20px; padding:16px; background:var(--result-bg); }
+.topic-group h3 { font-size:1rem; }
+.topic-list { display:grid; gap:8px; margin-top:12px; }
+.topic-card { display:flex; flex-direction:column; gap:4px; padding:13px 14px; font-weight:850; background:var(--card); }
+.topic-card strong { font-size:.96rem; }
+.topic-card.featured-topic { border-color:rgba(37,99,235,.55); background:linear-gradient(135deg,rgba(37,99,235,.08),var(--card)); }
 
-.topic-card {
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  padding:14px 15px;
-  font-weight:850;
-}
+.steps,
+.calc-grid,
+.audience-grid,
+.update-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.step,
+.calc-card,
+.audience-card,
+.update-card { padding:18px; box-shadow:var(--soft-shadow); }
+.step-number { width:32px; height:32px; border-radius:999px; background:var(--secondary); color:white; font-weight:950; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+.calc-card strong { display:block; margin-bottom:8px; }
+.calc-card .formula { margin-top:10px; color:var(--muted); font-size:.78rem; font-weight:850; }
 
-.topic-card strong {
-  font-size:.96rem;
-}
+.trust-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.trust-card { padding:18px; }
+.update-card b { color:var(--secondary); }
 
-.topic-card.featured-topic {
-  border-color:rgba(37,99,235,.55);
-  background:linear-gradient(135deg,rgba(37,99,235,.08),var(--card));
-}
+.faq { padding:0; overflow:hidden; }
+.faq h2 { padding:20px 22px; border-bottom:1px solid var(--input-border); margin:0; }
+.acc { border-bottom:1px solid var(--input-border); }
+.acc:last-child { border-bottom:0; }
+.acc button { width:100%; display:flex; justify-content:space-between; gap:16px; padding:17px 22px; background:transparent; border:0; text-align:left; color:var(--text); font-weight:900; cursor:pointer; }
+.body { max-height:0; overflow:hidden; transition:max-height .3s ease; }
+.body div { padding:0 22px 18px; color:var(--label); line-height:1.65; }
 
-.steps {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
+.foot { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; color:var(--label); font-weight:850; padding:20px 0 32px; border-top:1px solid var(--input-border); margin-top:30px; }
+.foot a { color:inherit; text-decoration:none; }
 
-.step {
-  padding:18px;
-  box-shadow:var(--soft-shadow);
-}
-
-.step-number {
-  width:32px;
-  height:32px;
-  border-radius:999px;
-  background:var(--secondary);
-  color:white;
-  font-weight:950;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:12px;
-}
-
-.trust-grid,
-.media-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-
-.trust-card,
-.media-card {
-  padding:18px;
-}
-
-.visual-placeholder {
-  min-height:140px;
-  border-radius:18px;
-  background:
-    linear-gradient(135deg, rgba(37,99,235,.14), rgba(239,68,68,.10)),
-    var(--result-bg);
-  border:1px dashed var(--input-border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-weight:950;
-  color:var(--label);
-  margin-bottom:14px;
-  padding:18px;
-}
-
-.video-wrap {
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid var(--input-border);
-  background:var(--result-bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--label);
-  font-weight:950;
-  text-align:center;
-  padding:16px;
-}
-
-.video-wrap iframe {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.faq {
-  padding:0;
-  overflow:hidden;
-}
-
-.faq h2 {
-  padding:20px 22px;
-  border-bottom:1px solid var(--input-border);
-  margin:0;
-}
-
-.acc {
-  border-bottom:1px solid var(--input-border);
-}
-
-.acc:last-child {
-  border-bottom:0;
-}
-
-.acc button {
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  gap:16px;
-  padding:17px 22px;
-  background:transparent;
-  border:0;
-  text-align:left;
-  color:var(--text);
-  font-weight:900;
-  cursor:pointer;
-}
-
-.body {
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .3s ease;
-}
-
-.body div {
-  padding:0 22px 18px;
-  color:var(--label);
-  line-height:1.65;
-}
-
-.foot {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:14px;
-  color:var(--label);
-  font-weight:850;
-  padding:20px 0 32px;
-  border-top:1px solid var(--input-border);
-  margin-top:30px;
-}
-
-.foot a {
-  color:inherit;
-  text-decoration:none;
+@media(max-width:980px) {
+  .hero-layout { grid-template-columns:1fr; }
+  .trust-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .intent-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 
 @media(max-width:820px) {
+  .site-header { position:static; align-items:flex-start; flex-direction:column; }
+  .nav { justify-content:flex-start; }
   .grid,
-  .steps {
-    grid-template-columns:1fr;
-  }
-
-  .section-head {
-    align-items:flex-start;
-    flex-direction:column;
-  }
+  .steps,
+  .calc-grid,
+  .audience-grid,
+  .update-grid { grid-template-columns:1fr; }
+  .topic-groups,
+  .trust-grid { grid-template-columns:1fr; }
+  .section-head { align-items:flex-start; flex-direction:column; }
 }
 
 @media(max-width:640px) {
-  body {
-    padding:18px 12px;
-  }
-
-  .top {
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .hero {
-    padding:30px 20px;
-  }
-
-  .topic-grid,
-  .trust-grid,
-  .media-grid {
-    grid-template-columns:1fr;
-  }
-
-  .section {
-    padding:22px 16px;
-  }
+  body { padding:16px 10px; }
+  .hero { padding:28px 18px; }
+  .section { padding:22px 16px; }
+  .trust-strip,
+  .intent-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -549,41 +419,68 @@ p {
 <body>
 <div class="page">
 
-  <div class="top">
+  <header class="site-header">
     <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
-    <button class="mode" onclick="toggleTheme()">Mode</button>
-  </div>
-
-  <nav class="nav">
-    <a class="active" href="index.html">Home</a>
-    <a href="salary-calculator.html">Salary Calculator</a>
-    <a href="resignation-calculator.html">Resignation Calculator</a>
-    <a href="offer-comparison-calculator.html">Compare Offers</a>
-    <a href="#topics">Guides</a>
-    <a href="#faq">FAQ</a>
-  </nav>
+    <nav class="nav">
+      <a class="active" href="index.html">Home</a>
+      <a href="salary-calculator.html">Salary</a>
+      <a href="resignation-calculator.html">Resignation</a>
+      <a href="offer-comparison-calculator.html">Compare Offers</a>
+      <a href="#topics">Guides</a>
+      <a href="#faq">FAQ</a>
+      <button class="mode" onclick="toggleTheme()">Mode</button>
+    </nav>
+  </header>
 
   <section class="hero">
-    <h1>Singapore salary and career calculators for 2026.</h1>
-    <p>
-      Estimate net take-home pay after CPF, MOM overtime pay, compare job offers,
-      calculate cross-border currency values, leave encashment and resignation notice
-      timing in one lightweight toolset.
-    </p>
+    <div class="hero-layout">
+      <div>
+        <div class="eyebrow">🇸🇬 Free Singapore payroll tools · 2026</div>
+        <h1>Singapore salary and career calculators for 2026.</h1>
+        <p>
+          Estimate net take-home pay after CPF, MOM overtime pay, compare job offers,
+          calculate cross-border currency values, leave encashment and resignation notice
+          timing in one lightweight toolset.
+        </p>
 
-    <div class="hero-actions">
-      <a class="btn primary" href="salary-calculator.html">Try Salary Calculator</a>
-      <a class="btn secondary" href="resignation-calculator.html">Calculate Resignation Settlement</a>
-    </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="salary-calculator.html">Try Salary Calculator</a>
+          <a class="btn secondary" href="resignation-calculator.html">Calculate Resignation Settlement</a>
+        </div>
 
-    <div class="hero-pills">
-      <span class="pill">CPF</span>
-      <span class="pill">Overtime Pay</span>
-      <span class="pill">Net Salary</span>
-      <span class="pill">Leave Encashment</span>
-      <span class="pill">Job Offer Comparison</span>
-      <span class="pill">No Login Required</span>
+        <div class="hero-pills">
+          <span class="pill">CPF</span>
+          <span class="pill">Overtime Pay</span>
+          <span class="pill">Net Salary</span>
+          <span class="pill">Leave Encashment</span>
+          <span class="pill">Job Offer Comparison</span>
+          <span class="pill">No Login Required</span>
+        </div>
+      </div>
+
+      <aside class="preview-card" aria-label="Sample salary calculation preview">
+        <div class="preview-top">
+          <div>
+            <div class="preview-title">Sample Salary Result</div>
+            <div class="preview-note">Illustration only · open the calculator for your own numbers</div>
+          </div>
+          <span class="badge">Preview</span>
+        </div>
+        <div class="preview-line"><span>Monthly Basic</span><b>S$4,000.00</b></div>
+        <div class="preview-line positive"><span>OT Pay</span><b>+S$260.00</b></div>
+        <div class="preview-line negative"><span>Employee CPF</span><b>-S$852.00</b></div>
+        <div class="preview-line positive"><span>Employer CPF</span><b>+S$724.20</b></div>
+        <div class="preview-total"><span>Estimated Take Home</span><span>S$3,408.00</span></div>
+      </aside>
     </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Trust points">
+    <div class="trust-strip-item">Free<span>No paywall</span></div>
+    <div class="trust-strip-item">No Login<span>Use instantly</span></div>
+    <div class="trust-strip-item">Browser Based<span>Inputs stay local</span></div>
+    <div class="trust-strip-item">2026 Ready<span>CPF & payroll focus</span></div>
+    <div class="trust-strip-item">Mobile Friendly<span>Fast static pages</span></div>
   </section>
 
   <section class="section" id="tools">
@@ -599,28 +496,57 @@ p {
         <div>
           <div class="card-icon">💵</div>
           <strong>Salary Calculator</strong>
-          <span>CPF, overtime, net pay, MYR/CNY conversion, history, TXT export and shareable reports.</span>
+          <span>Best for employees checking monthly take-home pay after CPF and overtime.</span>
+          <div class="card-meta">
+            <span class="mini-tag">CPF</span>
+            <span class="mini-tag">OT Pay</span>
+            <span class="mini-tag">MYR/CNY</span>
+            <span class="mini-tag">TXT Export</span>
+          </div>
         </div>
-        <span>Open tool →</span>
+        <span>Calculate Salary →</span>
       </a>
 
       <a class="card" href="resignation-calculator.html">
         <div>
           <div class="card-icon">🚪</div>
           <strong>Resignation Settlement Calculator</strong>
-          <span>Leave encashment, daily rate, notice period dates, history, TXT export and shareable settlement report.</span>
+          <span>Best for employees planning resignation, notice period and unused annual leave.</span>
+          <div class="card-meta">
+            <span class="mini-tag">Notice Period</span>
+            <span class="mini-tag">Leave Encashment</span>
+            <span class="mini-tag">Final Pay</span>
+          </div>
         </div>
-        <span>Open tool →</span>
+        <span>Estimate Settlement →</span>
       </a>
 
       <a class="card featured" href="offer-comparison-calculator.html">
         <div>
           <div class="card-icon">⚖️</div>
           <strong>Job Offer Comparison Calculator</strong>
-          <span>Compare annual salary, AWS, bonus, CPF, benefits, working hours, commute time and effective hourly value.</span>
+          <span>Best for comparing two Singapore offers by annual salary, AWS, bonus, CPF, benefits, hours and commute.</span>
+          <div class="card-meta">
+            <span class="mini-tag">Offer A vs B</span>
+            <span class="mini-tag">AWS</span>
+            <span class="mini-tag">Bonus</span>
+            <span class="mini-tag">Hourly Value</span>
+          </div>
         </div>
-        <span>Compare offers →</span>
+        <span>Compare Offers →</span>
       </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>I want to...</h2>
+    <p>Choose your situation and go directly to the most useful tool or guide.</p>
+    <div class="intent-grid">
+      <a class="intent-card" href="salary-calculator.html"><em>01</em><strong>Calculate my take-home salary</strong><span>CPF, gross pay, overtime and estimated net pay.</span></a>
+      <a class="intent-card" href="/guide-overtime-pay-2026.html"><em>02</em><strong>Check overtime pay rules</strong><span>OT formula, salary cap and 72-hour limit.</span></a>
+      <a class="intent-card" href="resignation-calculator.html"><em>03</em><strong>Estimate resignation settlement</strong><span>Notice period, unused leave and final settlement value.</span></a>
+      <a class="intent-card" href="offer-comparison-calculator.html"><em>04</em><strong>Compare two job offers</strong><span>Salary, benefits, bonus, commute and working hours.</span></a>
+      <a class="intent-card" href="/guide-cpf-2026.html"><em>05</em><strong>Understand CPF deduction</strong><span>Employee and employer CPF contribution basics.</span></a>
     </div>
   </section>
 
@@ -646,174 +572,114 @@ p {
     <div class="section-head">
       <div>
         <h2>Popular Singapore Salary Topics</h2>
-        <p>Start with the most common questions employees search for when checking salary, CPF, leave and resignation rules.</p>
+        <p>Grouped guides for salary, CPF, overtime, leave, resignation and employment rules.</p>
       </div>
     </div>
 
-    <div class="topic-grid">
-      <a class="topic-card featured-topic" href="/guide-2026.html">
-        <strong>Employment Act & OT Rights</strong>
-        <span>Understand basic workplace pay rights and overtime coverage.</span>
-      </a>
+    <div class="topic-groups">
+      <div class="topic-group">
+        <h3>Salary & CPF</h3>
+        <div class="topic-list">
+          <a class="topic-card featured-topic" href="/guide-cpf-2026.html"><strong>CPF Contribution Guide</strong><span>CPF rates, employer contributions and salary deduction basics.</span></a>
+          <a class="topic-card" href="/guide-income-tax-2026.html"><strong>Income Tax Guide</strong><span>Taxable income, CPF impact and salary planning.</span></a>
+          <a class="topic-card" href="/guide-salary-increment-2026.html"><strong>Salary Increment Guide</strong><span>Raises, negotiation logic and job-switching considerations.</span></a>
+          <a class="topic-card" href="/guide-13th-month-bonus-2026.html"><strong>13th Month Bonus Guide</strong><span>AWS, bonus expectations and annual salary comparison.</span></a>
+        </div>
+      </div>
 
-      <a class="topic-card featured-topic" href="/guide-cpf-2026.html">
-        <strong>CPF Contribution Guide</strong>
-        <span>CPF rates, employer contributions and salary deduction basics.</span>
-      </a>
+      <div class="topic-group">
+        <h3>Working Hours & OT</h3>
+        <div class="topic-list">
+          <a class="topic-card featured-topic" href="/guide-2026.html"><strong>Employment Act & OT Rights</strong><span>Understand basic workplace pay rights and overtime coverage.</span></a>
+          <a class="topic-card" href="/guide-overtime-pay-2026.html"><strong>Overtime Pay Guide</strong><span>OT formulas, salary caps and the 72-hour limit.</span></a>
+          <a class="topic-card" href="/guide-public-holiday-2026.html"><strong>Public Holiday Guide</strong><span>Holiday pay, replacement leave and entitlement rules.</span></a>
+          <a class="topic-card" href="/guide-lqs-2026.html"><strong>LQS Guide</strong><span>Local Qualifying Salary and foreign worker quota impact.</span></a>
+        </div>
+      </div>
 
-      <a class="topic-card" href="/guide-lqs-2026.html">
-        <strong>LQS Guide</strong>
-        <span>Local Qualifying Salary and foreign worker quota impact.</span>
-      </a>
+      <div class="topic-group">
+        <h3>Resignation & Leave</h3>
+        <div class="topic-list">
+          <a class="topic-card" href="/guide-resignation-2026.html"><strong>Resignation Guide</strong><span>Notice period, final pay and leave encashment.</span></a>
+          <a class="topic-card" href="/guide-annual-leave-2026.html"><strong>Annual Leave Guide</strong><span>Leave entitlement, carry forward and resignation usage.</span></a>
+          <a class="topic-card" href="resignation-calculator.html"><strong>Resignation Calculator</strong><span>Estimate final working day and unused leave cash value.</span></a>
+        </div>
+      </div>
 
-      <a class="topic-card" href="/guide-resignation-2026.html">
-        <strong>Resignation Guide</strong>
-        <span>Notice period, final pay and leave encashment.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-annual-leave-2026.html">
-        <strong>Annual Leave Guide</strong>
-        <span>Leave entitlement, carry forward and resignation usage.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-income-tax-2026.html">
-        <strong>Income Tax Guide</strong>
-        <span>Taxable income, CPF impact and salary planning.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-public-holiday-2026.html">
-        <strong>Public Holiday Guide</strong>
-        <span>Holiday pay, replacement leave and entitlement rules.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-overtime-pay-2026.html">
-        <strong>Overtime Pay Guide</strong>
-        <span>OT formulas, salary caps and the 72-hour limit.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-13th-month-bonus-2026.html">
-        <strong>13th Month Bonus Guide</strong>
-        <span>AWS, bonus expectations and annual salary comparison.</span>
-      </a>
-
-      <a class="topic-card" href="/guide-salary-increment-2026.html">
-        <strong>Salary Increment Guide</strong>
-        <span>Raises, negotiation logic and job-switching considerations.</span>
-      </a>
+      <div class="topic-group">
+        <h3>Job Offer & Career Decisions</h3>
+        <div class="topic-list">
+          <a class="topic-card" href="offer-comparison-calculator.html"><strong>Job Offer Comparison Calculator</strong><span>Compare total compensation and effective hourly value.</span></a>
+          <a class="topic-card" href="/guide-salary-increment-2026.html"><strong>Salary Increment Guide</strong><span>Review raise decisions and negotiation considerations.</span></a>
+          <a class="topic-card" href="salary-calculator.html"><strong>Salary Calculator</strong><span>Check CPF deduction, overtime and net pay before accepting.</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <h2>How the Calculators Work</h2>
-
     <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Enter salary details</h3>
-        <p>Add monthly salary, employee type, age group, overtime hours, leave days or notice period depending on the tool.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Estimate the breakdown</h3>
-        <p>The tools estimate CPF deduction, employer CPF, overtime pay, net take-home income or leave encashment value.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Export or compare</h3>
-        <p>Copy the result, export a TXT report, compare scenarios or open related guides to understand the calculation logic.</p>
-      </div>
+      <div class="step"><div class="step-number">1</div><h3>Enter salary details</h3><p>Add monthly salary, employee type, age group, overtime hours, leave days or notice period depending on the tool.</p></div>
+      <div class="step"><div class="step-number">2</div><h3>Estimate the breakdown</h3><p>The tools estimate CPF deduction, employer CPF, overtime pay, net take-home income or leave encashment value.</p></div>
+      <div class="step"><div class="step-number">3</div><h3>Export or compare</h3><p>Copy the result, export a TXT report, compare scenarios or open related guides to understand the calculation logic.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Media & Visual Guides</h2>
-    <p>
-      This section is ready for future screenshots, infographics or short tutorial videos. It uses lightweight placeholders now,
-      so the page remains fast even without external media assets.
-    </p>
+    <h2>Popular Calculations</h2>
+    <p>Common scenarios Singapore employees check before payroll, resignation or job offer decisions.</p>
+    <div class="calc-grid">
+      <a class="calc-card" href="salary-calculator.html"><strong>Calculate S$3,000 salary after CPF</strong><span>Estimate employee CPF and take-home pay.</span><div class="formula">Salary → CPF → Net pay</div></a>
+      <a class="calc-card" href="salary-calculator.html"><strong>Calculate S$4,500 salary after CPF</strong><span>Check take-home income and employer CPF estimate.</span><div class="formula">Gross pay → CPF deduction</div></a>
+      <a class="calc-card" href="salary-calculator.html"><strong>Calculate 20 hours overtime pay</strong><span>Estimate normal OT pay using the salary calculator.</span><div class="formula">Hourly rate × 1.5 × OT hours</div></a>
+      <a class="calc-card" href="salary-calculator.html"><strong>Calculate 72 hours overtime pay</strong><span>Check maximum monthly OT scenario before exemption.</span><div class="formula">MOM limit reminder included</div></a>
+      <a class="calc-card" href="resignation-calculator.html"><strong>Calculate unused annual leave encashment</strong><span>Estimate leave value during resignation planning.</span><div class="formula">Daily rate × unused leave days</div></a>
+      <a class="calc-card" href="offer-comparison-calculator.html"><strong>Compare two Singapore job offers</strong><span>Review salary, AWS, bonus, benefits, hours and commute.</span><div class="formula">Offer A vs Offer B</div></a>
+    </div>
+  </section>
 
-    <div class="media-grid">
-      <div class="media-card">
-        <div class="visual-placeholder">Image placeholder<br>Salary calculator screenshot</div>
-        <strong>Salary Breakdown Example</strong>
-        <span>Use this card later for a screenshot showing gross salary, CPF, overtime and net take-home pay.</span>
-      </div>
+  <section class="section">
+    <h2>Who This Site Is For</h2>
+    <div class="audience-grid">
+      <div class="audience-card"><h3>Singapore employees</h3><span>Quickly estimate monthly take-home salary, CPF deductions, overtime pay and resignation settlement.</span></div>
+      <div class="audience-card"><h3>Foreign workers and EP / S Pass holders</h3><span>Compare salary packages, understand offer value and review working-hour related guides.</span></div>
+      <div class="audience-card"><h3>HR teams and small employers</h3><span>Use lightweight calculators and guides as quick references before checking official payroll rules.</span></div>
+    </div>
+  </section>
 
-      <div class="media-card">
-        <div class="video-wrap">
-          YouTube tutorial placeholder<br>
-          Replace this area with an iframe when you publish a video.
-          <!-- Example:
-          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="SG Salary Pro Tutorial" loading="lazy" allowfullscreen></iframe>
-          -->
-        </div>
-        <strong>Video Tutorial Ready</strong>
-        <span>Embed a YouTube tutorial later without changing the page structure.</span>
-      </div>
+  <section class="section">
+    <h2>Latest 2026 Updates</h2>
+    <div class="update-grid">
+      <div class="update-card"><b>Calculator UI upgraded</b><p>Homepage now includes clearer tool cards, quick-intent links, grouped salary topics and trust information.</p></div>
+      <div class="update-card"><b>Guide library expanded</b><p>CPF, annual leave, income tax, public holiday, overtime pay, AWS and salary increment topics are linked from the homepage.</p></div>
+      <div class="update-card"><b>Offer comparison supported</b><p>Use the job offer comparison calculator to review pay, bonus, benefits, commute and effective hourly value.</p></div>
     </div>
   </section>
 
   <section class="section">
     <h2>Privacy & Trust</h2>
-
     <div class="trust-grid">
-      <div class="trust-card">
-        <h3>Browser-based calculations</h3>
-        <p>Salary inputs are processed in your browser. The calculator does not require account registration or login.</p>
-      </div>
-
-      <div class="trust-card">
-        <h3>No legal advice claim</h3>
-        <p>The tools provide estimates for planning and comparison. Always verify final payroll, CPF and employment matters with official sources or your HR team.</p>
-      </div>
-
-      <div class="trust-card">
-        <h3>Useful for quick checks</h3>
-        <p>Compare salary packages, overtime scenarios and resignation settlements before discussing details with HR.</p>
-      </div>
-
-      <div class="trust-card">
-        <h3>Made for lightweight access</h3>
-        <p>The site uses simple HTML, CSS and JavaScript without heavy external frameworks, so it remains mobile-friendly.</p>
-      </div>
+      <div class="trust-card"><h3>Browser-based calculations</h3><p>Salary inputs are processed in your browser. The calculator does not require account registration or login.</p></div>
+      <div class="trust-card"><h3>No legal advice claim</h3><p>The tools provide estimates for planning and comparison. Always verify final payroll, CPF and employment matters with official sources or your HR team.</p></div>
+      <div class="trust-card"><h3>Useful for quick checks</h3><p>Compare salary packages, overtime scenarios and resignation settlements before discussing details with HR.</p></div>
+      <div class="trust-card"><h3>Made for lightweight access</h3><p>The site uses simple HTML, CSS and JavaScript without heavy external frameworks, so it remains mobile-friendly.</p></div>
     </div>
   </section>
 
   <section class="faq" id="faq">
     <h2>Frequently Asked Questions</h2>
-
-    <div class="acc">
-      <button onclick="acc(this)"><span>What is the maximum statutory overtime hours allowed per month?</span><span>v</span></button>
-      <div class="body"><div>Employees should not work more than 72 hours of overtime a month unless an exemption has been granted.</div></div>
-    </div>
-
-    <div class="acc">
-      <button onclick="acc(this)"><span>Does overtime pay attract CPF contributions?</span><span>v</span></button>
-      <div class="body"><div>Yes. Overtime pay is generally treated as wages for CPF purposes, subject to applicable CPF wage ceilings.</div></div>
-    </div>
-
-    <div class="acc">
-      <button onclick="acc(this)"><span>What CPF Ordinary Wage ceiling is used?</span><span>v</span></button>
-      <div class="body"><div>The salary calculator is designed around the 2026 monthly Ordinary Wage ceiling of S$8,000.</div></div>
-    </div>
-
-    <div class="acc">
-      <button onclick="acc(this)"><span>How is annual leave encashment calculated?</span><span>v</span></button>
-      <div class="body"><div>Formula: (12 x Monthly Gross Rate of Pay) / (52 x Working Days Per Week) x Unused Leave Days. Gross rate usually includes basic salary and fixed allowances, but excludes overtime, bonus, reimbursement and similar non-regular payments.</div></div>
-    </div>
+    <div class="acc"><button onclick="acc(this)"><span>What is the maximum statutory overtime hours allowed per month?</span><span>v</span></button><div class="body"><div>Employees should not work more than 72 hours of overtime a month unless an exemption has been granted.</div></div></div>
+    <div class="acc"><button onclick="acc(this)"><span>Does overtime pay attract CPF contributions?</span><span>v</span></button><div class="body"><div>Yes. Overtime pay is generally treated as wages for CPF purposes, subject to applicable CPF wage ceilings.</div></div></div>
+    <div class="acc"><button onclick="acc(this)"><span>What CPF Ordinary Wage ceiling is used?</span><span>v</span></button><div class="body"><div>The salary calculator is designed around the 2026 monthly Ordinary Wage ceiling of S$8,000.</div></div></div>
+    <div class="acc"><button onclick="acc(this)"><span>How is annual leave encashment calculated?</span><span>v</span></button><div class="body"><div>Formula: (12 x Monthly Gross Rate of Pay) / (52 x Working Days Per Week) x Unused Leave Days. Gross rate usually includes basic salary and fixed allowances, but excludes overtime, bonus, reimbursement and similar non-regular payments.</div></div></div>
   </section>
 
   <footer class="foot">
-    <a href="salary-calculator.html">Salary Calculator</a>
-    <span>|</span>
-    <a href="resignation-calculator.html">Resignation Calculator</a>
-    <span>|</span>
-    <a href="offer-comparison-calculator.html">Compare Offers</a>
-    <span>|</span>
-    <a href="about.html">About</a>
-    <span>|</span>
+    <a href="salary-calculator.html">Salary Calculator</a><span>|</span>
+    <a href="resignation-calculator.html">Resignation Calculator</a><span>|</span>
+    <a href="offer-comparison-calculator.html">Compare Offers</a><span>|</span>
+    <a href="about.html">About</a><span>|</span>
     <a href="privacy.html">Privacy Policy</a>
   </footer>
 
@@ -825,7 +691,6 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme', n);
   localStorage.setItem('theme-override', n);
 }
-
 function acc(b){
   const c = b.nextElementSibling;
   const open = c.style.maxHeight;
@@ -833,6 +698,5 @@ function acc(b){
   c.style.maxHeight = open ? null : c.scrollHeight + 'px';
 }
 </script>
-
 </body>
 </html>
