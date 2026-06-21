@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Singapore Salary & Resignation Calculator 2026 | SG Salary Pro</title>
-<meta name="description" content="Free Singapore salary, CPF, overtime, job offer comparison, resignation settlement, notice period, and leave encashment calculators for 2026.">
+<title>Singapore Salary, Resignation & Job Switch Calculators 2026 | SG Salary Pro</title>
+<meta name="description" content="Free Singapore salary, CPF, overtime, job offer comparison, job switch worth it, resignation settlement, notice period, and leave encashment calculators for 2026.">
 <link rel="canonical" href="https://sg-salary-calculator.vercel.app/">
 <meta property="og:title" content="Singapore Salary & Resignation Calculator 2026">
-<meta property="og:description" content="Calculate Singapore CPF, overtime and net pay, compare job offers, and estimate leave encashment and resignation notice dates.">
+<meta property="og:description" content="Calculate Singapore CPF, overtime and net pay, compare job offers, check whether switching jobs is worth it, and estimate resignation settlement.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sg-salary-calculator.vercel.app/">
 <meta name="google-site-verification" content="9bokCnlQGx0rwxYHEv6U3a5D0lnq-sbNN4v0KA3RfZs">
@@ -18,7 +18,7 @@
   "@type": "WebSite",
   "name": "SG Salary Pro",
   "url": "https://sg-salary-calculator.vercel.app/",
-  "description": "Free Singapore salary, CPF, overtime, resignation settlement and job offer comparison calculators.",
+  "description": "Free Singapore salary, CPF, overtime, resignation settlement, job offer comparison and job switch worth it calculators.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://sg-salary-calculator.vercel.app/?q={search_term_string}",
@@ -57,6 +57,7 @@
     {"@type":"Question","name":"What CPF Ordinary Wage ceiling is used?","acceptedAnswer":{"@type":"Answer","text":"The salary calculator is designed around the 2026 monthly Ordinary Wage ceiling of S$8,000."}},
     {"@type":"Question","name":"How is annual leave encashment calculated?","acceptedAnswer":{"@type":"Answer","text":"Formula: (12 x Monthly Gross Rate of Pay) / (52 x Working Days Per Week) x Unused Leave Days. Gross rate usually includes basic salary and fixed allowances, but excludes overtime, bonus, reimbursement and similar non-regular payments."}},
     {"@type":"Question","name":"Can I use this calculator for job offer comparison?","acceptedAnswer":{"@type":"Answer","text":"Yes. The offer comparison calculator helps compare two Singapore job offers by salary, AWS, bonus, benefits, commute time and working hours."}},
+    {"@type":"Question","name":"When should I use the Job Switch Worth It Calculator?","acceptedAnswer":{"@type":"Answer","text":"Use it when you already have a current job and want to decide whether a new offer is worth switching for after notice buyout, unpaid gap days, commute, annual value and job risk."}},
     {"@type":"Question","name":"Is this calculator official legal or payroll advice?","acceptedAnswer":{"@type":"Answer","text":"No. SG Salary Pro provides estimates for planning and comparison only. Always verify final payroll, CPF, tax and employment matters with official sources or your HR team."}}
   ]
 }
@@ -387,7 +388,7 @@ h2 { font-size:1.32rem; margin:0 0 10px; letter-spacing:-.025em; }
 h3 { margin:0 0 8px; }
 p { color:var(--label); line-height:1.72; }
 
-.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
 .card { padding:20px; min-height:214px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--soft-shadow); }
 .card-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:var(--result-bg); border:1px solid var(--input-border); border-radius:15px; font-size:1.35rem; margin-bottom:14px; }
 .card strong { font-size:1.08rem; display:block; margin-bottom:8px; }
@@ -400,7 +401,7 @@ p { color:var(--label); line-height:1.72; }
 .mini-tag { color:var(--muted); background:var(--result-bg); border:1px solid var(--input-border); border-radius:999px; padding:5px 8px; font-size:.72rem; font-weight:850; }
 .card.featured { border-color:rgba(37,99,235,.55); background:linear-gradient(135deg,rgba(37,99,235,.10),var(--card)); }
 
-.intent-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.intent-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
 .intent-card { padding:15px; min-height:120px; display:flex; flex-direction:column; justify-content:space-between; font-weight:900; }
 .intent-card em { color:var(--primary); font-style:normal; font-size:1.25rem; }
 
@@ -478,6 +479,7 @@ p { color:var(--label); line-height:1.72; }
       <a href="salary-calculator.html">Salary</a>
       <a href="resignation-calculator.html">Resignation</a>
       <a href="offer-comparison-calculator.html">Compare Offers</a>
+      <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
       <a href="#tools">Tools</a>
       <a href="#topics">Guides</a>
       <a href="#faq">FAQ</a>
@@ -528,6 +530,7 @@ p { color:var(--label); line-height:1.72; }
           <a href="salary-calculator.html"><span>Calculate with my salary</span><span>→</span></a>
           <a href="/guide-cpf-2026.html"><span>Check CPF guide</span><span>→</span></a>
           <a href="offer-comparison-calculator.html"><span>Compare job offer</span><span>→</span></a>
+          <a href="job-switch-worth-it-calculator.html"><span>Check switch value</span><span>→</span></a>
         </div>
       </aside>
     </div>
@@ -548,7 +551,8 @@ p { color:var(--label); line-height:1.72; }
       <a class="intent-card" href="/guide-overtime-pay-2026.html"><em>02</em><strong>Check overtime pay rules</strong><span>OT formula, salary cap and 72-hour limit.</span></a>
       <a class="intent-card" href="resignation-calculator.html"><em>03</em><strong>Estimate resignation settlement</strong><span>Notice period, unused leave and final settlement value.</span></a>
       <a class="intent-card" href="offer-comparison-calculator.html"><em>04</em><strong>Compare two job offers</strong><span>Salary, benefits, bonus, commute and working hours.</span></a>
-      <a class="intent-card" href="/guide-cpf-2026.html"><em>05</em><strong>Understand CPF deduction</strong><span>Employee and employer CPF contribution basics.</span></a>
+      <a class="intent-card" href="job-switch-worth-it-calculator.html"><em>05</em><strong>Check if switching jobs is worth it</strong><span>Break-even months, switching cost, commute and risk-adjusted score.</span></a>
+      <a class="intent-card" href="/guide-cpf-2026.html"><em>06</em><strong>Understand CPF deduction</strong><span>Employee and employer CPF contribution basics.</span></a>
     </div>
   </section>
 
@@ -557,7 +561,7 @@ p { color:var(--label); line-height:1.72; }
       <div>
         <div class="section-kicker">Tools</div>
         <h2>Free Singapore Salary Tools</h2>
-        <p>Use quick calculators for salary, resignation settlement and job offer comparison.</p>
+        <p>Use quick calculators for salary, resignation settlement, job offer comparison and job-switch decisions.</p>
       </div>
     </div>
 
@@ -620,13 +624,53 @@ p { color:var(--label); line-height:1.72; }
         </div>
         <span>Compare Offers →</span>
       </a>
+
+      <a class="card featured" href="job-switch-worth-it-calculator.html">
+        <div>
+          <div class="card-icon">🧭</div>
+          <strong>Job Switch Worth It Calculator</strong>
+          <span>Best for deciding whether to leave your current job for a new offer after switching cost and risk.</span>
+          <ul class="use-list">
+            <li>You are currently employed and considering a new offer.</li>
+            <li>You want to include notice buyout, gap days and one-time switching costs.</li>
+            <li>You care about break-even months, risk score and effective hourly value.</li>
+          </ul>
+          <div class="card-meta">
+            <span class="mini-tag">Current vs New</span>
+            <span class="mini-tag">Break-even</span>
+            <span class="mini-tag">Risk Score</span>
+            <span class="mini-tag">Notice Cost</span>
+          </div>
+        </div>
+        <span>Check Switch Value →</span>
+      </a>
     </div>
+  </section>
+
+
+  <section class="section" id="switch-guide">
+    <div class="section-kicker">New Tool</div>
+    <h2>How to use the Job Switch Worth It Calculator</h2>
+    <p>
+      The Job Switch Worth It Calculator is different from the normal offer comparison tool.
+      It is designed for people who already have a current job and want to know whether a new offer is worth the cost and risk of switching.
+    </p>
+    <div class="steps">
+      <div class="step"><div class="step-number">1</div><h3>Enter your current job</h3><p>Add monthly salary, AWS, bonus, leave, working hours, office days, commute time and current job scores.</p></div>
+      <div class="step"><div class="step-number">2</div><h3>Enter the new offer</h3><p>Add the new salary package, annual leave, work pattern, commute and probation-related assumptions.</p></div>
+      <div class="step"><div class="step-number">3</div><h3>Add switching costs</h3><p>Include notice buyout, unpaid gap days, one-time costs and whether annual leave can offset the notice period.</p></div>
+      <div class="step"><div class="step-number">4</div><h3>Review the decision result</h3><p>Check annual net gain, monthly value difference, break-even months, effective hourly value and risk-adjusted score.</p></div>
+    </div>
+    <p>
+      Use <strong>Offer Comparison</strong> when you are comparing two offers side by side.
+      Use <strong>Job Switch Worth It</strong> when you are deciding whether to leave your current job for a new offer.
+    </p>
   </section>
 
   <section class="section">
     <h2>Why Use SG Salary Pro?</h2>
     <p>
-      SG Salary Pro provides free Singapore salary, job offer comparison and resignation calculators
+      SG Salary Pro provides free Singapore salary, job offer comparison, job switch decision and resignation calculators
       based on CPF contribution rules, Employment Act overtime regulations, leave encashment formulas
       and common payroll practices.
     </p>
@@ -687,6 +731,7 @@ p { color:var(--label); line-height:1.72; }
         <p class="topic-desc">Compare compensation, benefits, working hours and job-switching trade-offs.</p>
         <div class="topic-list">
           <a class="topic-card" href="offer-comparison-calculator.html"><strong>Job Offer Comparison Calculator</strong><span>Compare total compensation and effective hourly value.</span></a>
+          <a class="topic-card featured-topic" href="job-switch-worth-it-calculator.html"><strong>Job Switch Worth It Calculator</strong><span>Check whether a new offer is worth switching for after notice, cost and risk.</span></a>
           <a class="topic-card" href="/guide-salary-increment-2026.html"><strong>Salary Increment Guide</strong><span>Review raise decisions and negotiation considerations.</span></a>
           <a class="topic-card" href="salary-calculator.html"><strong>Salary Calculator</strong><span>Check CPF deduction, overtime and net pay before accepting.</span></a>
         </div>
@@ -698,8 +743,8 @@ p { color:var(--label); line-height:1.72; }
     <h2>How the Calculators Work</h2>
     <div class="steps">
       <div class="step"><div class="step-number">1</div><h3>Enter salary details</h3><p>Add monthly salary, employee type, age group, overtime hours, leave days or notice period depending on the tool.</p></div>
-      <div class="step"><div class="step-number">2</div><h3>Estimate the breakdown</h3><p>The tools estimate CPF deduction, employer CPF, overtime pay, net take-home income or leave encashment value.</p></div>
-      <div class="step"><div class="step-number">3</div><h3>Export or compare</h3><p>Copy the result, export a TXT report, compare scenarios or open related guides to understand the calculation logic.</p></div>
+      <div class="step"><div class="step-number">2</div><h3>Estimate the breakdown</h3><p>The tools estimate CPF deduction, employer CPF, overtime pay, net take-home income, leave encashment value or job-switch value.</p></div>
+      <div class="step"><div class="step-number">3</div><h3>Export or compare</h3><p>Copy the result, export a TXT report, test scenarios or open related guides to understand the calculation logic.</p></div>
     </div>
   </section>
 
@@ -714,15 +759,17 @@ p { color:var(--label); line-height:1.72; }
       <a class="calc-card" href="resignation-calculator.html"><strong>Calculate unused annual leave encashment</strong><span>Estimate leave value during resignation planning.</span><div class="formula">Daily rate × unused leave days</div></a>
       <a class="calc-card" href="resignation-calculator.html"><strong>Calculate resignation leave encashment in Singapore</strong><span>Check notice period, physical last day and final leave cash value.</span><div class="formula">Notice days + leave days</div></a>
       <a class="calc-card" href="offer-comparison-calculator.html"><strong>Compare two Singapore job offers</strong><span>Review salary, AWS, bonus, benefits, hours and commute.</span><div class="formula">Offer A vs Offer B</div></a>
-      <a class="calc-card" href="offer-comparison-calculator.html"><strong>Compare salary increase when switching jobs</strong><span>Review whether a higher salary is still better after hours, benefits and commute.</span><div class="formula">Raise % + working time + benefits</div></a>
+      <a class="calc-card" href="job-switch-worth-it-calculator.html"><strong>Check if a salary increase is worth switching jobs</strong><span>Review whether a higher salary is still better after costs, risk, hours and commute.</span><div class="formula">Current job → New offer → Decision</div></a>
+      <a class="calc-card" href="job-switch-worth-it-calculator.html"><strong>Calculate job switch break-even months</strong><span>Estimate how long it takes to recover notice buyout, gap days and one-time costs.</span><div class="formula">Switching cost ÷ monthly gain</div></a>
+      <a class="calc-card" href="job-switch-worth-it-calculator.html"><strong>Compare job stability vs higher salary</strong><span>Use stability, growth and work-life balance scores to support the final decision.</span><div class="formula">Money + time + risk score</div></a>
     </div>
   </section>
 
   <section class="section">
     <h2>Who This Site Is For</h2>
     <div class="audience-grid">
-      <div class="audience-card"><h3>Singapore employees</h3><span>Quickly estimate monthly take-home salary, CPF deductions, overtime pay and resignation settlement.</span></div>
-      <div class="audience-card"><h3>Foreign workers and EP / S Pass holders</h3><span>Compare salary packages, understand offer value and review working-hour related guides.</span></div>
+      <div class="audience-card"><h3>Singapore employees</h3><span>Quickly estimate monthly take-home salary, CPF deductions, overtime pay, resignation settlement and job-switch value.</span></div>
+      <div class="audience-card"><h3>Foreign workers and EP / S Pass holders</h3><span>Compare salary packages, understand offer value and use no-CPF scenarios for job-switch decisions.</span></div>
       <div class="audience-card"><h3>HR teams and small employers</h3><span>Use lightweight calculators and guides as quick references before checking official payroll rules.</span></div>
     </div>
   </section>
