@@ -18,7 +18,46 @@
 
   <style>
     :root,html[data-theme=light]{--bg:#f3f7fb;--card:#fff;--text:#0f172a;--primary:#e5484d;--primary-hover:#cf353a;--secondary:#2563eb;--secondary-hover:#1d4ed8;--secondary-soft:rgba(37,99,235,.08);--input-bg:#fff;--input-border:#d4dee9;--result-bg:#f7f9fc;--history-hover:#eef4fa;--label:#475569;--shadow-sm:0 1px 3px rgba(15,23,42,.06);--shadow-md:0 18px 50px -18px rgba(15,39,66,.24);--success:#059669;--success-soft:rgba(5,150,105,.08);--warning:#d97706;--white:#fff}html[data-theme=dark]{--bg:#09111f;--card:#152235;--text:#f8fafc;--primary:#fb7185;--primary-hover:#f43f5e;--secondary:#60a5fa;--secondary-hover:#3b82f6;--secondary-soft:rgba(96,165,250,.1);--input-bg:#101b2b;--input-border:#33465d;--result-bg:#0f1b2c;--history-hover:#203148;--label:#cbd5e1;--shadow-sm:0 2px 8px rgba(0,0,0,.22);--shadow-md:0 22px 60px -22px rgba(0,0,0,.75);--success:#34d399;--success-soft:rgba(52,211,153,.1);--warning:#fbbf24;--white:#152235}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(circle at 50% 0,var(--secondary-soft),transparent 420px),var(--bg);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55;padding:0}a{color:var(--secondary)}.site-header{background:transparent;padding:26px 16px 0}.nav{max-width:1160px;margin:0 auto 18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}.brand{display:none}.nav a,.nav-links a,.related a{border:1px solid var(--input-border);background:var(--result-bg);color:var(--text);text-decoration:none;border-radius:11px;padding:9px 13px;font-weight:800;font-size:.86rem;transition:border-color .2s,background .2s,transform .2s}.nav a.active,.nav a:hover,.nav-links a:hover,.related a:hover{border-color:var(--secondary);transform:translateY(-1px)}.nav a.active{color:#fff;background:var(--secondary);border-color:var(--secondary)}.mode{background:var(--result-bg);border:1px solid var(--input-border);padding:9px 15px;border-radius:30px;cursor:pointer;font-weight:800;color:var(--text);transition:.2s}.mode:hover{border-color:var(--secondary);transform:translateY(-1px)}.hero{padding:18px 16px 34px}.hero-inner{max-width:1160px;margin:0 auto;background:var(--card);border:1px solid var(--input-border);box-shadow:var(--shadow-md);border-radius:24px;padding:34px 30px}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:6px 11px;border:1px solid rgba(37,99,235,.18);border-radius:999px;background:var(--secondary-soft);color:var(--secondary);font-size:.78rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase}h1{max-width:850px;margin:0 0 14px;font-size:clamp(2rem,5vw,3.3rem);line-height:1.06;letter-spacing:-.04em;color:var(--text)}.hero p{max-width:760px;margin:0;color:var(--label);font-size:1.05rem}.hero-points{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.hero-points span{padding:7px 11px;border-radius:9px;background:var(--secondary-soft);color:var(--secondary);font-size:.88rem;font-weight:750}.page{width:min(1160px,calc(100% - 32px));margin:0 auto;padding-bottom:56px}.calculator-shell,.content-card{border:1px solid var(--input-border);border-radius:24px;background:var(--card);box-shadow:var(--shadow-md)}.calculator-shell{padding:28px}.content-card{margin-top:24px;padding:28px}.calculator-shell h2,.content-card h2,.content-card h3{color:var(--text);line-height:1.25;letter-spacing:-.02em}.calculator-shell h2{font-size:1.35rem}.content-card h2{margin-top:0}.global-settings{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;padding:18px;border:1px solid var(--input-border);border-radius:16px;background:var(--result-bg)}.offers-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.offer-card{overflow:hidden;border:1px solid var(--input-border);border-radius:18px;background:var(--result-bg)}.offer-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;color:#fff;background:linear-gradient(135deg,#0f2742,var(--secondary))}.offer-card:nth-child(2) .offer-title{background:linear-gradient(135deg,var(--secondary),var(--secondary-hover))}.offer-title h2{margin:0;color:#fff;font-size:1.15rem}.offer-title input{width:55%;padding:8px 10px;color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:9px;outline:0;background:rgba(255,255,255,.12);font:inherit;font-size:.9rem}.offer-title input::placeholder{color:#dbeafe}.offer-fields{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:18px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;margin-bottom:7px;color:var(--label);font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.045em}.hint{display:block;margin-top:5px;color:var(--label);font-size:.73rem;line-height:1.4}input,select{width:100%;min-height:48px;padding:11px 12px;color:var(--text);border:1px solid var(--input-border);border-radius:12px;outline:0;background:var(--input-bg);font:inherit;box-shadow:var(--shadow-sm);transition:border-color .2s,box-shadow .2s,background .2s}input:hover,select:hover{border-color:#94a3b8}input:focus,select:focus{border-color:var(--secondary);box-shadow:0 0 0 4px var(--secondary-soft)}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}button{min-height:48px;padding:12px 20px;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:900;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}.primary{color:#fff;background:linear-gradient(135deg,var(--secondary),var(--secondary-hover));box-shadow:0 9px 22px -12px var(--secondary)}.primary:hover{background:var(--secondary-hover);transform:translateY(-1px)}.secondary{color:var(--text);border:1px solid var(--input-border);background:var(--card)}.secondary:hover{border-color:var(--secondary);background:var(--secondary-soft);transform:translateY(-1px)}.results{display:none;margin-top:28px;scroll-margin-top:20px}.results.show{display:block}.verdict{margin-bottom:18px;padding:20px;border:1px solid rgba(5,150,105,.24);border-radius:16px;background:var(--success-soft)}.verdict h2{margin:0 0 6px;color:var(--success);font-size:1.25rem}.verdict p{margin:0;color:var(--text)}.result-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:1px;overflow:hidden;border:1px solid var(--input-border);border-radius:16px;background:var(--input-border)}.result-cell{min-width:0;padding:13px 14px;background:var(--card)}.result-cell.head{color:#fff;background:#0f2742;font-weight:850}.result-cell.head.alt{background:var(--secondary)}.metric-label{color:var(--label);font-size:.89rem;font-weight:800}.metric-value{font-variant-numeric:tabular-nums;font-weight:850}.winner{color:var(--success);background:var(--success-soft)}.result-notes{margin:14px 0 0;color:var(--label);font-size:.8rem}.content-card p,.content-card li,details p{color:var(--label)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}.step{padding:17px;border:1px solid var(--input-border);border-radius:14px;background:var(--result-bg)}.step strong{display:block;color:var(--secondary);margin-bottom:5px}.faq{border-top:1px solid var(--input-border)}details{border-bottom:1px solid var(--input-border)}summary{padding:16px 4px;cursor:pointer;color:var(--text);font-weight:850}details p{margin:0;padding:0 4px 16px}.related{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.related a{display:flex;align-items:center;min-height:54px}.related a.featured-link{border-color:rgba(37,99,235,.45);background:linear-gradient(135deg,var(--secondary-soft),var(--result-bg))}footer{max-width:1160px;margin:0 auto 28px;color:var(--label);text-align:center;font-size:.88rem;padding:24px 16px;border-top:1px solid var(--input-border)}footer a{color:var(--secondary);font-weight:800;text-decoration:none}@media(max-width:850px){.offers-grid,.global-settings,.steps,.related{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}.result-cell:first-child,.result-cell.head:first-child{grid-column:1/-1}.result-cell:nth-child(3n+1){grid-column:1/-1;border-top:5px solid var(--result-bg)}}@media(max-width:620px){.site-header{padding:16px 10px 0}.nav{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.nav a,.mode{white-space:nowrap}.hero{padding:12px 10px 22px}.hero-inner{padding:24px 18px;border-radius:18px}.page{width:calc(100% - 20px)}.calculator-shell,.content-card{padding:18px;border-radius:18px}.offer-fields{grid-template-columns:1fr;padding:15px}.field.full{grid-column:auto}.offer-title{align-items:flex-start;flex-direction:column}.offer-title input{width:100%}.actions{flex-direction:column}.actions button{width:100%}}@media print{.site-header,.hero,.content-card,footer,.actions{display:none!important}body{background:#fff}.page{width:100%;padding:0}.calculator-shell{box-shadow:none;border:0}.results{display:block!important}}
-  </style>
+  
+/* ===== SG Salary Pro unified enhancements ===== */
+.site-header{
+  position:sticky;top:10px;z-index:20;
+  max-width:1160px;margin:16px auto 18px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:12px;border:1px solid var(--input-border);
+  background:rgba(255,255,255,.78);backdrop-filter:blur(16px);
+  border-radius:22px;box-shadow:var(--shadow-sm)
+}
+html[data-theme=dark] .site-header{background:rgba(15,23,42,.78)}
+.brand{display:block;font-weight:950;text-decoration:none;color:var(--text);letter-spacing:-.035em;white-space:nowrap}
+.badge{font-size:.72rem;background:var(--secondary-soft);color:var(--secondary);padding:3px 8px;border-radius:999px;margin-left:6px}
+.site-header .nav{margin:0;justify-content:flex-end}
+.tool-trust{width:min(1160px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 auto 18px}
+.tool-trust div{border:1px solid var(--input-border);background:rgba(255,255,255,.76);border-radius:16px;padding:13px;text-align:center;font-weight:950;box-shadow:var(--shadow-sm)}
+html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
+.tool-trust span{display:block;color:var(--label);font-size:.74rem;font-weight:800;margin-top:4px}
+.offer-presets{margin:14px 0 22px;padding:16px;border:1px solid var(--input-border);border-radius:18px;background:var(--result-bg)}
+.offer-presets h3{margin:0 0 8px;font-size:1rem}
+.offer-presets p{margin:0 0 12px;color:var(--label)}
+.preset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.preset-grid button{min-height:auto;text-align:left;border:1px solid var(--input-border);background:var(--card);color:var(--text);border-radius:12px;padding:11px 12px;font-weight:900}
+.preset-grid button span{display:block;color:var(--label);font-size:.78rem;font-weight:750;margin-top:4px}
+.preset-grid button:hover{border-color:var(--secondary);color:var(--secondary);transform:translateY(-1px)}
+.quick-note{margin-top:12px;color:var(--label);font-size:.82rem}
+@media(max-width:850px){
+  .site-header{position:static;align-items:flex-start;flex-direction:column;width:calc(100% - 20px)}
+  .site-header .nav{justify-content:flex-start}
+  .tool-trust{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 20px)}
+  .preset-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .site-header{margin-top:10px}
+  .brand{font-size:.95rem}
+  .tool-trust{grid-template-columns:1fr}
+}
+@media print{.tool-trust,.offer-presets{display:none!important}}
+
+</style>
 
   <script type="application/ld+json">
   {
@@ -72,13 +111,15 @@
 </head>
 <body>
   <header class="site-header">
+    <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
     <nav class="nav">
-  <a href="index.html">Home</a>
-  <a href="salary-calculator.html">Salary</a>
-  <a href="resignation-calculator.html">Resignation</a>
-  <a class="active" href="offer-comparison-calculator.html">Compare Offers</a>
-  <button class="mode" onclick="toggleTheme()">Mode</button>
-</nav>
+      <a href="index.html">Home</a>
+      <a href="salary-calculator.html">Salary</a>
+      <a href="resignation-calculator.html">Resignation</a>
+      <a class="active" href="offer-comparison-calculator.html">Compare Offers</a>
+      <a href="index.html#topics">Guides</a>
+      <button class="mode" onclick="toggleTheme()">Mode</button>
+    </nav>
   </header>
 
   <main>
@@ -95,10 +136,28 @@
         </div>
       </div>
     </section>
+    <section class="tool-trust" aria-label="Trust points">
+      <div>Free to Use<span>No paywall</span></div>
+      <div>No Login Required<span>Use instantly</span></div>
+      <div>Browser-based<span>Inputs stay local</span></div>
+      <div>Offer-focused<span>Salary + time cost</span></div>
+    </section>
+
 
     <div class="page">
       <section class="calculator-shell" aria-labelledby="calculator-heading">
         <h2 id="calculator-heading" style="margin-top:0">Compare your offers</h2>
+        <div class="offer-presets" aria-label="Quick offer scenarios">
+          <h3>Quick comparison presets</h3>
+          <p>Start with common job-switching scenarios, then adjust the numbers to match your real offers.</p>
+          <div class="preset-grid">
+            <button type="button" onclick="applyOfferPreset('raise10')">10% raise, similar benefits<span>Useful when a new offer looks like a small salary jump.</span></button>
+            <button type="button" onclick="applyOfferPreset('longerCommute')">Higher pay, longer commute<span>Check whether extra salary offsets travel time and costs.</span></button>
+            <button type="button" onclick="applyOfferPreset('betterBenefits')">Lower cash, better benefits<span>Compare leave, bonus and benefit value beyond base salary.</span></button>
+          </div>
+          <div class="quick-note">Presets only fill input fields. The calculator formula and comparison logic stay unchanged.</div>
+        </div>
+
 
         <div class="global-settings">
           <div class="field">
@@ -580,5 +639,50 @@
       $("resetButton").addEventListener("click", reset);
     })();
   </script>
+
+<script>
+function setOfferField(id, value){
+  var el = document.getElementById(id);
+  if(el) el.value = value;
+}
+function applyOfferPreset(type){
+  var presets = {
+    raise10: {
+      a:{salary:5000, allowance:0, aws:"1", bonus:1, benefits:1000, hours:44, commuteDays:5, commute:60, leave:14, cost:150, name:"Current offer"},
+      b:{salary:5500, allowance:0, aws:"1", bonus:1, benefits:1000, hours:44, commuteDays:5, commute:60, leave:14, cost:150, name:"10% raise offer"}
+    },
+    longerCommute: {
+      a:{salary:5200, allowance:0, aws:"1", bonus:1, benefits:1200, hours:44, commuteDays:3, commute:45, leave:16, cost:120, name:"Shorter commute"},
+      b:{salary:6100, allowance:0, aws:"0", bonus:1.2, benefits:1500, hours:45, commuteDays:5, commute:90, leave:16, cost:220, name:"Higher pay"}
+    },
+    betterBenefits: {
+      a:{salary:5800, allowance:0, aws:"0", bonus:1.2, benefits:800, hours:45, commuteDays:5, commute:75, leave:14, cost:180, name:"Higher cash"},
+      b:{salary:5400, allowance:200, aws:"1", bonus:1.5, benefits:3000, hours:42, commuteDays:3, commute:45, leave:21, cost:100, name:"Better benefits"}
+    }
+  };
+  var p = presets[type] || presets.raise10;
+  ["a","b"].forEach(function(prefix){
+    var d = p[prefix];
+    setOfferField(prefix+"Name", d.name);
+    setOfferField(prefix+"Salary", d.salary);
+    setOfferField(prefix+"Allowance", d.allowance);
+    setOfferField(prefix+"Aws", d.aws);
+    setOfferField(prefix+"Bonus", d.bonus);
+    setOfferField(prefix+"Benefits", d.benefits);
+    setOfferField(prefix+"Hours", d.hours);
+    setOfferField(prefix+"CommuteDays", d.commuteDays);
+    setOfferField(prefix+"Commute", d.commute);
+    setOfferField(prefix+"Leave", d.leave);
+    setOfferField(prefix+"Cost", d.cost);
+  });
+  var button = document.getElementById("compareButton");
+  if(button) button.click();
+  setTimeout(function(){
+    var results = document.getElementById("results");
+    if(results) results.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 80);
+}
+</script>
+
 </body>
 </html>
