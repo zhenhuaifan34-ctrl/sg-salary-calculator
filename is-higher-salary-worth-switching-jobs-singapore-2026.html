@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is a Higher Salary Offer Worth Switching Jobs in Singapore? 2026 Calculator Guide</title>
+  <meta name="description" content="Compare a new job offer with your current job in Singapore. Calculate salary increase, CPF, AWS, bonus, notice period, leave encashment, commute time and switching cost before you resign." />
+  <link rel="canonical" href="https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html" />
+  <meta property="og:title" content="Is a Higher Salary Offer Worth Switching Jobs in Singapore? 2026 Calculator Guide" />
+  <meta property="og:description" content="A practical Singapore job switch guide covering salary increase, CPF, AWS, bonus, notice period, annual leave and switching costs." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html" />
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --line: #dbe3ee;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --soft: #eaf1ff;
+      --accent: #0f766e;
+      --warning: #b45309;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      font-size: 14px;
+    }
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 20px 56px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 26px;
+      align-items: start;
+    }
+    .article {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 34px;
+    }
+    .kicker {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    h1 {
+      margin: 10px 0 14px;
+      font-size: 40px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+    .intro {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0 0 22px;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 26px;
+    }
+    .pill {
+      background: var(--soft);
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 700;
+    }
+    h2 {
+      margin: 34px 0 12px;
+      font-size: 26px;
+      line-height: 1.25;
+    }
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 19px;
+    }
+    p { margin: 0 0 16px; }
+    ul, ol { padding-left: 22px; margin: 0 0 18px; }
+    li { margin: 6px 0; }
+    .note {
+      border-left: 4px solid var(--primary);
+      background: var(--soft);
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .warning {
+      border-left-color: var(--warning);
+      background: #fff7ed;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 18px 0 24px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      background: #fff;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      font-size: 14px;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .formula {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 16px 0 22px;
+      font-size: 14px;
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0 26px;
+    }
+    .tool-card {
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+      color: var(--text);
+    }
+    .tool-card strong { display: block; margin-bottom: 6px; }
+    .tool-card span { color: var(--muted); font-size: 14px; }
+    .tool-card:hover {
+      border-color: #93c5fd;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+    }
+    .sidebar {
+      position: sticky;
+      top: 78px;
+      display: grid;
+      gap: 14px;
+    }
+    .side-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .side-card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .side-card a {
+      display: block;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .side-card a:last-child { border-bottom: 0; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .button:hover {
+      background: var(--primary-dark);
+      text-decoration: none;
+    }
+    .faq details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      background: #fff;
+    }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .sources {
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      padding-top: 18px;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      padding: 24px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+      }
+      h1 {
+        font-size: 32px;
+      }
+      .article {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-links {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 29px;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Is a Higher Salary Offer Worth Switching Jobs in Singapore? 2026 Calculator Guide",
+    "description": "Compare a new job offer with your current job in Singapore by salary increase, CPF, AWS, bonus, notice period, leave encashment, commute time and switching cost.",
+    "author": {
+      "@type": "Organization",
+      "name": "SG Salary Pro"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SG Salary Pro"
+    },
+    "datePublished": "2026-07-03",
+    "dateModified": "2026-07-03",
+    "mainEntityOfPage": "https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html"
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">SG Salary Pro</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="salary-calculator.html">Salary</a>
+        <a href="resignation-calculator.html">Resignation</a>
+        <a href="offer-comparison-calculator.html">Compare Offers</a>
+        <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
+        <a href="index.html#topics">Guides</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <article class="article">
+      <div class="kicker">Singapore Job Switch Guide 2026</div>
+      <h1>Is a Higher Salary Offer Worth Switching Jobs in Singapore?</h1>
+      <p class="intro">
+        A higher monthly salary does not always mean a better job offer. In Singapore, you should compare the full package: CPF, AWS, bonus, annual leave, notice period, unused leave encashment, commute time and one-time switching costs.
+      </p>
+      <div class="meta">
+        <span>Updated: 3 July 2026</span>
+        <span class="pill">Salary</span>
+        <span class="pill">CPF</span>
+        <span class="pill">Job Offer</span>
+        <span class="pill">Resignation</span>
+      </div>
+
+      <p>
+        Many employees compare job offers by looking at one number: monthly basic salary. That is understandable, but it is incomplete. A new offer that pays S$500 more per month may still be less attractive after you factor in longer working hours, no AWS, uncertain bonus, longer commute, unpaid gap days, notice buyout or reduced annual leave.
+      </p>
+
+      <p>
+        This guide gives you a practical way to check whether a higher salary offer is worth switching jobs in Singapore. It is written for employees who already have a current job and are deciding whether to accept a new offer.
+      </p>
+
+      <div class="note">
+        Quick answer: use the <a href="job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a> if you are comparing your current job with a new offer. Use the <a href="offer-comparison-calculator.html">Offer Comparison Calculator</a> if you are comparing two new offers side by side.
+      </div>
+
+      <h2>Why this question matters in 2026</h2>
+      <p>
+        Job switching remains a common career question in Singapore. Hays reported that 57% of working professionals in Singapore planned to pursue new job opportunities in 2025, while career progression and job security were among the key motivations. At the same time, salary increments and bonuses have become more cautious in many employers' planning for 2025/2026.
+      </p>
+      <p>
+        That means employees should avoid a simple conclusion such as "higher salary equals better offer". The better question is:
+      </p>
+      <div class="formula">Is the extra money enough to compensate for switching cost, risk, time, commute and benefits?</div>
+
+      <h2>The common mistake: comparing only monthly salary</h2>
+      <p>
+        Suppose your current salary is S$5,000 and the new offer is S$5,500. On the surface, the new offer gives you S$500 more per month, or a 10% salary increase.
+      </p>
+
+      <p>But before accepting, you should check:</p>
+      <ul>
+        <li>Does the new company pay AWS or 13th month salary?</li>
+        <li>Is the bonus guaranteed, discretionary or not mentioned?</li>
+        <li>How does CPF affect your monthly take-home pay?</li>
+        <li>Will your commute become longer?</li>
+        <li>Will your working hours increase?</li>
+        <li>Do you need to pay salary in lieu of notice or notice buyout?</li>
+        <li>Will you lose unused annual leave encashment?</li>
+        <li>Is there a probation period or higher job stability risk?</li>
+      </ul>
+
+      <h2>Step 1: Compare total annual compensation</h2>
+      <p>
+        Start by comparing annual value, not just monthly salary. A job offer can include basic salary, AWS, fixed allowance, variable bonus, employer CPF, annual leave value and other benefits.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Why it matters</th>
+              <th>Tool to use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monthly salary</td>
+              <td>Main cash compensation, but not the full package.</td>
+              <td><a href="offer-comparison-calculator.html">Offer Comparison Calculator</a></td>
+            </tr>
+            <tr>
+              <td>AWS / 13th month</td>
+              <td>AWS is not compulsory unless stated in your contract or collective agreement.</td>
+              <td><a href="offer-comparison-calculator.html">Offer Comparison Calculator</a></td>
+            </tr>
+            <tr>
+              <td>Bonus</td>
+              <td>Bonus may be discretionary unless contractually promised.</td>
+              <td><a href="offer-comparison-calculator.html">Offer Comparison Calculator</a></td>
+            </tr>
+            <tr>
+              <td>CPF</td>
+              <td>Employee CPF affects take-home pay; employer CPF affects total employment cost and savings.</td>
+              <td><a href="salary-calculator.html">Salary Calculator</a></td>
+            </tr>
+            <tr>
+              <td>Working hours and commute</td>
+              <td>A higher salary may be less attractive if it requires more time every week.</td>
+              <td><a href="job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Step 2: Calculate actual take-home salary after CPF</h2>
+      <p>
+        If you are a Singapore Citizen or Singapore Permanent Resident, CPF contributions can significantly affect monthly take-home pay. For employees aged 55 and below earning monthly wages above S$750, the 2026 CPF contribution rate is 20% employee CPF and 17% employer CPF, subject to CPF rules and wage ceilings.
+      </p>
+      <p>
+        If you are an Employment Pass, S Pass or Work Permit holder who is not required to contribute CPF, your take-home comparison will look different. This is why the same gross salary can produce different real outcomes for different workers.
+      </p>
+      <div class="note warning">
+        CPF rules can change by age, citizenship status, wage level and year. Always verify the latest CPF rates with CPF Board before making a final financial decision.
+      </div>
+
+      <h2>Step 3: Check notice period and annual leave</h2>
+      <p>
+        The resignation part is where many job switch decisions become more complicated. If your new employer wants you to start early, your current notice period may create a cost.
+      </p>
+
+      <p>Common questions include:</p>
+      <ul>
+        <li>Can I use annual leave during my notice period?</li>
+        <li>Can annual leave offset my notice period?</li>
+        <li>Will unused annual leave be encashed?</li>
+        <li>Do I need to pay salary in lieu of notice?</li>
+        <li>Can I start my new job while still serving notice?</li>
+      </ul>
+
+      <p>
+        MOM distinguishes between taking approved annual leave during notice and using annual leave to offset notice. If annual leave is used to offset notice with employer agreement, your last day may be brought forward, but those offset leave days are not paid again as leave encashment. MOM also states that CPF contributions are required for salary earned during notice while you are still an employee, but CPF contributions are not required for salary in lieu of notice.
+      </p>
+
+      <p>
+        Use the <a href="resignation-calculator.html">Resignation Calculator</a> to estimate your notice period dates, unused leave value and final settlement before deciding on a start date with the new company.
+      </p>
+
+      <h2>Step 4: Estimate the real switching cost</h2>
+      <p>
+        A job switch may include one-time costs that do not appear in the offer letter.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Switching cost</th>
+              <th>Example</th>
+              <th>Why to include it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Notice buyout</td>
+              <td>You pay one month salary to leave earlier.</td>
+              <td>This can delay the financial benefit of switching.</td>
+            </tr>
+            <tr>
+              <td>Unpaid gap days</td>
+              <td>You take 7 unpaid days between jobs.</td>
+              <td>Your first year gain is lower than expected.</td>
+            </tr>
+            <tr>
+              <td>Lost bonus</td>
+              <td>You resign before bonus payout date.</td>
+              <td>A higher salary may not recover the lost bonus quickly.</td>
+            </tr>
+            <tr>
+              <td>Longer commute</td>
+              <td>Extra 45 minutes per day.</td>
+              <td>Time cost reduces effective hourly value.</td>
+            </tr>
+            <tr>
+              <td>Probation risk</td>
+              <td>New role has uncertain fit or stability.</td>
+              <td>Financial gain should be weighed against risk.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Example: S$500 more per month, but is it worth switching?</h2>
+      <p>Here is a simplified example.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Current job</th>
+              <th>New offer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monthly salary</td>
+              <td>S$5,000</td>
+              <td>S$5,500</td>
+            </tr>
+            <tr>
+              <td>AWS</td>
+              <td>1 month</td>
+              <td>Not confirmed</td>
+            </tr>
+            <tr>
+              <td>Bonus</td>
+              <td>1 month typical</td>
+              <td>Discretionary</td>
+            </tr>
+            <tr>
+              <td>Commute</td>
+              <td>30 minutes one way</td>
+              <td>60 minutes one way</td>
+            </tr>
+            <tr>
+              <td>Notice buyout</td>
+              <td>None</td>
+              <td>S$2,000</td>
+            </tr>
+            <tr>
+              <td>Gap days</td>
+              <td>None</td>
+              <td>7 unpaid days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The new offer looks better if you only compare monthly salary. But once you include uncertain AWS, uncertain bonus, longer commute and S$2,000 notice buyout, the first-year gain may be much smaller than expected.
+      </p>
+
+      <div class="formula">Break-even months = switching cost / monthly net gain</div>
+
+      <p>
+        If the real monthly gain is only S$250 after all adjustments, and your switching cost is S$2,000, it takes about 8 months to break even. If the new role has high growth potential, that may still be acceptable. If the role is unstable or the commute is much worse, it may not be worth it.
+      </p>
+
+      <h2>When a higher salary offer may not be worth it</h2>
+      <ul>
+        <li>The salary increase is below 10% and the new role has longer hours or commute.</li>
+        <li>The new offer has no AWS while your current job pays AWS.</li>
+        <li>The bonus is uncertain and the current company has a reliable bonus history.</li>
+        <li>You need to pay a large notice buyout to start early.</li>
+        <li>You will lose a confirmed bonus or leave encashment by resigning too early.</li>
+        <li>The new company has weak stability, unclear scope or high probation risk.</li>
+      </ul>
+
+      <h2>When switching jobs may be worth it</h2>
+      <ul>
+        <li>The salary increase is meaningful after CPF, benefits and switching costs.</li>
+        <li>The annual package is higher even after adjusting for AWS and bonus.</li>
+        <li>The new role improves career growth, title, scope or future market value.</li>
+        <li>The commute or working hours are similar or better.</li>
+        <li>The break-even period is short enough for your situation.</li>
+        <li>The new company gives you better long-term stability or learning opportunities.</li>
+      </ul>
+
+      <h2>Use these calculators before you resign</h2>
+      <p>
+        Before you accept the offer, run the numbers from four angles: total package, take-home pay, resignation cost and switch value.
+      </p>
+
+      <div class="cta-grid">
+        <a class="tool-card" href="job-switch-worth-it-calculator.html">
+          <strong>Job Switch Worth It Calculator</strong>
+          <span>Compare your current job with a new offer after switching cost, notice, commute and risk.</span>
+        </a>
+        <a class="tool-card" href="offer-comparison-calculator.html">
+          <strong>Offer Comparison Calculator</strong>
+          <span>Compare two job offers side by side by salary, AWS, bonus, benefits, hours and commute.</span>
+        </a>
+        <a class="tool-card" href="salary-calculator.html">
+          <strong>Salary Calculator</strong>
+          <span>Estimate Singapore take-home pay after CPF and overtime assumptions.</span>
+        </a>
+        <a class="tool-card" href="resignation-calculator.html">
+          <strong>Resignation Calculator</strong>
+          <span>Estimate notice period dates, unused annual leave value and final settlement.</span>
+        </a>
+      </div>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+
+        <details>
+          <summary>Is a 10% salary increase enough to switch jobs in Singapore?</summary>
+          <p>
+            It depends on the full package. A 10% increase may be attractive if AWS, bonus, commute, working hours and job stability are similar. It may be weak if you lose AWS, take on longer hours or pay a large notice buyout.
+          </p>
+        </details>
+
+        <details>
+          <summary>Should I include AWS when comparing job offers?</summary>
+          <p>
+            Yes. AWS can materially affect annual compensation. MOM states that AWS is not compulsory unless it is specified in your contract or collective agreement, so you should check whether the new offer clearly includes it.
+          </p>
+        </details>
+
+        <details>
+          <summary>Can I use annual leave to offset notice period in Singapore?</summary>
+          <p>
+            MOM states that this can be done with your employer's agreement. If leave is used to offset notice, your last day may be brought forward, but those offset leave days are not paid again as leave encashment.
+          </p>
+        </details>
+
+        <details>
+          <summary>Is unused annual leave paid when I resign?</summary>
+          <p>
+            If your employment is terminated except for misconduct, MOM states that unused annual leave must be paid at the gross rate of pay based on your last drawn salary. Your exact amount may depend on your leave entitlement, completed months of service and company records.
+          </p>
+        </details>
+
+        <details>
+          <summary>Does salary in lieu of notice require CPF?</summary>
+          <p>
+            MOM states that CPF contributions are required for salary earned during the notice period while you are still an employee, but CPF contributions are not required for salary in lieu of notice.
+          </p>
+        </details>
+      </section>
+
+      <div class="sources">
+        <strong>Sources and verification:</strong>
+        This article references public information from Singapore Ministry of Manpower, CPF Board, Hays and ManpowerGroup Singapore. For final employment, CPF or resignation decisions, verify your contract terms and the latest official rules:
+        <a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice" target="_blank" rel="noopener">MOM termination with notice</a>,
+        <a href="https://www.mom.gov.sg/employment-practices/salary/variable-wage-components" target="_blank" rel="noopener">MOM AWS and bonus</a>,
+        <a href="https://www.mom.gov.sg/employment-practices/leave/annual-leave/eligibility-and-entitlement" target="_blank" rel="noopener">MOM annual leave</a>,
+        <a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay" target="_blank" rel="noopener">CPF contribution rates</a>,
+        <a href="https://www.hays.com.sg/press-release/content/hays-asia-salary-guide-singapore-job-mobility-2025" target="_blank" rel="noopener">Hays Singapore job mobility report</a>,
+        <a href="https://www.manpower.com.sg/en/insights/blogs/2025/11/singapore-salary-and-bonus-plans-2025-2026" target="_blank" rel="noopener">ManpowerGroup salary and bonus plans</a>.
+      </div>
+    </article>
+
+    <aside class="sidebar" aria-label="Related calculators">
+      <div class="side-card">
+        <h2>Calculate Before You Switch</h2>
+        <p>Run the numbers before accepting a new offer or resigning from your current job.</p>
+        <a class="button" href="job-switch-worth-it-calculator.html">Open Job Switch Calculator</a>
+      </div>
+
+      <div class="side-card">
+        <h2>Tools</h2>
+        <a href="job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a>
+        <a href="offer-comparison-calculator.html">Offer Comparison Calculator</a>
+        <a href="salary-calculator.html">Salary Calculator</a>
+        <a href="resignation-calculator.html">Resignation Calculator</a>
+      </div>
+
+      <div class="side-card">
+        <h2>Best for</h2>
+        <p>Employees in Singapore comparing a new job offer with their current job, especially when notice period, CPF, AWS, bonus and commute time affect the decision.</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 SG Salary Pro. Free Singapore salary and career calculators.</div>
+      <div>
+        <a href="about.html">About</a> ·
+        <a href="privacy.html">Privacy</a> ·
+        <a href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
