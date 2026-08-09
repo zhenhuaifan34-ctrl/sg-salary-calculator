@@ -91,16 +91,18 @@ async function repositoryFiles(directory = repositoryRoot) {
   return paths.flat();
 }
 
-test(`legacy page bytes match main baseline ${baselineCommit}`, async () => {
+test(`unchanged legacy page bytes match main baseline ${baselineCommit}`, async () => {
   for (const [path, contract] of Object.entries(pages)) {
+    if (path === 'resignation-calculator.html') continue;
     const bytes = await readFile(join(repositoryRoot, path));
     const digest = createHash('sha256').update(bytes).digest('hex');
     assert.equal(digest, contract.sha256, `${path} changed from the recorded main baseline`);
   }
 });
 
-test('legacy page behavior markers remain present', async () => {
+test('unchanged legacy page behavior markers remain present', async () => {
   for (const [path, contract] of Object.entries(pages)) {
+    if (path === 'resignation-calculator.html') continue;
     const html = await source(path);
     for (const marker of contract.markers) {
       assert.ok(html.includes(marker), `${path} is missing baseline marker: ${marker}`);
@@ -114,6 +116,16 @@ test('the test scaffold is not loaded by production HTML', async () => {
     assert.ok(!html.includes('tests/'), `${path} unexpectedly references the test directory`);
     assert.ok(!html.includes('baseline-pages.test.mjs'), `${path} loads the baseline test`);
   }
+});
+
+test('stage 3 deliberately upgrades only the original resignation URL', async () => {
+  const html = await source('resignation-calculator.html');
+  assert.ok(html.includes('id="resignPanel"'));
+  assert.ok(html.includes('<script src="employment-rules.js"></script>'));
+  assert.ok(html.includes('Official last employment date'));
+  assert.ok(html.includes('Employee possible payable items'));
+  assert.ok(html.includes('Excluded pending items'));
+  assert.ok(html.includes('https://sg-salary-calculator.vercel.app/resignation-calculator.html'));
 });
 
 test('stage 2 does not create later-stage or prohibited tool URLs', async () => {
