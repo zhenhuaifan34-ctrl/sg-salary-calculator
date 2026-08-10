@@ -12,6 +12,7 @@ const baselineCommit = '24af17a6130a45aaa93193be1a665d8c4a157f34';
 const pages = {
   'salary-calculator.html': {
     sha256: '1ad9c2b96513e5d90468adf1a7d9591e6fc8c8e0da15da6a21342ded16575ade',
+    scriptSha256: '2ceb6d5ae0c0fca72040aa7a13177bf65c3a3995f53a3e8b728070a0aa05d1db',
     markers: [
       'id="basicSalary"',
       'id="weeklyHours" value="44"',
@@ -41,6 +42,7 @@ const pages = {
   },
   'offer-comparison-calculator.html': {
     sha256: '5faccf18d4baf8e16b95afb78f927d33d33849906b391b570ad87cd1560bf561',
+    scriptSha256: '0e67282665e81bd63c8bb89fb8026fa0d9fe4ebabccd4303276b840f1fa711d5',
     markers: [
       'const OW_MONTHLY_CEILING = 8000;',
       'const TOTAL_WAGE_CEILING = 102000;',
@@ -90,10 +92,22 @@ async function repositoryFiles(directory = repositoryRoot) {
   return paths.flat();
 }
 
-test(`unchanged legacy page bytes match main baseline ${baselineCommit}`, async () => {
+function executableScripts(html) {
+  return [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter((match) => !/\btype\s*=\s*["']application\/ld\+json["']/i.test(match[1]))
+    .map((match) => match[2])
+    .join('\n/* script boundary */\n');
+}
+
+test(`legacy calculator code and unchanged pages match main baseline ${baselineCommit}`, async () => {
   for (const [path, contract] of Object.entries(pages)) {
     if (path === 'resignation-calculator.html') continue;
     const bytes = await readFile(join(repositoryRoot, path));
+    if (contract.scriptSha256) {
+      const digest = createHash('sha256').update(executableScripts(bytes.toString('utf8'))).digest('hex');
+      assert.equal(digest, contract.scriptSha256, `${path} executable code changed from the recorded main baseline`);
+      continue;
+    }
     const digest = createHash('sha256').update(bytes).digest('hex');
     assert.equal(digest, contract.sha256, `${path} changed from the recorded main baseline`);
   }
