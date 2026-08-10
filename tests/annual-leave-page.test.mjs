@@ -62,3 +62,13 @@ test('only the approved calculator URL exists in stage 5', async () => {
     assert.ok(!files.includes(forbidden));
   }
 });
+
+test('stage 6 hands exit settlement to Resignation without URL data transfer', () => {
+  assert.match(html, /Use Annual Leave for the leave-year ledger/);
+  assert.match(html, /Use Resignation for the exit settlement/);
+  assert.match(html, /calculates entitlement and balance only/i);
+  assert.match(html, /does not calculate cash value/i);
+  assert.match(html, /does not calculate notice pay, final salary or settlement totals/i);
+  assert.match(html, /transfers no employment dates, salary, leave balance or other form input/i);
+  assert.doesNotMatch(html, /resignation-calculator\.html[?#][^"']+/i);
+});

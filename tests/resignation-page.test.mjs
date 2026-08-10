@@ -60,3 +60,12 @@ test('responsive layout and touch-size rules cover desktop and mobile', () => {
   assert.match(html, /\.form-grid,\.action-stack\{grid-template-columns:1fr\}/);
   assert.match(html, /input,select\{[^}]*min-height:50px/);
 });
+
+test('stage 6 hands leave-year accounting to Annual Leave without URL data transfer', () => {
+  assert.match(html, /id="annualLeaveHandoff"/);
+  assert.match(html, /href="\/annual-leave-calculator\.html"/);
+  assert.match(html, /does not recalculate entitlement/i);
+  assert.match(html, /HR-confirmed cash-eligible or notice-offset days/i);
+  assert.match(html, /without transferring salary, dates, leave balances or other form inputs in the URL/i);
+  assert.doesNotMatch(html, /annual-leave-calculator\.html[?#][^"']+/i);
+});

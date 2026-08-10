@@ -173,6 +173,7 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
       <a href="index.html">Home</a>
       <a href="salary-calculator.html">Salary</a>
       <a href="resignation-calculator.html" class="active">Resignation</a>
+      <a href="annual-leave-calculator.html">Annual Leave</a>
       <a href="offer-comparison-calculator.html">Compare Offers</a>
       <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
       <a href="index.html#topics">Guides</a>
@@ -377,14 +378,16 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
   <div class="sources">
     <h3>Official sources</h3>
     <ul>
-      <li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice" target="_blank" rel="noopener">MOM — Termination with notice</a></li>
-      <li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-without-notice" target="_blank" rel="noopener">MOM — Termination without notice</a></li>
-      <li><a href="https://www.mom.gov.sg/employment-practices/salary/monthly-and-daily-salary" target="_blank" rel="noopener">MOM — Monthly and daily salary</a></li>
-      <li><a href="https://sso.agc.gov.sg/Act/EmA1968?ProvIds=pr10-" target="_blank" rel="noopener">Employment Act — Section 10 (notice)</a></li>
-      <li><a href="https://sso.agc.gov.sg/Act/EmA1968?ProvIds=pr11-." target="_blank" rel="noopener">Employment Act — Section 11 (notice pay)</a></li>
-      <li><a href="https://www.cpf.gov.sg/service/article/are-cpf-contributions-payable-on-compensation-in-lieu-of-notice" target="_blank" rel="noopener">CPF Board — Compensation in lieu of notice</a></li>
-      <li><a href="https://www.cpf.gov.sg/service/article/are-cpf-contributions-payable-on-encashment-of-leave" target="_blank" rel="noopener">CPF Board — Leave encashment</a></li>
+      <li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice" target="_blank" rel="noopener">[MOM-NOTICE-1] Termination with notice</a></li>
+      <li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-without-notice" target="_blank" rel="noopener">[MOM-NOTICE-2] Termination without notice</a></li>
+      <li><a href="https://www.mom.gov.sg/employment-practices/salary/monthly-and-daily-salary" target="_blank" rel="noopener">[MOM-SALARY-1] Monthly and daily salary</a></li>
+      <li><a href="https://www.mom.gov.sg/employment-practices/leave/annual-leave/eligibility-and-entitlement" target="_blank" rel="noopener">[MOM-LEAVE-1] Annual leave eligibility and entitlement</a></li>
+      <li><a href="https://sso.agc.gov.sg/Act/EmA1968?ProvIds=pr10-" target="_blank" rel="noopener">[EA-NOTICE-1] Employment Act Section 10 (notice)</a></li>
+      <li><a href="https://sso.agc.gov.sg/Act/EmA1968?ProvIds=pr11-." target="_blank" rel="noopener">[EA-NOTICE-2] Employment Act Section 11 (notice pay)</a></li>
+      <li><a href="https://www.cpf.gov.sg/service/article/are-cpf-contributions-payable-on-compensation-in-lieu-of-notice" target="_blank" rel="noopener">[CPF-NOTICE-1] Compensation in lieu of notice</a></li>
+      <li><a href="https://www.cpf.gov.sg/service/article/are-cpf-contributions-payable-on-encashment-of-leave" target="_blank" rel="noopener">[CPF-LEAVE-1] Leave encashment</a></li>
     </ul>
+    <p class="disclaimer">Last reviewed: 10 August 2026. Source IDs are stable references shared with the Annual Leave Calculator where the same official rule is discussed.</p>
     <p class="disclaimer">Independent educational estimate only; not legal, payroll or tax advice and not endorsed or certified by MOM, CPF Board or any government agency. Check your contract, employer calendar, HR records and current official guidance. Disputed termination, misconduct, AWOL, variable pay, irregular rosters and tax-clearance matters require professional or payroll review.</p>
   </div>
   <div class="action-stack"><button class="reset" type="button" onclick="copyResignResults()">Copy Settlement</button><button class="primary" type="button" onclick="downloadTxtReport()" style="background:var(--success)">Export Report (.txt)</button><button class="primary" type="button" onclick="window.print()" style="background:var(--warning)">Print</button><button class="primary" type="button" onclick="shareApp('shareResignBtn')" id="shareResignBtn" style="background:var(--secondary)">Share Tool</button></div>
@@ -436,6 +439,13 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
         <li>Identify who decided to end notice early before assigning notice pay.</li>
         <li>Use only HR-confirmed cash-eligible leave days; offset days cannot also be encashed.</li>
       </ul>
+    </section>
+    <section class="side-card" id="annualLeaveHandoff">
+      <h3>Need your leave balance first?</h3>
+      <p>Use the Annual Leave Calculator for statutory and company-contract entitlement, leave-year balances, used leave, carry-forward, adjustments and dated unpaid leave.</p>
+      <p>This resignation tool does not recalculate entitlement. Enter only HR-confirmed cash-eligible or notice-offset days here, so leave is not counted twice.</p>
+      <a class="side-link" href="/annual-leave-calculator.html">Calculate annual leave entitlement and balance →</a>
+      <p class="field-note">The link opens the other tool without transferring salary, dates, leave balances or other form inputs in the URL.</p>
     </section>
     <section class="side-card">
       <h3>Related guides</h3>
