@@ -141,6 +141,7 @@ test('terminology, source IDs, review dates and disclaimers stay aligned', () =>
 test('all seven stage 6 user paths appear in visible content with a destination or review state', () => {
   const resignationText = visibleText(resignation);
   const annualLeaveText = visibleText(annualLeave);
+  assert.match(resignationText, /confirm them with HR first/i, 'Resignation must visibly direct uncertain inputs to HR');
   const paths = [
     { name: 'current leave balance', page: annualLeaveText, markers: [/Statutory estimate balance/, /Contract estimate balance/] },
     { name: 'prepare resignation notice', page: resignationText, markers: [/Contractual Notice Length/, /Contractual notice end/] },
