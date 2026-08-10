@@ -113,6 +113,392 @@
     return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
   }
 
+  function addCivilMonths(date, monthsValue) {
+    const months = finiteNumber(monthsValue, 'Month adjustment', { integer: true });
+    const target = monthTarget(date, months);
+    return { year: target.year, month: target.month, day: Math.min(date.day, daysInMonth(target.year, target.month)) };
+  }
+
+  function inclusiveDayCount(start, end) {
+    return Math.floor((civilTime(end) - civilTime(start)) / 86400000) + 1;
+  }
+
+  function laterDate(left, right) {
+    return compareCivilDates(left, right) >= 0 ? left : right;
+  }
+
+  function earlierDate(left, right) {
+    return compareCivilDates(left, right) <= 0 ? left : right;
+  }
+
+  function roundLeaveDays(value) {
+    const days = finiteNumber(value, 'Leave entitlement', { nonNegative: true });
+    const whole = Math.floor(days);
+    return days - whole < 0.5 ? whole : whole + 1;
+  }
+
+  function statutoryAnnualLeaveDays(serviceYearValue) {
+    const serviceYear = finiteNumber(serviceYearValue, 'Service year', { positive: true, integer: true });
+    return 7 + Math.min(serviceYear - 1, 7);
+  }
+
+  function serviceYearAt(hireDate, date) {
+    if (compareCivilDates(date, hireDate) < 0) fail('Date cannot be before employment start.', 'DATE_BEFORE_HIRE');
+    let completedYears = Math.max(0, date.year - hireDate.year);
+    while (completedYears > 0 && compareCivilDates(addCivilMonths(hireDate, completedYears * 12), date) > 0) completedYears -= 1;
+    while (compareCivilDates(addCivilMonths(hireDate, (completedYears + 1) * 12), date) <= 0) completedYears += 1;
+    return completedYears + 1;
+  }
+
+  function leaveYearWindow(input) {
+    const type = input.leaveYearType;
+    if (!['calendar', 'anniversary', 'custom'].includes(type)) {
+      fail('Choose Calendar year, Employment anniversary year, or Custom company leave year.', 'LEAVE_YEAR_REQUIRED');
+    }
+    const hireDate = typeof input.hireDate === 'string' ? parseCivilDate(input.hireDate, 'Employment start date') : input.hireDate;
+    if (type === 'custom') {
+      const start = typeof input.customLeaveYearStart === 'string'
+        ? parseCivilDate(input.customLeaveYearStart, 'Custom company leave year start')
+        : input.customLeaveYearStart;
+      return { type, start, end: addCivilDays(addCivilMonths(start, 12), -1) };
+    }
+    const reference = typeof input.leaveYearReference === 'string'
+      ? parseCivilDate(input.leaveYearReference, 'Leave year reference date')
+      : input.leaveYearReference;
+    if (type === 'calendar') {
+      return {
+        type,
+        start: { year: reference.year, month: 1, day: 1 },
+        end: { year: reference.year, month: 12, day: 31 },
+      };
+    }
+    if (compareCivilDates(reference, hireDate) < 0) {
+      fail('The anniversary leave year cannot be before employment started.', 'LEAVE_YEAR_BEFORE_HIRE');
+    }
+    const year = serviceYearAt(hireDate, reference);
+    const start = addCivilMonths(hireDate, (year - 1) * 12);
+    return { type, start, end: addCivilDays(addCivilMonths(start, 12), -1), serviceYear: year };
+  }
+
+  function normalizeDateRanges(rangeValues, label = 'Unpaid leave') {
+    if (rangeValues === undefined || rangeValues === null) return [];
+    if (!Array.isArray(rangeValues)) fail(`${label} periods must be a list.`, 'INVALID_DATE_RANGES');
+    const ranges = [];
+    rangeValues.forEach((range, index) => {
+      const startValue = range && range.start;
+      const endValue = range && range.end;
+      if (!startValue && !endValue) return;
+      if (!startValue || !endValue) fail(`${label} period ${index + 1} needs both a start and end date.`, 'INCOMPLETE_DATE_RANGE');
+      const start = parseCivilDate(startValue, `${label} period ${index + 1} start`);
+      const end = parseCivilDate(endValue, `${label} period ${index + 1} end`);
+      if (compareCivilDates(end, start) < 0) fail(`${label} period ${index + 1} ends before it starts.`, 'DATE_RANGE_REVERSED');
+      ranges.push({ start, end });
+    });
+    ranges.sort((left, right) => compareCivilDates(left.start, right.start) || compareCivilDates(left.end, right.end));
+    return ranges.reduce((merged, range) => {
+      const previous = merged[merged.length - 1];
+      if (!previous || compareCivilDates(range.start, addCivilDays(previous.end, 1)) > 0) {
+        merged.push({ start: range.start, end: range.end });
+      } else if (compareCivilDates(range.end, previous.end) > 0) {
+        previous.end = range.end;
+      }
+      return merged;
+    }, []);
+  }
+
+  function rangeOverlap(range, start, end) {
+    const overlapStart = laterDate(range.start, start);
+    const overlapEnd = earlierDate(range.end, end);
+    return compareCivilDates(overlapStart, overlapEnd) <= 0 ? { start: overlapStart, end: overlapEnd } : null;
+  }
+
+  function rangeCovered(start, end, ranges) {
+    return ranges.some((range) => compareCivilDates(range.start, start) <= 0 && compareCivilDates(range.end, end) >= 0);
+  }
+
+  function rangeTouches(start, end, ranges) {
+    return ranges.some((range) => rangeOverlap(range, start, end));
+  }
+
+  function recurringLeaveYearWindow(type, date, hireDate, customStart) {
+    if (type === 'calendar') {
+      return { start: { year: date.year, month: 1, day: 1 }, end: { year: date.year, month: 12, day: 31 } };
+    }
+    const anchor = type === 'anniversary' ? hireDate : customStart;
+    let years = date.year - anchor.year;
+    let start = addCivilMonths(anchor, years * 12);
+    while (compareCivilDates(start, date) > 0) {
+      years -= 1;
+      start = addCivilMonths(anchor, years * 12);
+    }
+    let next = addCivilMonths(anchor, (years + 1) * 12);
+    while (compareCivilDates(next, date) <= 0) {
+      years += 1;
+      start = next;
+      next = addCivilMonths(anchor, (years + 1) * 12);
+    }
+    return { start, end: addCivilDays(next, -1) };
+  }
+
+  function splitRangesByLeaveYear(ranges, options) {
+    const pieces = [];
+    for (const range of ranges) {
+      let cursor = range.start;
+      while (compareCivilDates(cursor, range.end) <= 0) {
+        const window = recurringLeaveYearWindow(options.leaveYearType, cursor, options.hireDate, options.customLeaveYearStart);
+        const pieceEnd = earlierDate(range.end, window.end);
+        pieces.push({
+          leaveYearStart: formatCivilDate(window.start),
+          leaveYearEnd: formatCivilDate(window.end),
+          start: formatCivilDate(cursor),
+          end: formatCivilDate(pieceEnd),
+          days: inclusiveDayCount(cursor, pieceEnd),
+        });
+        cursor = addCivilDays(pieceEnd, 1);
+      }
+    }
+    return pieces;
+  }
+
+  function calculateAnnualLeave(input) {
+    const errors = [];
+    const pending = [];
+    const warnings = [];
+    let hireDate;
+    let calculationDate;
+    let window;
+    let normalizedRanges = [];
+
+    try {
+      hireDate = parseCivilDate(input.hireDate, 'Employment start date');
+    } catch (error) {
+      errors.push(error.message);
+    }
+    try {
+      calculationDate = parseCivilDate(input.calculationDate, 'Calculation or employment end date');
+    } catch (error) {
+      errors.push(error.message);
+    }
+    if (hireDate && calculationDate && compareCivilDates(calculationDate, hireDate) < 0) {
+      errors.push('Calculation or employment end date cannot be before employment start date.');
+    }
+    if (hireDate && calculationDate && calculationDate.year - hireDate.year > 150) {
+      errors.push('Employment period is outside the supported range.');
+    }
+    if (hireDate) {
+      try {
+        window = leaveYearWindow({
+          leaveYearType: input.leaveYearType,
+          leaveYearReference: input.leaveYearReference,
+          customLeaveYearStart: input.customLeaveYearStart,
+          hireDate,
+        });
+      } catch (error) {
+        errors.push(error.message);
+      }
+    }
+
+    let usedDays;
+    let carriedDays;
+    let adjustmentDays;
+    if (!valueProvided(input.usedDays)) errors.push('Used leave days is required; enter 0 if none.');
+    else try {
+        usedDays = finiteNumber(input.usedDays, 'Used leave days', { nonNegative: true });
+      } catch (error) {
+        errors.push(error.message);
+      }
+    if (!valueProvided(input.carriedDays)) errors.push('Carried-forward leave days is required; enter 0 if none.');
+    else try {
+        carriedDays = finiteNumber(input.carriedDays, 'Carried-forward leave days', { nonNegative: true });
+      } catch (error) {
+        errors.push(error.message);
+      }
+    if (!valueProvided(input.adjustmentDays)) errors.push('Manual adjustment days is required; enter 0 if none.');
+    else try {
+        adjustmentDays = finiteNumber(input.adjustmentDays, 'Manual adjustment days');
+      } catch (error) {
+        errors.push(error.message);
+      }
+
+    let unpaidTotalDays = 0;
+    if (valueProvided(input.unpaidTotalDays)) {
+      try {
+        unpaidTotalDays = finiteNumber(input.unpaidTotalDays, 'Unpaid leave total days', { nonNegative: true });
+      } catch (error) {
+        errors.push(error.message);
+      }
+    }
+    try {
+      normalizedRanges = normalizeDateRanges(input.unpaidRanges || []);
+    } catch (error) {
+      errors.push(error.message);
+    }
+    if (unpaidTotalDays > 0 && normalizedRanges.length) {
+      errors.push('Use dated unpaid-leave periods or a total-only figure, not both.');
+    }
+    if (hireDate && calculationDate) {
+      for (const range of normalizedRanges) {
+        if (compareCivilDates(range.start, hireDate) < 0 || compareCivilDates(range.end, calculationDate) > 0) {
+          errors.push('Unpaid-leave dates must fall within the employment period being calculated.');
+          break;
+        }
+      }
+    }
+
+    let contractAnnualDays = null;
+    if (valueProvided(input.contractAnnualDays)) {
+      try {
+        contractAnnualDays = finiteNumber(input.contractAnnualDays, 'Company annual leave days', { positive: true });
+        if (contractAnnualDays > 365) fail('Company annual leave days must not exceed 365.', 'OUT_OF_RANGE');
+      } catch (error) {
+        errors.push(error.message);
+      }
+    }
+
+    if (errors.length || !hireDate || !calculationDate || !window) {
+      return { errors, pending, warnings, totalDeterminate: false, statutory: null, contract: null, unpaidLeave: null, leaveYear: null };
+    }
+
+    if (compareCivilDates(calculationDate, window.start) < 0) {
+      errors.push('Calculation date is before the selected leave year.');
+      return { errors, pending, warnings, totalDeterminate: false, statutory: null, contract: null, unpaidLeave: null, leaveYear: null };
+    }
+    const activeStart = laterDate(hireDate, window.start);
+    const activeEnd = earlierDate(calculationDate, window.end);
+    if (compareCivilDates(activeEnd, activeStart) < 0) {
+      errors.push('Employment does not overlap the selected leave year.');
+      return { errors, pending, warnings, totalDeterminate: false, statutory: null, contract: null, unpaidLeave: null, leaveYear: null };
+    }
+
+    const relevantUnpaid = normalizedRanges.map((range) => rangeOverlap(range, activeStart, activeEnd)).filter(Boolean);
+    const serviceMonths = [];
+    for (let monthIndex = 0; monthIndex < 1800; monthIndex += 1) {
+      const start = addCivilMonths(hireDate, monthIndex);
+      const end = addCivilDays(addCivilMonths(hireDate, monthIndex + 1), -1);
+      if (compareCivilDates(end, activeEnd) > 0) break;
+      if (compareCivilDates(end, activeStart) < 0) continue;
+      const fullyUnpaid = rangeCovered(start, end, relevantUnpaid);
+      const partlyUnpaid = !fullyUnpaid && rangeTouches(start, end, relevantUnpaid);
+      serviceMonths.push({
+        index: monthIndex + 1,
+        serviceYear: Math.floor(monthIndex / 12) + 1,
+        start,
+        end,
+        fullyUnpaid,
+        partlyUnpaid,
+      });
+    }
+
+    const excludedMonths = serviceMonths.filter((month) => month.fullyUnpaid);
+    const partialMonths = serviceMonths.filter((month) => month.partlyUnpaid);
+    const includedMonths = serviceMonths.filter((month) => !month.fullyUnpaid);
+    const statutoryBreakdownMap = new Map();
+    includedMonths.forEach((month) => {
+      const annualDays = statutoryAnnualLeaveDays(month.serviceYear);
+      statutoryBreakdownMap.set(annualDays, (statutoryBreakdownMap.get(annualDays) || 0) + 1);
+    });
+    const statutoryBreakdown = [...statutoryBreakdownMap.entries()].map(([annualDays, months]) => ({ annualDays, months }));
+    const statutoryRaw = statutoryBreakdown.reduce((sum, item) => sum + (item.months / 12) * item.annualDays, 0);
+    const eligibilityDate = addCivilDays(addCivilMonths(hireDate, 3), -1);
+    const statutoryEligible = compareCivilDates(calculationDate, eligibilityDate) >= 0;
+
+    const sharedManualReasons = [];
+    if (unpaidTotalDays > 0) {
+      sharedManualReasons.push('Only a total number of unpaid-leave days was provided. Dates are required before completed service months can be adjusted.');
+    }
+    if (partialMonths.length) {
+      sharedManualReasons.push('Unpaid leave touches a service month without fully covering it. HR must confirm the completed-month adjustment.');
+    }
+    sharedManualReasons.forEach((reason) => pending.push(`MANUAL_REVIEW_REQUIRED: ${reason}`));
+
+    const statutoryDeterminate = sharedManualReasons.length === 0;
+    const statutoryEntitlement = statutoryDeterminate ? (statutoryEligible ? roundLeaveDays(statutoryRaw) : 0) : null;
+    const statutoryBalance = statutoryEntitlement === null ? null : statutoryEntitlement - usedDays;
+
+    const contractReasons = [...sharedManualReasons];
+    if (!valueProvided(input.contractAnnualDays)) contractReasons.push('Enter the annual leave days stated by the company contract.');
+    if (input.contractProrationPolicy !== 'completed-months') {
+      contractReasons.push('Confirm that the company contract uses completed service months ÷ 12 for pro-rating.');
+    }
+    if (!['after-three-months', 'from-start'].includes(input.contractEligibilityPolicy)) {
+      contractReasons.push('Choose the company contract eligibility policy; no company default is assumed.');
+    }
+    contractReasons.filter((reason) => !sharedManualReasons.includes(reason)).forEach((reason) => pending.push(`MANUAL_REVIEW_REQUIRED: ${reason}`));
+    const contractEligible = input.contractEligibilityPolicy === 'from-start' || statutoryEligible;
+    const contractRaw = contractAnnualDays === null ? null : (includedMonths.length / 12) * contractAnnualDays;
+    const contractDeterminate = contractReasons.length === 0 && contractRaw !== null;
+    const contractEntitlement = contractDeterminate ? (contractEligible ? roundLeaveDays(contractRaw) : 0) : null;
+    const contractBalance = contractEntitlement === null ? null : contractEntitlement + carriedDays + adjustmentDays - usedDays;
+
+    if (statutoryBalance !== null && statutoryBalance < 0) {
+      warnings.push('Used leave exceeds the statutory estimate. This calculator does not infer a debt or payroll deduction; check HR records.');
+    }
+    if (contractBalance !== null && contractBalance < 0) {
+      warnings.push('Used leave exceeds the contract ledger estimate. Confirm any negative balance and treatment with HR.');
+    }
+
+    const uniqueUnpaidDays = relevantUnpaid.reduce((sum, range) => sum + inclusiveDayCount(range.start, range.end), 0);
+    const customStart = input.leaveYearType === 'custom' ? window.start : null;
+    const splitRanges = splitRangesByLeaveYear(normalizedRanges, {
+      leaveYearType: input.leaveYearType,
+      hireDate,
+      customLeaveYearStart: customStart,
+    });
+    const currentServiceYear = serviceYearAt(hireDate, calculationDate);
+    const nextTierDate = currentServiceYear < 8 ? addCivilMonths(hireDate, currentServiceYear * 12) : null;
+
+    return {
+      errors,
+      pending: [...new Set(pending)],
+      warnings: [...new Set(warnings)],
+      totalDeterminate: statutoryDeterminate && contractDeterminate,
+      leaveYear: {
+        type: window.type,
+        start: formatCivilDate(window.start),
+        end: formatCivilDate(window.end),
+        activeStart: formatCivilDate(activeStart),
+        activeEnd: formatCivilDate(activeEnd),
+      },
+      service: {
+        statutoryEligible,
+        eligibilityDate: formatCivilDate(eligibilityDate),
+        currentServiceYear,
+        completedMonthsInLeaveYear: serviceMonths.length,
+        includedCompletedMonths: includedMonths.length,
+        excludedCompleteMonths: excludedMonths.length,
+        nextTierDate: nextTierDate ? formatCivilDate(nextTierDate) : null,
+      },
+      statutory: {
+        determinate: statutoryDeterminate,
+        eligible: statutoryEligible,
+        raw: statutoryRaw,
+        rounded: statutoryEntitlement,
+        balance: statutoryBalance,
+        usedDays,
+        breakdown: statutoryBreakdown,
+      },
+      contract: {
+        determinate: contractDeterminate,
+        eligible: contractEligible,
+        annualDays: contractAnnualDays,
+        raw: contractRaw,
+        rounded: contractEntitlement,
+        balance: contractBalance,
+        usedDays,
+        carriedDays,
+        adjustmentDays,
+      },
+      unpaidLeave: {
+        uniqueDays: uniqueUnpaidDays,
+        totalOnlyDays: unpaidTotalDays,
+        normalizedRanges: normalizedRanges.map((range) => ({ start: formatCivilDate(range.start), end: formatCivilDate(range.end) })),
+        splitRanges,
+        excludedCompleteMonths: excludedMonths.map((month) => ({ start: formatCivilDate(month.start), end: formatCivilDate(month.end) })),
+        partialServiceMonths: partialMonths.map((month) => ({ start: formatCivilDate(month.start), end: formatCivilDate(month.end) })),
+      },
+    };
+  }
+
   function grossDailyRate(monthlyGrossValue, weeklyWorkDaysValue) {
     const monthlyGross = finiteNumber(monthlyGrossValue, 'Monthly gross rate', { positive: true });
     const weeklyWorkDays = finiteNumber(weeklyWorkDaysValue, 'Required work days per week', { positive: true });
@@ -417,6 +803,8 @@
 
   return Object.freeze({
     addCivilDays,
+    addCivilMonths,
+    calculateAnnualLeave,
     calculateNoticePay,
     calculateSettlement,
     calendarNoticeEnd,
@@ -426,7 +814,12 @@
     incompleteMonthSalary,
     noticeEnd,
     parseCivilDate,
+    leaveYearWindow,
+    normalizeDateRanges,
     roundMoney,
+    roundLeaveDays,
+    splitRangesByLeaveYear,
+    statutoryAnnualLeaveDays,
     wholeMonthCount,
     workingNoticeEnd,
   });

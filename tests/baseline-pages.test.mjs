@@ -68,8 +68,7 @@ const pages = {
   },
 };
 
-const stage2ForbiddenPages = [
-  'annual-leave-calculator.html',
+const prohibitedCalculatorPages = [
   'foreigner-income-tax-calculator.html',
   'leave-encashment-calculator.html',
   'notice-period-calculator.html',
@@ -128,10 +127,11 @@ test('stage 3 deliberately upgrades only the original resignation URL', async ()
   assert.ok(html.includes('https://sg-salary-calculator.vercel.app/resignation-calculator.html'));
 });
 
-test('stage 2 does not create later-stage or prohibited tool URLs', async () => {
+test('stage 5 creates only the approved annual leave calculator URL', async () => {
   const files = await repositoryFiles();
-  for (const path of stage2ForbiddenPages) {
-    assert.ok(!files.includes(path), `${path} must remain absent in stage 2`);
+  assert.ok(files.includes('annual-leave-calculator.html'));
+  for (const path of prohibitedCalculatorPages) {
+    assert.ok(!files.includes(path), `${path} must remain absent in stage 5`);
   }
 });
 

@@ -11,7 +11,11 @@ const evidenceDirectory = resolve(repositoryRoot, '..', 'stage3-evidence');
 const baseURL = process.env.RESIGNATION_TEST_URL || 'http://127.0.0.1:4173/resignation-calculator.html';
 
 await mkdir(evidenceDirectory, { recursive: true });
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROMIUM_EXECUTABLE_PATH || undefined,
+  args: process.env.CHROMIUM_EXECUTABLE_PATH ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] : [],
+});
 const failures = [];
 
 async function runViewport(name, viewport) {

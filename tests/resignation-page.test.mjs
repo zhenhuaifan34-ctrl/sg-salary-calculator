@@ -43,11 +43,11 @@ test('sources and independent disclaimer are present', () => {
   assert.match(html, /not endorsed or certified by MOM, CPF Board or any government agency/i);
 });
 
-test('no duplicate or excluded calculator page is created', async () => {
+test('stage 5 adds only the approved annual leave calculator beside resignation', async () => {
   const files = await readdir(root);
+  assert.ok(files.includes('annual-leave-calculator.html'));
   for (const forbidden of [
-    'annual-leave-calculator.html', 'foreigner-income-tax-calculator.html',
-    'leave-encashment-calculator.html', 'notice-period-calculator.html',
+    'foreigner-income-tax-calculator.html', 'leave-encashment-calculator.html', 'notice-period-calculator.html',
     'pro-rated-annual-leave-calculator.html',
   ]) assert.ok(!files.includes(forbidden), `${forbidden} must remain absent`);
 });
