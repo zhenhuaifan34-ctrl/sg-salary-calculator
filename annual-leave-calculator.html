@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annual Leave Calculator Singapore – Pro-Rated Entitlement</title>
+<meta name="description" content="Estimate Singapore statutory minimum and company-contract annual leave separately, including pro-rating, unpaid leave, carry-forward, adjustments and used days.">
+<link rel="canonical" href="https://sg-salary-calculator.vercel.app/annual-leave-calculator.html">
+<meta property="og:title" content="Singapore Annual Leave Calculator">
+<meta property="og:description" content="Compare statutory minimum and company-contract leave with transparent completed-month and rounding calculations.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sg-salary-calculator.vercel.app/annual-leave-calculator.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Singapore Annual Leave Calculator","applicationCategory":"BusinessApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"SGD"},"url":"https://sg-salary-calculator.vercel.app/annual-leave-calculator.html","description":"An independent calculator that estimates statutory minimum and company-contract annual leave separately."}</script>
+<script>(function(){document.documentElement.setAttribute('data-theme',localStorage.getItem('theme-override')||'light')})();</script>
+<style>
+:root,html[data-theme=light]{--bg:#f3f7fb;--card:#fff;--text:#0f172a;--primary:#e5484d;--secondary:#2563eb;--secondary-soft:rgba(37,99,235,.08);--input-bg:#fff;--input-border:#d4dee9;--result-bg:#f7f9fc;--label:#475569;--shadow:0 18px 50px -18px rgba(15,39,66,.24);--success:#047857;--warning:#b45309;--danger-bg:rgba(229,72,77,.08);--pending-bg:rgba(180,83,9,.09)}
+html[data-theme=dark]{--bg:#09111f;--card:#152235;--text:#f8fafc;--primary:#fb7185;--secondary:#60a5fa;--secondary-soft:rgba(96,165,250,.1);--input-bg:#101b2b;--input-border:#33465d;--result-bg:#0f1b2c;--label:#cbd5e1;--shadow:0 22px 60px -22px rgba(0,0,0,.75);--success:#34d399;--warning:#fbbf24;--danger-bg:rgba(251,113,133,.1);--pending-bg:rgba(251,191,36,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;padding:30px 16px 46px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;color:var(--text);background:radial-gradient(circle at 50% 0,var(--secondary-soft),transparent 440px),var(--bg)}a{color:var(--secondary)}.shell{max-width:1120px;margin:0 auto}.head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.brand h1{font-size:clamp(1.5rem,4vw,2rem);line-height:1.15;margin:0;letter-spacing:-.03em}.brand p{color:var(--label);margin:8px 0 0;max-width:760px}.badge{display:inline-block;font-size:.7rem;background:var(--secondary-soft);color:var(--secondary);padding:4px 9px;border:1px solid rgba(37,99,235,.2);border-radius:30px;letter-spacing:.03em;vertical-align:middle}.mode{flex:0 0 auto;background:var(--result-bg);border:1px solid var(--input-border);padding:10px 15px;border-radius:30px;cursor:pointer;font-weight:800;color:var(--text)}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.nav a{text-decoration:none;border:1px solid var(--input-border);background:var(--card);color:var(--text);border-radius:11px;padding:9px 13px;font-weight:800;font-size:.85rem}.nav a:hover,.nav a:focus-visible{border-color:var(--secondary)}.nav .active{color:#fff;background:var(--secondary);border-color:var(--secondary)}.layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(380px,.94fr);gap:22px;align-items:start}.card{background:var(--card);padding:28px;border-radius:22px;box-shadow:var(--shadow);border:1px solid var(--input-border);min-width:0}.section{margin:0 0 26px}.section:last-of-type{margin-bottom:18px}.section h2{font-size:1.06rem;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--input-border)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:.76rem;font-weight:850;margin-bottom:7px;color:var(--label);text-transform:uppercase;letter-spacing:.045em}.field-note{display:block;margin-top:6px;color:var(--label);font-size:.76rem;line-height:1.45}input,select{width:100%;min-height:48px;padding:12px 13px;font-size:.96rem;border:1px solid var(--input-border);border-radius:11px;background:var(--input-bg);color:var(--text)}input:hover,select:hover{border-color:#94a3b8}input:focus,select:focus,button:focus-visible,a:focus-visible{outline:0;box-shadow:0 0 0 4px var(--secondary-soft);border-color:var(--secondary)}.conditional[hidden]{display:none}.range-list{display:grid;gap:10px}.range-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;padding:12px;border:1px solid var(--input-border);border-radius:12px;background:var(--result-bg)}.range-row .field{margin:0}.range-remove{min-width:42px;min-height:48px;border:1px solid var(--input-border);border-radius:10px;background:var(--card);color:var(--primary);font-weight:900;cursor:pointer}.small-button{margin-top:10px;border:1px solid var(--secondary);background:var(--secondary-soft);color:var(--secondary);font-weight:850;border-radius:10px;padding:10px 13px;cursor:pointer}.actions{display:grid;grid-template-columns:1fr auto;gap:10px}.primary,.reset{min-height:50px;border-radius:12px;cursor:pointer;font-weight:900;padding:13px 17px}.primary{border:0;background:linear-gradient(135deg,#d97706,#b45309);color:#fff}.reset{border:1px solid var(--input-border);background:var(--card);color:var(--text)}.error-box,.pending-box,.warning-box{display:none;margin:0 0 18px;border-radius:12px;padding:14px 16px;font-size:.87rem}.error-box{border:1px solid var(--primary);background:var(--danger-bg);color:var(--primary)}.pending-box{border:1px solid var(--warning);background:var(--pending-bg)}.warning-box{border:1px solid var(--warning);background:var(--pending-bg)}.error-box ul,.pending-box ul,.warning-box ul{margin:7px 0 0;padding-left:20px}.result-card{position:sticky;top:16px}.empty{color:var(--label);text-align:center;padding:38px 10px}.result{display:none}.status-row{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--input-border);padding-bottom:13px;margin-bottom:16px}.status{font-weight:900;color:var(--success)}.status.pending{color:var(--warning)}.result h2{font-size:1.05rem;margin:22px 0 10px}.result h2:first-of-type{margin-top:0}.track{border:1px solid var(--input-border);border-radius:14px;padding:15px;background:var(--result-bg);margin-bottom:13px}.track.stat{border-left:4px solid var(--secondary)}.track.contract{border-left:4px solid var(--warning)}.line{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin:8px 0}.line span:last-child,.line b{text-align:right;font-variant-numeric:tabular-nums}.line.total{border-top:1px dashed var(--input-border);padding-top:10px;margin-top:11px;font-size:1.05rem}.manual{color:var(--warning);font-weight:850}.summary,.formula,.unpaid-summary{font-size:.84rem;color:var(--label);line-height:1.6}.formula{border-left:3px solid var(--secondary);padding-left:12px}.split-list{margin:8px 0 0;padding-left:19px;font-size:.82rem}.cta{display:block;text-decoration:none;margin-top:18px;padding:14px;border:1px solid var(--secondary);border-radius:12px;background:var(--secondary-soft);font-weight:850}.info{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.info-card{background:var(--card);border:1px solid var(--input-border);border-radius:18px;padding:22px}.info-card h2{font-size:1.08rem;margin:0 0 10px}.info-card p,.info-card li{color:var(--label);font-size:.87rem}.info-card ul{padding-left:20px}.disclaimer{margin-top:20px;padding:16px;border:1px solid var(--input-border);border-radius:14px;background:var(--result-bg);color:var(--label);font-size:.81rem}.footer{text-align:center;margin-top:24px;color:var(--label);font-size:.78rem}.footer nav{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}.footer a{color:var(--label)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.result-card{position:static}.info{grid-template-columns:1fr}}@media(max-width:560px){body{padding:18px 10px 34px}.head{align-items:flex-start}.card{padding:20px 16px;border-radius:18px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.range-row{grid-template-columns:1fr 1fr}.range-remove{grid-column:1/-1;width:100%}.actions{grid-template-columns:1fr}.nav a{flex:1 1 45%;text-align:center;min-height:44px}.line{gap:8px}.line span:first-child{max-width:62%}.info-card{padding:18px}.mode{padding:9px 11px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="head">
+    <div class="brand">
+      <h1>Singapore Annual Leave Calculator <span class="badge">2026</span></h1>
+      <p>Estimate MOM statutory minimum leave and company-contract leave on separate tracks. Company policy is never assumed.</p>
+    </div>
+    <button class="mode" id="themeToggle" type="button" aria-label="Toggle colour theme">Theme</button>
+  </header>
+
+  <nav class="nav" aria-label="Calculator navigation">
+    <a href="/">Home</a>
+    <a href="/salary-calculator.html">Salary</a>
+    <a href="/resignation-calculator.html">Resignation</a>
+    <a class="active" href="/annual-leave-calculator.html" aria-current="page">Annual Leave</a>
+  </nav>
+
+  <div class="layout">
+    <section class="card" aria-labelledby="inputTitle">
+      <form id="leaveForm" novalidate>
+        <div class="section">
+          <h2 id="inputTitle">1. Employment and leave year</h2>
+          <div class="grid">
+            <div class="field"><label for="hireDate">Employment start date</label><input id="hireDate" type="date" autocomplete="off"></div>
+            <div class="field"><label for="calculationDate">Calculate through / employment end date</label><input id="calculationDate" type="date" autocomplete="off"><span class="field-note">Use the agreed employment end date if calculating a past or leaving year.</span></div>
+            <div class="field full"><label for="leaveYearType">Leave year type — choose actively</label><select id="leaveYearType"><option value="" selected>Choose a leave year…</option><option value="calendar">Calendar year</option><option value="anniversary">Employment anniversary year</option><option value="custom">Custom company leave year</option></select><span class="field-note">There is no hidden default. Statutory service years still begin on the employment start date.</span></div>
+            <div class="field full conditional" id="referenceField" hidden><label for="leaveYearReference">Leave year reference date</label><input id="leaveYearReference" type="date" autocomplete="off"><span class="field-note">Choose any date inside the calendar or anniversary leave year you want to report.</span></div>
+            <div class="field full conditional" id="customField" hidden><label for="customLeaveYearStart">Custom company leave year start</label><input id="customLeaveYearStart" type="date" autocomplete="off"><span class="field-note">The calculator shows the 12-month company year beginning on this date.</span></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>2. Company contract policy</h2>
+          <div class="grid">
+            <div class="field"><label for="contractAnnualDays">Company annual leave days</label><input id="contractAnnualDays" type="number" min="0" max="365" step="0.5" inputmode="decimal" placeholder="e.g. 14"></div>
+            <div class="field"><label for="contractProrationPolicy">Company pro-rating rule</label><select id="contractProrationPolicy"><option value="" selected>Choose confirmed policy…</option><option value="completed-months">Completed service months ÷ 12</option><option value="other">Other / HR calculation</option></select></div>
+            <div class="field full"><label for="contractEligibilityPolicy">Company contract eligibility</label><select id="contractEligibilityPolicy"><option value="" selected>Choose confirmed policy…</option><option value="after-three-months">Available after 3 months</option><option value="from-start">Available from employment start</option><option value="other">Other / HR confirmation required</option></select><span class="field-note">These are company-policy inputs, not legal defaults.</span></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>3. Leave ledger</h2>
+          <div class="grid">
+            <div class="field"><label for="usedDays">Used leave days</label><input id="usedDays" type="number" min="0" max="365" step="0.5" inputmode="decimal" value="0"></div>
+            <div class="field"><label for="carriedDays">Carried-forward days</label><input id="carriedDays" type="number" min="0" max="365" step="0.5" inputmode="decimal" value="0"><span class="field-note">Company-record input; applied only to the contract balance.</span></div>
+            <div class="field full"><label for="adjustmentDays">Manual adjustment days</label><input id="adjustmentDays" type="number" min="-365" max="365" step="0.5" inputmode="decimal" value="0"><span class="field-note">Use a signed HR-confirmed correction, such as 1 or −0.5.</span></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>4. Approved unpaid leave</h2>
+          <p class="field-note">Dated periods are merged and deduplicated. Adjacent periods may be technically merged without changing the day count.</p>
+          <div class="range-list" id="unpaidRanges"></div>
+          <button class="small-button" id="addRange" type="button">+ Add unpaid-leave period</button>
+          <div class="field" style="margin-top:16px"><label for="unpaidTotalDays">Only know the total unpaid-leave days?</label><input id="unpaidTotalDays" type="number" min="0" max="3650" step="1" inputmode="numeric" placeholder="Leave blank when dates are entered"><span class="field-note">A total without dates is not allocated to months. The affected result is marked MANUAL_REVIEW_REQUIRED.</span></div>
+        </div>
+
+        <div class="error-box" id="errorBox" role="alert" tabindex="-1"></div>
+        <div class="actions">
+          <button class="primary" type="submit">Calculate Annual Leave</button>
+          <button class="reset" id="resetButton" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="card result-card" aria-live="polite">
+      <div class="empty" id="resultEmpty">Enter the employment dates, actively choose a leave year and confirm company policy to compare both estimates.</div>
+      <div class="result" id="resultBox" tabindex="-1">
+        <div class="status-row"><strong>Annual leave estimate</strong><span class="status" id="resultStatus">Ready</span></div>
+        <div class="pending-box" id="pendingBox"></div>
+        <div class="warning-box" id="warningBox"></div>
+        <p class="summary" id="inputSummary"></p>
+
+        <div class="track stat">
+          <h2>MOM statutory minimum estimate</h2>
+          <div class="line"><span>3-month eligibility</span><b id="statEligibility">—</b></div>
+          <div class="line"><span>Completed service months in leave year</span><b id="statMonths">—</b></div>
+          <div class="line"><span>Raw pro-rated result</span><b id="statRaw">—</b></div>
+          <div class="line"><span>Rounding</span><b id="statRounding">—</b></div>
+          <div class="line"><span>Used days entered</span><b id="statUsed">—</b></div>
+          <div class="line total"><span>Statutory estimate balance</span><b id="statBalance">—</b></div>
+          <p class="formula" id="statFormula"></p>
+        </div>
+
+        <div class="track contract">
+          <h2>Company contract estimate</h2>
+          <div class="line"><span>Annual contract entitlement</span><b id="contractAnnual">—</b></div>
+          <div class="line"><span>Raw pro-rated result</span><b id="contractRaw">—</b></div>
+          <div class="line"><span>Rounded entitlement</span><b id="contractRounded">—</b></div>
+          <div class="line"><span>Carry-forward</span><b id="contractCarry">—</b></div>
+          <div class="line"><span>Manual adjustment</span><b id="contractAdjustment">—</b></div>
+          <div class="line"><span>Used days</span><b id="contractUsed">—</b></div>
+          <div class="line total"><span>Contract estimate balance</span><b id="contractBalance">—</b></div>
+          <p class="formula">Confirmed annual days × included completed service months ÷ 12, rounded once; then + carry-forward + adjustment − used days.</p>
+        </div>
+
+        <h2>Unpaid-leave impact</h2>
+        <p class="unpaid-summary" id="unpaidSummary"></p>
+        <ul class="split-list" id="splitList"></ul>
+        <p class="summary" id="nextTier"></p>
+        <a class="cta" href="/resignation-calculator.html">Leaving your job? Use confirmed leave days for encashment, notice and final settlement →</a>
+        <p class="summary">This link transfers no employment dates, salary, leave balance or other form input. Confirm eligible days with HR before entering them in the Resignation Calculator.</p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="info" aria-label="Calculation explanation">
+    <article class="info-card">
+      <h2>What the statutory track uses</h2>
+      <ul><li>Employment Act coverage and at least 3 months of employment.</li><li>7 days in service year 1, rising by 1 day each year to 14 days from year 8.</li><li>Completed service months ÷ 12, followed by MOM half-day rounding.</li><li>A normally served notice period is part of employment; use the agreed employment end date as the cutoff.</li></ul>
+    </article>
+    <article class="info-card">
+      <h2>What remains company policy</h2>
+      <p>Contract entitlement, eligibility, leave-year administration, carry-forward, expiry and manual adjustments depend on employment terms and HR records. The contract estimate stays pending until you actively confirm the available policy choices.</p>
+      <p>For resignation encashment amounts, use the <a href="/resignation-calculator.html">Resignation Calculator</a>. Annual Leave calculates entitlement and balance only. Annual Leave does not calculate cash value. Annual Leave does not calculate notice pay, final salary or settlement totals.</p>
+    </article>
+  </section>
+
+  <section class="info" aria-label="Choose the right employment tool">
+    <article class="info-card">
+      <h2>Use Annual Leave for the leave-year ledger</h2>
+      <p>Choose this tool when you need current or specified leave-year entitlement and balance, including statutory and contract tracks, used leave, carry-forward, adjustments or multiple dated unpaid-leave periods.</p>
+    </article>
+    <article class="info-card">
+      <h2>Use Resignation for the exit settlement</h2>
+      <p>Choose the <a href="/resignation-calculator.html">Resignation Calculator</a> for notice dates, notice pay direction, final incomplete-month salary, HR-confirmed leave encashment or offset, and itemised settlement. If the applicable leave year or cash-eligible days are uncertain, confirm them with HR first.</p>
+    </article>
+  </section>
+
+  <section class="info-card" style="margin-top:18px">
+    <h2>Official source and review scope</h2>
+    <p><a href="https://www.mom.gov.sg/employment-practices/leave/annual-leave/eligibility-and-entitlement" target="_blank" rel="noopener">[MOM-LEAVE-1] Annual leave eligibility, entitlement, pro-rating, unpaid leave and notice period</a></p>
+    <p>Last reviewed: 10 August 2026. Source IDs are stable across both employment tools. The official source governs the statutory track; company contract inputs remain separate.</p>
+  </section>
+
+  <p class="disclaimer">Independent educational estimate only; not legal, payroll or HR advice and not endorsed or certified by MOM, CPF Board or any government agency. Verify Employment Act coverage, approved unpaid-leave records, the applicable leave year, contract terms and balances with your employer. Partial-month unpaid leave, total-only unpaid leave, non-standard company policies, disputes, collective agreements and irregular arrangements require manual review.</p>
+
+  <footer class="footer">
+    <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/salary-calculator.html">Salary Calculator</a><a href="/resignation-calculator.html">Resignation Calculator</a><a href="/guide-annual-leave-2026.html">Annual Leave Guide</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a></nav>
+    <div>© 2026 SG Salary Pro</div>
+  </footer>
+</main>
+
+<script src="employment-rules.js"></script>
+<script>
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const day=value=>Number(value).toLocaleString('en-SG',{maximumFractionDigits:2})+' days';
+  const raw=value=>value===null||value===undefined?'—':Number(value).toFixed(2)+' days';
+  const prettyDate=value=>value?new Intl.DateTimeFormat('en-SG',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value+'T00:00:00Z')):'—';
+
+  function addRange(start='',end=''){
+    const index=$('unpaidRanges').children.length+1;
+    const row=document.createElement('div');row.className='range-row';
+    row.innerHTML='<div class="field"><label>Unpaid period '+index+' start<input class="range-start" type="date" value="'+start+'" autocomplete="off"></label></div><div class="field"><label>Unpaid period '+index+' end<input class="range-end" type="date" value="'+end+'" autocomplete="off"></label></div><button class="range-remove" type="button" aria-label="Remove unpaid-leave period '+index+'">×</button>';
+    row.querySelector('.range-remove').addEventListener('click',()=>{row.remove();renumberRanges();if(!$('unpaidRanges').children.length)addRange()});
+    $('unpaidRanges').appendChild(row);
+  }
+  function renumberRanges(){[...$('unpaidRanges').children].forEach((row,i)=>{row.querySelectorAll('label')[0].childNodes[0].nodeValue='Unpaid period '+(i+1)+' start';row.querySelectorAll('label')[1].childNodes[0].nodeValue='Unpaid period '+(i+1)+' end';row.querySelector('button').setAttribute('aria-label','Remove unpaid-leave period '+(i+1))})}
+  function updateLeaveYearFields(){const type=$('leaveYearType').value;const needsReference=type==='calendar'||type==='anniversary';$('referenceField').hidden=!needsReference;$('customField').hidden=type!=='custom';$('leaveYearReference').disabled=!needsReference;$('customLeaveYearStart').disabled=type!=='custom'}
+  function ranges(){return[...$('unpaidRanges').children].map(row=>({start:row.querySelector('.range-start').value,end:row.querySelector('.range-end').value})).filter(range=>range.start||range.end)}
+  function input(){return{hireDate:$('hireDate').value,calculationDate:$('calculationDate').value,leaveYearType:$('leaveYearType').value,leaveYearReference:$('leaveYearReference').value,customLeaveYearStart:$('customLeaveYearStart').value,contractAnnualDays:$('contractAnnualDays').value,contractProrationPolicy:$('contractProrationPolicy').value,contractEligibilityPolicy:$('contractEligibilityPolicy').value,usedDays:$('usedDays').value,carriedDays:$('carriedDays').value,adjustmentDays:$('adjustmentDays').value,unpaidRanges:ranges(),unpaidTotalDays:$('unpaidTotalDays').value}}
+  function listBox(element,messages,title){if(!messages.length){element.style.display='none';element.innerHTML='';return}element.innerHTML='<strong>'+title+'</strong><ul>'+messages.map(message=>'<li>'+message+'</li>').join('')+'</ul>';element.style.display='block'}
+  function manual(value){return value===null?'<span class="manual">Not included — manual review</span>':day(value)}
+  function render(result){
+    $('resultEmpty').style.display='none';$('resultBox').style.display='block';
+    const pending=result.pending.length>0;$('resultStatus').textContent=pending?'Manual review required':'Ready';$('resultStatus').className='status'+(pending?' pending':'');
+    listBox($('pendingBox'),result.pending,'Excluded pending items');listBox($('warningBox'),result.warnings,'Check these results');
+    $('inputSummary').textContent='Leave year: '+prettyDate(result.leaveYear.start)+' to '+prettyDate(result.leaveYear.end)+'. Employment overlap calculated: '+prettyDate(result.leaveYear.activeStart)+' to '+prettyDate(result.leaveYear.activeEnd)+'.';
+    $('statEligibility').textContent=result.statutory.eligible?'Eligible from '+prettyDate(result.service.eligibilityDate):'Not yet eligible (eligible '+prettyDate(result.service.eligibilityDate)+')';
+    $('statMonths').textContent=result.service.includedCompletedMonths+' included; '+result.service.excludedCompleteMonths+' excluded';
+    $('statRaw').textContent=raw(result.statutory.raw);$('statRounding').innerHTML=manual(result.statutory.rounded);$('statUsed').textContent=day(result.statutory.usedDays);$('statBalance').innerHTML=manual(result.statutory.balance);
+    const breakdown=result.statutory.breakdown.map(item=>item.months+' month'+(item.months===1?'':'s')+' × '+item.annualDays+' ÷ 12').join(' + ')||'No completed service month in this leave year';$('statFormula').textContent=breakdown+'. Rounding is applied once to the combined raw result.';
+    $('contractAnnual').textContent=result.contract.annualDays===null?'Not entered':day(result.contract.annualDays);$('contractRaw').textContent=raw(result.contract.raw);$('contractRounded').innerHTML=manual(result.contract.rounded);$('contractCarry').textContent=day(result.contract.carriedDays);$('contractAdjustment').textContent=(result.contract.adjustmentDays>=0?'+':'')+day(result.contract.adjustmentDays);$('contractUsed').textContent=day(result.contract.usedDays);$('contractBalance').innerHTML=manual(result.contract.balance);
+    $('unpaidSummary').textContent=result.unpaidLeave.uniqueDays+' unique dated unpaid-leave day(s); '+result.unpaidLeave.excludedCompleteMonths.length+' complete service month(s) automatically excluded; '+result.unpaidLeave.partialServiceMonths.length+' partial service month(s) sent to manual review.';
+    $('splitList').innerHTML=result.unpaidLeave.splitRanges.map(piece=>'<li>'+prettyDate(piece.start)+'–'+prettyDate(piece.end)+' ('+piece.days+' days), leave year '+prettyDate(piece.leaveYearStart)+'–'+prettyDate(piece.leaveYearEnd)+'</li>').join('')||'<li>No dated unpaid leave entered.</li>';
+    $('nextTier').textContent=result.service.nextTierDate?'Next statutory tier change date: '+prettyDate(result.service.nextTierDate)+'.':'Statutory tier is already at the year-8 maximum.';
+    $('resultBox').focus({preventScroll:true});
+  }
+  function calculate(event){event.preventDefault();$('errorBox').style.display='none';$('errorBox').innerHTML='';let result;try{result=EmploymentRules.calculateAnnualLeave(input())}catch(error){result={errors:[error.message]}}if(result.errors.length){$('resultEmpty').style.display='block';$('resultBox').style.display='none';listBox($('errorBox'),result.errors,'Input blocked');$('errorBox').focus();return}render(result)}
+  function reset(){ $('leaveForm').reset();$('unpaidRanges').innerHTML='';addRange();updateLeaveYearFields();$('errorBox').style.display='none';$('resultBox').style.display='none';$('resultEmpty').style.display='block';$('hireDate').focus() }
+  $('leaveForm').addEventListener('submit',calculate);$('resetButton').addEventListener('click',reset);$('addRange').addEventListener('click',()=>addRange());$('leaveYearType').addEventListener('change',updateLeaveYearFields);$('themeToggle').addEventListener('click',()=>{const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('theme-override',next)});document.addEventListener('keydown',event=>{if(event.key==='Escape')reset()});addRange();updateLeaveYearFields();
+})();
+</script>
+</body>
+</html>
