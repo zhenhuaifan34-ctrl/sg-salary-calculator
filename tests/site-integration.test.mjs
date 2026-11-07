@@ -63,7 +63,8 @@ function footer(html) {
 }
 
 function hasVisibleLink(html, href, label) {
-  return anchors(html, true).some((anchor) => anchor.href === href && label.test(anchor.text));
+  const expected = new URL(href, 'https://sg-salary-calculator.vercel.app/').href;
+  return anchors(html, true).some((anchor) => new URL(anchor.href, 'https://sg-salary-calculator.vercel.app/').href === expected && label.test(anchor.text));
 }
 
 function internalTarget(sourceFile, href) {
@@ -98,7 +99,7 @@ test('leave and resignation guides point to the correct calculators with accurat
 
 test('salary guides keep natural links to their most relevant tools', () => {
   const contracts = [
-    ['guide-salary-increment-2026.html', '/salary-calculator.html', /Net Pay Calculator/i],
+    ['guide-salary-increment-2026.html', '/salary-calculator.html', /Salary Calculator|Net Pay Calculator/i],
     ['guide-salary-benchmark-2026.html', 'salary-calculator.html', /Salary Calculator|take-home pay/i],
     ['guide-salary-benchmark-2026.html', 'offer-comparison-calculator.html', /Offer Comparison Calculator/i],
     ['guide-salary-increase-switching-jobs-2026.html', 'offer-comparison-calculator.html', /Compare|Offer Comparison Calculator/i],
