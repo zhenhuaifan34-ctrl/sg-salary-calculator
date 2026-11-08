@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Singapore Salary, Annual Leave & Resignation Calculators 2026 | SG Salary Pro</title>
-<meta name="description" content="Free Singapore salary, CPF, overtime, annual leave, resignation settlement, job offer comparison and job switch calculators for 2026.">
+<title>Singapore Salary Data, CPF & Work Calculators | SG Salary Pro</title>
+<meta name="description" content="Explore official Singapore wages by occupation and estimate take-home pay, leave, resignation settlement, job offers and the cost of changing jobs.">
 <link rel="canonical" href="https://sg-salary-calculator.vercel.app/">
-<meta property="og:title" content="Singapore Salary, Annual Leave & Resignation Calculators 2026">
-<meta property="og:description" content="Calculate Singapore CPF, overtime and net pay, estimate annual leave and resignation settlement, and compare job offers.">
+<meta property="og:title" content="Singapore Salary Data, CPF & Work Calculators">
+<meta property="og:description" content="Look up official wages by occupation and find the right tool for pay, leave, resignation or a job offer.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sg-salary-calculator.vercel.app/">
 <meta name="google-site-verification" content="9bokCnlQGx0rwxYHEv6U3a5D0lnq-sbNN4v0KA3RfZs">
@@ -18,7 +18,7 @@
   "@type": "WebSite",
   "name": "SG Salary Pro",
   "url": "https://sg-salary-calculator.vercel.app/",
-  "description": "Free Singapore salary, CPF, overtime, annual leave, resignation settlement, job offer comparison and job switch calculators."
+  "description": "Official Singapore occupational wage data and free tools for pay, leave and career decisions."
 }
 </script>
 
@@ -60,7 +60,7 @@
 
 <script>
 (function(){
-  document.documentElement.setAttribute('data-theme', localStorage.getItem('theme-override') || 'light');
+  try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme-override') || 'light'); } catch {}
 })();
 </script>
 
@@ -463,75 +463,41 @@ p { color:var(--label); line-height:1.72; }
 }
 </style>
 <link rel="stylesheet" href="/seo-recovery.css">
+<link rel="stylesheet" href="/benchmark.css">
+<script type="module" src="/benchmark.js"></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
 </head>
 
-<body>
-<div class="page">
-
-  <header class="site-header">
-    <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
-    <nav class="nav">
-      <a class="active" href="index.html">Home</a>
-      <a href="salary-calculator.html">Salary</a>
-      <a href="annual-leave-calculator.html">Annual Leave</a>
-      <a href="resignation-calculator.html">Resignation</a>
-      <a href="offer-comparison-calculator.html">Compare Offers</a>
-      <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-      <a href="#tools">Tools</a>
-      <a href="#topics">Guides</a>
-      <a href="#faq">FAQ</a>
-      <button class="mode" onclick="toggleTheme()">Mode</button>
+<body class="bench-site bench-home" data-benchmark-page="home">
+  <a class="bench-skip" href="#main">Skip to content</a>
+  <header class="bench-header">
+    <div class="bench-shell bench-header-inner">
+    <a class="bench-brand" href="/"><span class="bench-mark" aria-hidden="true">↗</span> SG Salary <b>Pro</b></a>
+    <nav class="bench-nav" aria-label="Main navigation">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/tools.html">Calculators</a>
+      <a href="/guides.html">Guides</a>
     </nav>
+    <button type="button" class="bench-button bench-secondary bench-header-cta" aria-pressed="false" id="home-theme" onclick="toggleTheme()">Dark mode</button>
+    </div>
   </header>
-
-  <section class="hero">
-    <div class="hero-layout">
+<main id="main" class="page">
+  <section class="bench-hero">
       <div>
-        <div class="eyebrow">🇸🇬 Free Singapore payroll tools · 2026</div>
-        <h1>Free Singapore calculators for salary, annual leave, resignation and job offers.</h1>
-        <p>
-          Calculate your take-home pay, CPF deductions, overtime pay, leave encashment
-          and job offer value in one lightweight Singapore payroll toolset updated for 2026.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn primary" href="salary-calculator.html">Calculate My Take-home Pay</a>
-          <a class="btn secondary" href="resignation-calculator.html">Estimate Final Settlement</a>
-          <a class="btn secondary" href="offer-comparison-calculator.html">Compare Job Offers</a>
-        </div>
-
-        <div class="hero-pills">
-          <span class="pill">CPF</span>
-          <span class="pill">Overtime Pay</span>
-          <span class="pill">Net Salary</span>
-          <span class="pill">Leave Encashment</span>
-          <span class="pill">Job Offer Comparison</span>
-          <span class="pill">No Login Required</span>
+        <div class="bench-kicker">Singapore pay &amp; career tools</div>
+        <h1>Know your worth. <em>Plan what’s next.</em></h1>
+        <p>Look up official wages for your occupation. Estimate take-home pay and leave, or work through the numbers before changing jobs.</p>
+        <div class="bench-actions">
+          <a class="bench-button" href="#tools">Find a calculator</a>
+          <a class="bench-button bench-secondary" href="/salary-benchmark-explorer.html">Explore salary benchmarks</a>
         </div>
       </div>
-
-      <aside class="preview-card" aria-label="Sample salary calculation preview">
-        <div class="preview-top">
-          <div>
-            <div class="preview-title">Sample Salary Result</div>
-            <div class="preview-note">Illustration only · open the calculator for your own numbers</div>
-          </div>
-          <span class="badge">Preview</span>
-        </div>
-        <div class="preview-line"><span>Monthly Basic</span><b>S$4,000.00</b></div>
-        <div class="preview-line positive"><span>OT Pay</span><b>+S$260.00</b></div>
-        <div class="preview-line negative"><span>Employee CPF</span><b>-S$852.00</b></div>
-        <div class="preview-line positive"><span>Employer CPF</span><b>+S$724.20</b></div>
-        <div class="preview-total"><span>Estimated Take Home</span><span>S$3,408.00</span></div>
-        <div class="preview-links">
-          <a href="salary-calculator.html"><span>Calculate with my salary</span><span>→</span></a>
-          <a href="/guide-cpf-2026.html"><span>Check CPF guide</span><span>→</span></a>
-          <a href="offer-comparison-calculator.html"><span>Compare job offer</span><span>→</span></a>
-          <a href="job-switch-worth-it-calculator.html"><span>Check switch value</span><span>→</span></a>
-        </div>
+      <aside class="bench-panel" aria-label="Explore official wage data">
+        <div class="bench-kicker">Salary Benchmark Explorer</div>
+        <h2>Where does your pay sit?</h2>
+        <p>Find a job title and compare its published 25th percentile, median and 75th percentile. The data covers occupations across the industries in MOM’s survey.</p>
+        <a class="bench-text-link" href="#salary-insights">See the wage data and its scope ↓</a>
       </aside>
-    </div>
   </section>
 
   <section class="trust-strip" aria-label="Trust points">
@@ -542,7 +508,7 @@ p { color:var(--label); line-height:1.72; }
   </section>
 
   <section class="section">
-    <h2>I want to...</h2>
+    <h2>Find your tool</h2>
     <p>Choose your situation and go directly to the most useful tool or guide.</p>
     <div class="intent-grid">
       <a class="intent-card" href="salary-calculator.html"><em>01</em><strong>Calculate my take-home salary</strong><span>CPF, gross pay, overtime and estimated net pay.</span></a>
@@ -554,13 +520,39 @@ p { color:var(--label); line-height:1.72; }
     </div>
   </section>
 
+  <section class="bench-panel" id="salary-insights" aria-labelledby="salary-insights-heading">
+    <p class="bench-kicker">Official wage data</p>
+    <h2 id="salary-insights-heading">Latest Singapore Salary Insights</h2>
+    <p id="home-occupation-summary">Published gross monthly wages vary by occupation. Use the original release to check definitions and sample coverage.</p>
+    <div class="bench-grid bench-feature" id="home-occupation-cards" aria-label="Official occupational wage percentiles"></div>
+    <p class="bench-muted" id="home-occupation-status" role="status">Loading the occupation snapshot…</p>
+    <p><a id="home-occupation-source" href="https://data.gov.sg/datasets/d_9917e751f7498502f70052a940a3f312/view">MOM dataset on data.gov.sg</a> · <a href="https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2025.aspx">MOM June 2025 release</a> · <a href="/salary-benchmark-explorer.html#methodology">Definitions and coverage</a></p>
+    <h3>Explore salary by occupation</h3>
+    <form class="bench-search bench-home-search" action="/salary-benchmark-explorer.html" method="get">
+      <div class="bench-field"><label for="home-occupation">Occupation name</label><input id="home-occupation" type="search" name="q" maxlength="100" placeholder="e.g. software developer"></div>
+      <button class="bench-button" type="submit">Look up occupation</button>
+    </form>
+    <noscript><p>JavaScript is required for the interactive wage table. The official data is available through the links above.</p></noscript>
+  </section>
+
+  <section class="bench-panel" id="salary-trends" aria-labelledby="salary-trends-heading">
+    <p class="bench-kicker">Singapore-wide income series</p>
+    <h2 id="salary-trends-heading">How median employment income has changed</h2>
+    <p id="home-income-scope">The national income series uses a different population and income definition from the occupational wage snapshot above.</p>
+    <p id="home-income-status" class="bench-muted" role="status">Loading the official income series…</p>
+    <div id="home-income-chart"></div>
+    <p><a id="home-income-source" href="https://stats.mom.gov.sg/Statistics/Pages/income.aspx">Official employment income data</a> · <a href="/guide-salary-increment-2026.html">Put a pay rise in context</a></p>
+    <noscript><p>Open the official employment income data to read the annual figures.</p></noscript>
+  </section>
+
   <section class="section" id="tools">
     <div class="section-head">
       <div>
         <div class="section-kicker">Tools</div>
         <h2>Free Singapore Salary Tools</h2>
-        <p>Use quick calculators for salary, annual leave, resignation settlement, job offer comparison and job-switch decisions.</p>
+        <p>Use the salary benchmark for market context, then estimate your pay, leave or the value of a job offer.</p>
       </div>
+      <a class="bench-text-link" href="/tools.html">All calculators →</a>
     </div>
 
     <div class="grid">
@@ -708,6 +700,7 @@ p { color:var(--label); line-height:1.72; }
         <h2>Popular Singapore Salary Topics</h2>
         <p>Grouped guides for salary, CPF, overtime, leave, resignation and employment rules.</p>
       </div>
+      <a class="bench-text-link" href="/guides.html">All 13 guides →</a>
     </div>
 
     <div class="topic-groups">
@@ -831,24 +824,31 @@ p { color:var(--label); line-height:1.72; }
 <h3>A salary increase can shrink after package changes</h3><p>Illustration: S$4,000 a month with one contractual AWS month gives S$52,000 annual base plus AWS. S$4,200 without AWS gives S$50,400, which is S$1,600 less before CPF, tax, benefits or work costs. Enter written package terms in Offer Comparison before adding exit costs in Job Switch.</p>
 <details><summary>Which tool should I start with when resigning?</summary><p>Start with Annual Leave to reconcile the balance. Then use Resignation for notice dates and settlement. Taking approved leave during notice and using leave to offset notice have different effects; get employer agreement before using an offset.</p></details>
 <p>Source checked <time datetime="2026-11-07">7 November 2026</time>: <a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice">MOM notice and leave treatment</a>. Examples are illustrative inputs, not user outcomes.</p></section>
-<footer class="foot">
-    <a href="salary-calculator.html">Salary Calculator</a><span>|</span>
-    <a href="annual-leave-calculator.html">Annual Leave Calculator</a><span>|</span>
-    <a href="resignation-calculator.html">Resignation Calculator</a><span>|</span>
-    <a href="offer-comparison-calculator.html">Compare Offers</a><span>|</span>
-    <a href="#topics">Guides</a><span>|</span>
-    <a href="about.html">About</a><span>|</span>
-    <a href="privacy.html">Privacy Policy</a>
+</main>
+<footer class="bench-footer"><div class="bench-shell">
+    <span>SG Salary Pro</span>
+    <a href="/salary-benchmark-explorer.html">Salary Benchmark</a>
+    <a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+    <a href="/resignation-calculator.html">Resignation Calculator</a>
+    <a href="/tools.html">Calculators</a>
+    <a href="/guides.html">Guides</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy</a>
+  </div>
   </footer>
 
-</div>
-
 <script>
+function syncThemeButtons(){
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.getElementById('home-theme').setAttribute('aria-pressed', String(dark));
+}
 function toggleTheme(){
   const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', n);
-  localStorage.setItem('theme-override', n);
+  try { localStorage.setItem('theme-override', n); } catch {}
+  syncThemeButtons();
 }
+syncThemeButtons();
 function acc(b){
   const c = b.nextElementSibling;
   const open = c.style.maxHeight;

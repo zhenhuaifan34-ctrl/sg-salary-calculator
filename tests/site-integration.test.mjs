@@ -76,14 +76,16 @@ function internalTarget(sourceFile, href) {
   return resolve(root, dirname(sourceFile), path);
 }
 
-test('homepage navigation, tool list, topic group and footer reach both employment tools', () => {
+test('homepage directory navigation and contextual links reach both employment tools', () => {
   const home = htmlByFile.get('index.html');
   const navigation = home.match(/<nav\b[^>]*class=["'][^"']*nav[^"']*["'][^>]*>[\s\S]*?<\/nav\s*>/i)?.[0];
   assert.ok(navigation, 'Homepage navigation is missing');
   const tools = section(home, "id=[\"']tools[\"']");
   const topics = section(home, "id=[\"']topics[\"']");
   const homeFooter = footer(home);
-  for (const area of [navigation, tools, topics, homeFooter]) {
+  assert.ok(hasVisibleLink(navigation, '/tools.html', /Calculators/i), 'Homepage navigation does not link to the calculator directory');
+  assert.ok(hasVisibleLink(navigation, '/guides.html', /Guides/i), 'Homepage navigation does not link to the guide directory');
+  for (const area of [htmlByFile.get('tools.html'), tools, topics, homeFooter]) {
     assert.ok(hasVisibleLink(area, 'annual-leave-calculator.html', /Annual Leave/i), 'Homepage area is missing a visible Annual Leave Calculator link');
     assert.ok(hasVisibleLink(area, 'resignation-calculator.html', /Resignation/i), 'Homepage area is missing a visible Resignation Calculator link');
   }

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Singapore Salary Benchmark Explorer | SG Salary Pro</title>
+  <meta name="description" content="Look up Singapore wages by occupation using official MOM data. Compare your gross monthly pay with the published 25th, 50th and 75th percentiles.">
+  <link rel="canonical" href="https://sg-salary-calculator.vercel.app/salary-benchmark-explorer.html">
+  <meta property="og:title" content="Singapore Salary Benchmark Explorer">
+  <meta property="og:description" content="Explore official occupational wage percentiles and compare your gross monthly pay with the published range.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sg-salary-calculator.vercel.app/salary-benchmark-explorer.html">
+  <link rel="stylesheet" href="/benchmark.css">
+  <script>
+    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme-override') || 'light'); } catch {}
+  </script>
+  <script type="module" src="/benchmark.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://sg-salary-calculator.vercel.app/"},
+      {"@type":"ListItem","position":2,"name":"Calculators","item":"https://sg-salary-calculator.vercel.app/tools.html"},
+      {"@type":"ListItem","position":3,"name":"Salary Benchmark Explorer","item":"https://sg-salary-calculator.vercel.app/salary-benchmark-explorer.html"}
+    ]
+  }
+  </script>
+</head>
+<body class="bench-site" data-benchmark-page="explorer">
+  <a class="bench-skip" href="#main">Skip to content</a>
+  <header class="bench-header">
+    <div class="bench-shell bench-header-inner">
+      <a class="bench-brand" href="/"><span class="bench-mark" aria-hidden="true">↗</span> SG Salary <b>Pro</b></a>
+      <nav class="bench-nav" aria-label="Main navigation">
+        <a href="/">Home</a><a href="/tools.html">Calculators</a><a href="/guides.html">Guides</a>
+      </nav>
+      <a class="bench-button bench-secondary bench-header-cta" href="/salary-calculator.html">Check take-home pay</a>
+    </div>
+  </header>
+  <main id="main" class="bench-shell">
+    <nav class="bench-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Salary Benchmark</span></nav>
+    <section class="bench-intro">
+      <p class="bench-kicker">Official occupational wage data</p>
+      <h1>Singapore Salary Benchmark Explorer</h1>
+      <p>Look up gross monthly wages for your occupation and see how your pay compares with the published 25th, median and 75th percentiles.</p>
+      <a class="bench-text-link" href="#methodology">Read the data scope and definitions ↓</a>
+    </section>
+    <section class="bench-panel" aria-labelledby="search-heading">
+      <h2 id="search-heading">Find an occupation</h2>
+      <p class="bench-muted">Search by job title or choose a group to browse official occupation names.</p>
+      <form id="occupation-search" class="bench-search" action="/salary-benchmark-explorer.html" method="get">
+        <div class="bench-field"><label for="occupation-query">Occupation name</label><input id="occupation-query" name="q" type="search" maxlength="100" placeholder="e.g. accountant, nurse or software developer" autocomplete="off" disabled></div>
+        <div class="bench-field"><label for="occupation-category">Browse by group</label><select id="occupation-category" disabled><option value="">All occupation groups</option></select></div>
+        <button type="submit" class="bench-button" disabled>Find wages</button>
+        <button type="reset" class="bench-button bench-secondary" disabled>Clear search</button>
+      </form>
+      <p id="benchmark-search-status" class="bench-status" role="status">Loading official occupation data…</p>
+      <div id="benchmark-suggestions" class="bench-suggestions" aria-label="Occupation suggestions"></div>
+      <noscript><p>Enable JavaScript for interactive search, or use the <a href="https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2025.aspx">official MOM occupational wage tables</a>.</p></noscript>
+    </section>
+    <section class="bench-panel" id="benchmark-result" aria-labelledby="benchmark-result-title" hidden>
+      <p class="bench-kicker" id="benchmark-vintage"></p>
+      <h2 id="benchmark-result-title" tabindex="-1">Salary benchmark</h2>
+      <p id="benchmark-scope" class="bench-muted"></p>
+      <dl class="bench-stats" id="benchmark-percentiles">
+        <div><dt>25th percentile</dt><dd id="benchmark-p25"></dd></div>
+        <div class="bench-stat-focus"><dt>Median</dt><dd id="benchmark-median"></dd></div>
+        <div><dt>75th percentile</dt><dd id="benchmark-p75"></dd></div>
+      </dl>
+      <div id="benchmark-distribution" class="bench-distribution" aria-hidden="true" hidden>
+        <div class="bench-distribution-track"><span class="bench-distribution-range"></span><span class="bench-marker bench-marker-p25"></span><span class="bench-marker bench-marker-median"></span><span class="bench-marker bench-marker-p75"></span></div>
+        <div class="bench-axis"><span>S$0</span><span id="benchmark-axis-max"></span></div>
+      </div>
+      <p id="benchmark-partial" class="bench-note" hidden>A salary band needs three published percentiles in order. A comparison is unavailable for this record.</p>
+      <details id="benchmark-basic" class="bench-detail" hidden>
+        <summary>View basic monthly wages</summary>
+        <p>Basic wage excludes overtime, commissions, allowances and other regular cash payments. The comparison below uses gross wage.</p>
+        <dl class="bench-stats"><div><dt>25th percentile</dt><dd id="benchmark-basic-p25"></dd></div><div><dt>Median</dt><dd id="benchmark-basic-median"></dd></div><div><dt>75th percentile</dt><dd id="benchmark-basic-p75"></dd></div></dl>
+      </details>
+      <div class="bench-actions"><button type="button" class="bench-button bench-secondary" id="benchmark-copy">Copy wage data</button><a id="benchmark-result-source" class="bench-text-link" href="#methodology">View official data</a></div>
+      <p class="bench-status" role="status" id="benchmark-copy-status"></p>
+    </section>
+    <section class="bench-panel" id="benchmark-comparison" aria-labelledby="comparison-heading" hidden>
+      <h2 id="comparison-heading">Compare your monthly pay</h2>
+      <p id="comparison-help">Use gross monthly pay before employee CPF and income tax, excluding bonuses and employer CPF. The amount stays in this page and is cleared when you reload.</p>
+      <form id="benchmark-compare-form" class="bench-search bench-compare" autocomplete="off">
+        <div class="bench-field"><label for="benchmark-personal-pay">Your gross monthly pay (S$)</label><input id="benchmark-personal-pay" inputmode="decimal" maxlength="20" aria-describedby="comparison-help benchmark-compare-status" placeholder="e.g. 5,500"></div>
+        <button class="bench-button" type="submit">Compare my pay</button>
+        <button class="bench-button bench-secondary" type="reset">Reset pay</button>
+      </form>
+      <p class="bench-status" id="benchmark-compare-status" role="status"></p>
+      <p class="bench-muted">The result is a band in the published distribution. It cannot place you at a precise percentile or adjust for experience, qualifications or employer.</p>
+    </section>
+    <section class="bench-panel" aria-labelledby="history-heading" id="benchmark-history">
+      <p class="bench-kicker">Data coverage</p>
+      <h2 id="history-heading">Occupational wage history</h2>
+      <p>Use this explorer as a single-year occupation snapshot. MOM moved to SSOC 2024 for the June 2025 release. Published values across different occupation classifications and survey samples may describe different groups.</p>
+      <a class="bench-text-link" href="/#salary-trends">See the separate Singapore-wide income trend →</a>
+    </section>
+    <section id="methodology" class="bench-panel" aria-labelledby="methodology-heading">
+      <h2 id="methodology-heading">Methodology and sources</h2>
+      <div class="bench-grid bench-method">
+        <div><h3>What counts as gross wage?</h3><p id="benchmark-definition">Basic wage plus overtime, commissions, allowances and other regular cash payments. It is measured before employee CPF and personal income tax and excludes bonuses and employer CPF.</p></div>
+        <div><h3>Who is represented?</h3><p id="benchmark-population">Full-time resident employees in the published Occupational Wage Survey tables. Check the linked release for detailed coverage and limitations.</p></div>
+        <div><h3>How to read the percentiles</h3><p>P25, median and P75 are the 25th, 50th and 75th percentiles. Ties can occur. The numbers describe the surveyed occupation, with all covered industries combined.</p></div>
+      </div>
+      <p id="benchmark-source-dates" class="bench-muted"></p>
+      <ul class="bench-source-list">
+        <li><a id="benchmark-source" href="https://data.gov.sg/datasets/d_9917e751f7498502f70052a940a3f312/view">Official downloadable occupation data</a></li>
+        <li><a id="benchmark-methodology" href="https://stats.mom.gov.sg/SL/Pages/Occupational-Wages-Source-and-Coverage.aspx">MOM survey coverage</a></li>
+        <li><a href="https://stats.mom.gov.sg/SL/Pages/Occupational-Wages-Uses-and-Limitations.aspx">MOM uses and limitations</a></li>
+        <li><a href="https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2025.aspx">MOM Occupational Wages 2025 release</a></li>
+      </ul>
+    </section>
+    <section class="bench-panel" aria-labelledby="related-tools">
+      <h2 id="related-tools">Apply the figures to your decision</h2>
+      <div class="bench-grid bench-next">
+        <a class="bench-card" href="/salary-calculator.html"><strong>Salary Calculator</strong><span>Estimate what you take home after employee CPF.</span></a>
+        <a class="bench-card" href="/offer-comparison-calculator.html"><strong>Offer Comparison</strong><span>Compare the full value of two job offers.</span></a>
+        <a class="bench-card" href="/job-switch-worth-it-calculator.html"><strong>Job Switch Calculator</strong><span>Work out the cost and break-even point of changing jobs.</span></a>
+      </div>
+      <h3>Related guides</h3>
+      <ul class="bench-source-list"><li><a href="/guide-salary-benchmark-2026.html">How to benchmark your salary in Singapore</a></li><li><a href="/guide-salary-increment-2026.html">How to assess a salary increment</a></li><li><a href="/guide-cpf-2026.html">CPF contributions and cash pay</a></li></ul>
+    </section>
+    <section class="bench-panel" aria-labelledby="benchmark-faq">
+      <h2 id="benchmark-faq">Frequently asked questions</h2>
+      <details class="bench-detail"><summary>Can I search by industry?</summary><p>Search covers occupation-level wages across covered industries. The browse groups help you find jobs by title. They do not represent industries or provide industry wage figures.</p></details>
+      <details class="bench-detail"><summary>Can I compare take-home pay or annual compensation?</summary><p>Use comparable gross monthly cash wages for this comparison. For CPF deductions use the <a href="/salary-calculator.html">Salary Calculator</a>. For bonuses, benefits and costs use <a href="/offer-comparison-calculator.html">Offer Comparison</a>.</p></details>
+      <details class="bench-detail"><summary>Why might my job title be missing?</summary><p>Employers and MOM can use different job titles. Try a key word or a broader description, and select a listed occupation only if the work matches yours.</p></details>
+    </section>
+  </main>
+  <footer class="bench-footer"><div class="bench-shell"><span>SG Salary Pro</span><a href="/tools.html">Calculators</a><a href="/guides.html">Guides</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a></div></footer>
+</body>
+</html>
