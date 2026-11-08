@@ -63,7 +63,8 @@ function footer(html) {
 }
 
 function hasVisibleLink(html, href, label) {
-  return anchors(html, true).some((anchor) => anchor.href === href && label.test(anchor.text));
+  const expected = new URL(href, 'https://sg-salary-calculator.vercel.app/').href;
+  return anchors(html, true).some((anchor) => new URL(anchor.href, 'https://sg-salary-calculator.vercel.app/').href === expected && label.test(anchor.text));
 }
 
 function internalTarget(sourceFile, href) {
@@ -75,14 +76,16 @@ function internalTarget(sourceFile, href) {
   return resolve(root, dirname(sourceFile), path);
 }
 
-test('homepage navigation, tool list, topic group and footer reach both employment tools', () => {
+test('homepage directory navigation and contextual links reach both employment tools', () => {
   const home = htmlByFile.get('index.html');
   const navigation = home.match(/<nav\b[^>]*class=["'][^"']*nav[^"']*["'][^>]*>[\s\S]*?<\/nav\s*>/i)?.[0];
   assert.ok(navigation, 'Homepage navigation is missing');
   const tools = section(home, "id=[\"']tools[\"']");
   const topics = section(home, "id=[\"']topics[\"']");
   const homeFooter = footer(home);
-  for (const area of [navigation, tools, topics, homeFooter]) {
+  assert.ok(hasVisibleLink(navigation, '/tools.html', /Calculators/i), 'Homepage navigation does not link to the calculator directory');
+  assert.ok(hasVisibleLink(navigation, '/guides.html', /Guides/i), 'Homepage navigation does not link to the guide directory');
+  for (const area of [htmlByFile.get('tools.html'), tools, topics, homeFooter]) {
     assert.ok(hasVisibleLink(area, 'annual-leave-calculator.html', /Annual Leave/i), 'Homepage area is missing a visible Annual Leave Calculator link');
     assert.ok(hasVisibleLink(area, 'resignation-calculator.html', /Resignation/i), 'Homepage area is missing a visible Resignation Calculator link');
   }
@@ -98,7 +101,7 @@ test('leave and resignation guides point to the correct calculators with accurat
 
 test('salary guides keep natural links to their most relevant tools', () => {
   const contracts = [
-    ['guide-salary-increment-2026.html', '/salary-calculator.html', /Net Pay Calculator/i],
+    ['guide-salary-increment-2026.html', '/salary-calculator.html', /Salary Calculator|Net Pay Calculator/i],
     ['guide-salary-benchmark-2026.html', 'salary-calculator.html', /Salary Calculator|take-home pay/i],
     ['guide-salary-benchmark-2026.html', 'offer-comparison-calculator.html', /Offer Comparison Calculator/i],
     ['guide-salary-increase-switching-jobs-2026.html', 'offer-comparison-calculator.html', /Compare|Offer Comparison Calculator/i],

@@ -119,7 +119,7 @@ async function runViewport(name, viewport) {
     return !control.labels || control.labels.length === 0;
   }).map(control => control.id || control.className));
   assert.deepEqual(unlabeled, []);
-  assert.equal(await page.locator('a[href="https://www.mom.gov.sg/employment-practices/leave/annual-leave/eligibility-and-entitlement"]').getAttribute('rel'), 'noopener');
+  assert.equal(await page.locator('a[target="_blank"][href="https://www.mom.gov.sg/employment-practices/leave/annual-leave/eligibility-and-entitlement"]').first().getAttribute('rel'), 'noopener');
   assert.equal(await page.locator('a[href="/resignation-calculator.html"]').count() >= 2, true);
 
   await page.getByRole('button', { name: 'Reset' }).click();

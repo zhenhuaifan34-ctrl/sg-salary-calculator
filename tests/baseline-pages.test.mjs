@@ -99,17 +99,16 @@ function executableScripts(html) {
     .join('\n/* script boundary */\n');
 }
 
-test(`legacy calculator code and unchanged pages match main baseline ${baselineCommit}`, async () => {
-  for (const [path, contract] of Object.entries(pages)) {
-    if (path === 'resignation-calculator.html') continue;
-    const bytes = await readFile(join(repositoryRoot, path));
-    if (contract.scriptSha256) {
-      const digest = createHash('sha256').update(executableScripts(bytes.toString('utf8'))).digest('hex');
-      assert.equal(digest, contract.scriptSha256, `${path} executable code changed from the recorded main baseline`);
-      continue;
-    }
-    const digest = createHash('sha256').update(bytes).digest('hex');
-    assert.equal(digest, contract.sha256, `${path} changed from the recorded main baseline`);
+test('SEO recovery preserves financial formula bodies from current main while allowing input guards and content edits', async () => {
+  const frozen = JSON.parse(await source('tests/legacy-financial-formulas.json'));
+  assert.equal(frozen.baselineCommit, '6959089aaed13efc894d210099c3d72ca4d9671f');
+  const salary = (await source('salary-calculator.html')).replace(/\r\n/g, '\n');
+  const offer = (await source('offer-comparison-calculator.html')).replace(/\r\n/g, '\n');
+  const jobSwitch = (await source('job-switch-worth-it-calculator.html')).replace(/\r\n/g, '\n');
+  assert.equal(salary.split('const otBase=')[1].split(";set('resGross'")[0], frozen.salary);
+  assert.equal(offer.split('function calculateOffer(prefix) {')[1].split('      const metrics =')[0].trim(), frozen.offer);
+  for (const [name, body] of Object.entries(frozen.switch)) {
+    assert.equal(jobSwitch.match(new RegExp('function ' + name + '\\([^\\n]+'))?.[0], body, `${name} changed`);
   }
 });
 
