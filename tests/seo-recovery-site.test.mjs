@@ -31,7 +31,13 @@ test('sitemap equals existing canonical pages with real recovery modification da
  const locations=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
  const expected=files.map(f=>origin+'/'+(f==='index.html'?'':f)).sort();
  assert.deepEqual([...locations].sort(),expected);assert.equal(new Set(locations).size,files.length);
- for(const block of sitemap.match(/<url>[\s\S]*?<\/url>/g))assert.match(block,/<lastmod>2026-11-07<\/lastmod>/);
+ for(const block of sitemap.match(/<url>[\s\S]*?<\/url>/g)){
+  const file=new URL(block.match(/<loc>(.*?)<\/loc>/)[1]).pathname.slice(1)||'index.html';
+  const date=block.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+  assert.ok(date && date >= '2026-11-07', file + ' must have a valid review date');
+  const articleDate=html[file].match(/"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+  if(articleDate)assert.equal(date,articleDate,file+' sitemap revision must match Article dateModified');
+ }
  const robots=await readFile(resolve(root,'robots.txt'),'utf8');
  assert.ok(!/^Disallow:\s*\/\s*$/mi.test(robots));assert.match(robots,/Sitemap: https:\/\/sg-salary-calculator.vercel.app\/sitemap.xml/);
 });

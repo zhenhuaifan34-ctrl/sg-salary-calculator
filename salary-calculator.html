@@ -132,47 +132,54 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 </style>
 <link rel="stylesheet" href="/seo-recovery.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/site-shell.css">
+<script src="/site-shell.js" defer></script>
+<link rel="stylesheet" href="/tool-layout.css">
 </head>
-<body>
-<div class="tool-page">
-  <header class="site-header">
-    <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="salary-calculator.html" class="active">Salary</a>
-      <a href="resignation-calculator.html">Resignation</a>
-      <a href="offer-comparison-calculator.html">Compare Offers</a>
-      <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-      <a href="/tools.html">Calculators</a>
-      <a href="/guides.html">Guides</a>
-      <button class="mode" onclick="toggleTheme()">Mode</button>
+<body class="ac-tool-page ac-salary sgsp-site sgsp-page--tool">
+<!-- sgsp:header:start -->
+<a class="sgsp-skip" href="#sgsp-main">Skip to content</a>
+<header class="sgsp-header">
+  <div class="sgsp-shell sgsp-head-grid">
+    <a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a>
+    <nav class="sgsp-nav sgsp-nav--desktop" aria-label="Main navigation">
+      <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
     </nav>
-  </header>
+    <button type="button" class="sgsp-theme" id="home-theme" data-sgsp-theme aria-pressed="false" aria-label="Dark theme" hidden>Theme</button>
+    <details class="sgsp-mobile-menu">
+      <summary><svg class="sgsp-menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="sgsp-close-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 5 14 14M19 5 5 19"/></svg><span>Menu</span></summary>
+      <nav class="sgsp-nav sgsp-nav--mobile" aria-label="Main navigation">
+        <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<!-- sgsp:header:end -->
+<!-- sgsp:breadcrumb:start -->
+<nav class="sgsp-shell sgsp-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Salary Calculator</span></nav>
+<div class="sgsp-main-anchor" id="sgsp-main" tabindex="-1"></div>
+<!-- sgsp:breadcrumb:end -->
+<main class="tool-page">
 
-  <section class="tool-hero">
+
+  <section class="tool-hero ac-tool-intro">
     <div class="tool-hero-layout">
       <div>
-        <div class="eyebrow">🇸🇬 Free Singapore salary tool · 2026</div>
-        <h1>Calculate Singapore take-home salary after CPF and overtime.</h1>
+        <div class="eyebrow">Pay, CPF &amp; overtime · 2026</div>
+        <h1>Singapore Take-Home Pay Calculator</h1>
         <p>Estimate gross salary, employee CPF, employer CPF, overtime pay, MYR/CNY reference value and monthly net take-home pay in one lightweight calculator.</p>
         <div class="hero-actions">
           <a class="hero-btn primary" href="#salaryPanel">Calculate My Salary</a>
           <a class="hero-btn secondary" href="/guide-cpf-2026.html">Read CPF Guide</a>
         </div>
       </div>
-      <aside class="preview-panel">
-        <strong>Sample monthly result</strong>
-        <div class="preview-muted">Illustration only. Use your own salary below.</div>
-        <div class="preview-mini-line"><span>Monthly Basic</span><b>S$4,000</b></div>
-        <div class="preview-mini-line"><span>OT Pay</span><b>S$260</b></div>
-        <div class="preview-mini-line"><span>Employee CPF</span><b>-S$852</b></div>
-        <div class="preview-mini-line"><span>Net Take Home</span><b>S$3,408</b></div>
-        <div class="preview-links">
-          <button type="button" onclick="applySalaryScenario(4000,20,0)">Try S$4,000 + 20h OT</button>
-          <a href="/guide-overtime-pay-2026.html">Check overtime pay rules →</a>
-          <a href="offer-comparison-calculator.html">Compare this with an offer →</a>
-        </div>
-      </aside>
+
     </div>
   </section>
 
@@ -184,25 +191,29 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
   </section>
 
   <div class="tool-layout">
-    <main class="tool-main">
+    <section class="tool-main ac-tool-input" aria-label="Take-home pay inputs">
 <div class="card">
 <div class="print">PERSONAL SALARY PLANNING ESTIMATE<br>Date Generated: <span id="printDateSpan">
 </span> | Generated locally; no government certification</div>
 <div class="head">
-<h2>SG Salary Calculator <span class="badge">2026 Ready</span>
+<h2>Pay and CPF inputs <span class="badge">2026 Ready</span>
 </h2>
 
 </div>
-<nav class="nav">
-  <a href="index.html">Home</a>
-  <a class="active" href="salary-calculator.html">Salary</a>
-  <a href="resignation-calculator.html">Resignation</a>
-  <a href="offer-comparison-calculator.html">Compare Offers</a>
-  <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-</nav>
-<div id="salaryPanel"><p class="notes" id="cpfPlanningScope">CPF planning scope: Singapore Citizens and SPRs from the third year onwards at full rates, with regular monthly wages above S$750. First/second-year SPR graduated rates and lower-wage rules are not supported. CPF amounts are percentage estimates before statutory monthly rounding; exact payslip amounts may differ. Personal income tax is not deducted. <a href="https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFcontributionratesfrom1Jan2026.pdf" target="_blank" rel="noopener">CPF Board 2026 rates and rounding rules</a> (verified 7 November 2026).</p><p id="salaryInputError" role="alert" style="display:none;color:var(--primary)"></p>
+
+<div id="salaryPanel"><p id="salaryInputError" role="alert" style="display:none;color:var(--primary)"></p>
 <div class="form-group">
-<label>Employee Profile (Age Group)</label>
+<label for="basicSalary">Monthly Basic Salary</label>
+<div class="input-wrapper">
+<span class="prefix">S$</span>
+<input type="number" id="basicSalary" min="0" max="10000000" placeholder="e.g. 3500" onfocus="this.select()" oninput="calcSalary()">
+<button class="clear" id="clearBasicSalary" aria-label="Clear monthly basic salary" onclick="clearField('basicSalary')">x</button>
+</div>
+<div class="err" id="basicSalaryErr">Please enter a positive salary amount.</div>
+<div id="lqsAlert" style="font-size:.75rem;color:var(--warning);margin-top:6px;display:none;font-weight:800">Basic pay is below S$1,800. Check the applicable gross-wage or hourly LQS and PWM rules; this basic-pay alert does not determine compliance.</div>
+</div>
+<div class="form-group">
+<label for="ageGroup">Employee profile (age group)</label>
 <select id="ageGroup" onchange="calcSalary()">
 <option value="55" selected>Age 55 & below (EE: 20% / ER: 17%)</option>
 <option value="60">Age above 55 - 60 (EE: 18% / ER: 16%)</option>
@@ -212,8 +223,8 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 </select>
 </div>
 <div class="form-group">
-<label>Employment Classification</label>
-<div class="radio">
+<span class="ac-tool-field-label" id="employment-classification">Employment classification</span>
+<div class="radio" role="group" aria-labelledby="employment-classification">
 <div>
 <input type="radio" id="typeNonWorkman" name="empType" value="non-workman" checked onchange="calcSalary()">
 <label for="typeNonWorkman" class="tile">
@@ -231,24 +242,15 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 </div>
 </div>
 <div class="form-group">
-<label for="basicSalary">Monthly Basic Salary</label>
-<div class="input-wrapper">
-<span class="prefix">S$</span>
-<input type="number" id="basicSalary" min="0" max="10000000" placeholder="e.g. 3500" onfocus="this.select()" oninput="calcSalary()">
-<button class="clear" id="clearBasicSalary" onclick="clearField('basicSalary')">x</button>
-</div>
-<div class="err" id="basicSalaryErr">Please enter a positive salary amount.</div>
-<div id="lqsAlert" style="font-size:.75rem;color:var(--warning);margin-top:6px;display:none;font-weight:800">Basic pay is below S$1,800. Check the applicable gross-wage or hourly LQS and PWM rules; this basic-pay alert does not determine compliance.</div>
-</div>
-<div class="form-group">
 <label for="weeklyHours">Contractual Weekly Work Hours</label>
 <div class="input-wrapper">
 <span class="prefix">h</span>
 <input type="number" id="weeklyHours" value="44" min="30" max="60" oninput="calcSalary()">
-<button class="clear" id="clearWeeklyHours" onclick="clearField('weeklyHours')">x</button>
+<button class="clear" id="clearWeeklyHours" aria-label="Clear weekly work hours" onclick="clearField('weeklyHours')">x</button>
 </div>
 <div class="err" id="weeklyHoursErr">Hours must be valid.</div>
 </div>
+<h3 class="ac-tool-subhead">Overtime scenarios</h3>
 <div class="quick">
 <button onclick="setOT(0)">Zero OT</button>
 <button onclick="setOT(20)">20h Normal</button>
@@ -259,7 +261,7 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 <div class="input-wrapper">
 <span class="prefix">h</span>
 <input type="number" id="ot15" placeholder="0" min="0" max="744" onfocus="this.select()" oninput="calcSalary()">
-<button class="clear" id="clearOt15" onclick="clearField('ot15')">x</button>
+<button class="clear" id="clearOt15" aria-label="Clear 1.5× overtime" onclick="clearField('ot15')">x</button>
 </div>
 <div class="err" id="ot15Err">Please enter a non-negative value.</div>
 </div>
@@ -268,7 +270,7 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 <div class="input-wrapper">
 <span class="prefix">h</span>
 <input type="number" id="ot20" placeholder="0" min="0" max="744" onfocus="this.select()" oninput="calcSalary()">
-<button class="clear" id="clearOt20" onclick="clearField('ot20')">x</button>
+<button class="clear" id="clearOt20" aria-label="Clear 2.0× overtime" onclick="clearField('ot20')">x</button>
 </div>
 <div class="err" id="ot20Err">Please enter a non-negative value.</div>
 </div>
@@ -276,8 +278,29 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 <button class="primary" onclick="calcSalary()" style="flex:2">Calculate Net Pay</button>
 <button class="reset" onclick="resetSalary()" style="flex:1;margin-top:0">Reset Form</button>
 </div>
-<div class="result" id="resultBox">
-<div class="title">Calculation Summary (2026 Framework)</div>
+
+<details class="ac-tool-details"><summary>CPF estimate scope and rate source</summary><p class="notes" id="cpfPlanningScope">CPF planning scope: Singapore Citizens and SPRs from the third year onwards at full rates, with regular monthly wages above S$750. First/second-year SPR graduated rates and lower-wage rules are not supported. CPF amounts are percentage estimates before statutory monthly rounding; exact payslip amounts may differ. Personal income tax is not deducted. <a href="https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFcontributionratesfrom1Jan2026.pdf" target="_blank" rel="noopener">CPF Board 2026 rates and rounding rules</a> (verified 7 November 2026).</p></details>
+<div class="history" id="salaryHistorySection">
+<div class="hist-head">
+<span>Recent Salary Calculations</span>
+<button onclick="clearHistory()">Clear All</button>
+</div>
+<ul class="hist" id="salaryHistoryList">
+</ul>
+</div>
+</div>
+</div>
+    </section>
+
+    <section class="tool-side" aria-label="Take-home pay results and next steps">
+      <div class="ac-tool-outcome">
+<div class="result" id="resultBox" aria-live="polite">
+<h2 class="title">Your monthly estimate</h2>
+<div class="line total">
+<span>Net Take Home:</span>
+<span id="resNet">S$0.00</span>
+</div>
+<p class="ac-tool-result-note">After employee CPF and before personal income tax.</p>
 <div class="line">
 <span>Gross Salary:</span>
 <b id="resGross">S$0.00</b>
@@ -323,46 +346,32 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 <b id="forexCNY" style="color:var(--secondary)">CNY 0.00</b>
 </div>
 </div>
-<div class="line total">
-<span>Net Take Home:</span>
-<span id="resNet">S$0.00</span>
-</div>
+
 <button class="reset" onclick="copyResults()">Copy Calculation Details</button>
 <button class="primary" onclick="downloadTxtReport()" style="background:var(--success);margin-top:10px">Export Text Report (.txt)</button>
 <button class="primary" onclick="shareApp('shareBtn')" id="shareBtn" style="background:var(--secondary);margin-top:10px">Share Tool with Colleagues</button>
 <div class="tip" id="momTips">
 </div>
 </div>
-<div class="history" id="salaryHistorySection">
-<div class="hist-head">
-<span>Recent Salary Calculations</span>
-<button onclick="clearHistory()">Clear All</button>
-</div>
-<ul class="hist" id="salaryHistoryList">
-</ul>
-</div>
-</div>
-<div class="seo">
-<a href="/guide-cpf-2026.html">CPF Contribution Guide 2026</a>
-<a href="/guide-overtime-pay-2026.html">Overtime Pay Guide 2026</a>
-<a href="/guide-income-tax-2026.html">Income Tax Guide 2026</a>
-<a href="/guide-lqs-2026.html">LQS Guide 2026</a>
-<a href="/guide-public-holiday-2026.html">Public Holiday Guide 2026</a>
-<a href="/guide-salary-increment-2026.html">Salary Increment Guide 2026</a>
-<a href="/guide-13th-month-bonus-2026.html">13th Month Bonus Guide 2026</a>
-<a href="/offer-comparison-calculator.html">Job Offer Comparison Calculator</a>
-<a href="/job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a>
-<a href="/is-higher-salary-worth-switching-jobs-singapore-2026.html">Higher Salary Job Switch Guide 2026</a>
-<a href="/guide-salary-increase-switching-jobs-2026.html">10% Salary Increase Guide 2026</a>
-<a href="/guide-salary-benchmark-2026.html">Salary Benchmark Guide 2026</a>
-</div>
-<div class="foot">
-<a href="about.html">About</a> | <a href="privacy.html">Privacy</a>
-</div>
-</div>
-    </main>
-
-    <aside class="tool-side" aria-label="Tool helper panel">
+        <div class="ac-tool-empty">
+          <p class="ac-tool-kicker">Your result</p>
+          <h2>Take-home pay summary</h2>
+          <p>Complete the inputs to view your estimate here.</p>
+        </div>
+      </div>
+<aside class="preview-panel">
+        <strong>Sample monthly result</strong>
+        <div class="preview-muted">No overtime, full employee CPF rate. Before income tax.</div>
+        <div class="preview-mini-line"><span>Monthly Basic</span><b>S$3,000</b></div>
+        <div class="preview-mini-line"><span>OT Pay</span><b>S$0</b></div>
+        <div class="preview-mini-line"><span>Employee CPF</span><b>−S$600</b></div>
+        <div class="preview-mini-line"><span>Net Take Home</span><b>S$2,400</b></div>
+        <div class="preview-links">
+          <button type="button" onclick="applySalaryScenario(4000,20,0)">Try S$4,000 + 20h OT</button>
+          <a href="/guide-overtime-pay-2026.html">Check overtime pay rules →</a>
+          <a href="offer-comparison-calculator.html">Compare this with an offer →</a>
+        </div>
+      </aside>
 <section class="side-card">
       <h2>Quick salary scenarios</h2>
       <p>Fill sample values and calculate instantly. These presets only change inputs, not formulas.</p>
@@ -389,7 +398,7 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
         <a class="side-link" href="/guide-salary-increment-2026.html">Salary Increment Guide</a>
       </div>
     </section>
-    </aside>
+    </section>
   </div>
 
   <section class="review-notes" aria-label="Understand your salary estimate"><h2>Understand your salary estimate</h2>
@@ -400,13 +409,24 @@ html[data-theme=dark] .tool-trust div{background:rgba(30,41,59,.78)}
 <details><summary>Is the result after income tax?</summary><p>No. The result deducts estimated employee CPF only. Tax residency, reliefs and other income require a separate <a href="/guide-income-tax-2026.html">income tax review</a>.</p></details>
 <details><summary>How do I compare this monthly result with an offer?</summary><p>Use <a href="/offer-comparison-calculator.html">Offer Comparison</a> to add AWS, expected bonus, benefits and work costs. Use <a href="/job-switch-worth-it-calculator.html">Job Switch</a> if leaving an existing job creates one-off costs.</p></details>
 <p>Formula scope checked <time datetime="2026-11-07">7 November 2026</time>: <a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay">CPF contribution rules</a> and <a href="https://www.mom.gov.sg/employment-practices/hours-of-work-overtime-and-rest-days">MOM overtime coverage and calculation</a>. See the <a href="/guide-cpf-2026.html">CPF guide</a> for wage ceilings and rate scope.</p></section>
-<footer class="tool-footer">
-    <a href="index.html">Home</a><span>|</span>
-    <a href="/tools.html">Calculators</a><span>|</span><a href="/guides.html">Guides</a><span>|</span>
-    <a href="about.html">About</a><span>|</span>
-    <a href="privacy.html">Privacy Policy</a>
-  </footer>
-</div>
+
+  <section class="ac-tool-links" data-related-links aria-labelledby="tool-next-heading">
+    <h2 id="tool-next-heading">Put your monthly estimate in context</h2>
+    <h3>Related tools</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/salary-benchmark-explorer.html"><strong>Salary Benchmark Explorer</strong><span>Check the published wage range for a comparable role.</span></a></li>
+      <li><a href="/offer-comparison-calculator.html"><strong>Offer Comparison</strong><span>Compare annual cash, hours, benefits and work costs.</span></a></li>
+      <li><a href="/job-switch-worth-it-calculator.html"><strong>Job Switch Calculator</strong><span>Compare future gains against one-off exit costs.</span></a></li>
+    </ul>
+    <h3>Related guides</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/guide-cpf-2026.html"><strong>CPF Contribution Guide</strong><span>Check eligibility, rates and wage ceilings.</span></a></li>
+      <li><a href="/guide-income-tax-2026.html"><strong>Income Tax Guide</strong><span>Understand why estimated CPF-adjusted pay is not after tax.</span></a></li>
+      <li><a href="/guide-overtime-pay-2026.html"><strong>Overtime Pay Guide</strong><span>Confirm which employees and hours qualify.</span></a></li>
+      <li><a href="/guide-salary-increment-2026.html"><strong>Salary Increment Guide</strong><span>Compare a raise on the same pay and benefits basis.</span></a></li>
+    </ul>
+  </section>
+</main>
 
 <script src="planning-inputs.js"></script>
 <script>
@@ -431,5 +451,30 @@ function applySalaryScenario(salary, ot15, ot20){
 }
 </script>
 
+<!-- sgsp:footer:start -->
+<footer class="sgsp-footer">
+  <div class="sgsp-shell sgsp-foot-grid">
+    <div><a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a><p>Pay, leave and career decisions in Singapore.</p></div>
+    <nav aria-label="Calculator links">
+      <strong>Calculators</strong>
+      <a href="/salary-calculator.html">Salary Calculator</a>
+<a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+<a href="/resignation-calculator.html">Resignation Calculator</a>
+<a href="/offer-comparison-calculator.html">Offer Comparison</a>
+<a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+<a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
+    </nav>
+    <nav aria-label="Site information">
+      <strong>Resources</strong>
+      <a href="/tools.html">All calculators</a>
+      <a href="/guides.html">All guides</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="sgsp-shell sgsp-foot-line">Independent planning tools and guides for Singapore.</div>
+</footer>
+<!-- sgsp:footer:end -->
 </body>
 </html>

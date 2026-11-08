@@ -29,29 +29,48 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
 </style>
 <link rel="stylesheet" href="/seo-recovery.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/site-shell.css">
+<script src="/site-shell.js" defer></script>
+<link rel="stylesheet" href="/tool-layout.css">
 </head>
 
-<body>
-<div class="page">
-<header class="site-header">
-  <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="salary-calculator.html">Salary</a>
-    <a href="resignation-calculator.html">Resignation</a>
-    <a href="offer-comparison-calculator.html">Compare Offers</a>
-    <a class="active" href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-    <a href="/tools.html">Calculators</a>
-    <a href="/guides.html">Guides</a>
-    <button class="mode" onclick="toggleTheme()">Mode</button>
-  </nav>
+<body class="ac-tool-page ac-switch sgsp-site sgsp-page--tool">
+<!-- sgsp:header:start -->
+<a class="sgsp-skip" href="#sgsp-main">Skip to content</a>
+<header class="sgsp-header">
+  <div class="sgsp-shell sgsp-head-grid">
+    <a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a>
+    <nav class="sgsp-nav sgsp-nav--desktop" aria-label="Main navigation">
+      <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
+    </nav>
+    <button type="button" class="sgsp-theme" id="home-theme" data-sgsp-theme aria-pressed="false" aria-label="Dark theme" hidden>Theme</button>
+    <details class="sgsp-mobile-menu">
+      <summary><svg class="sgsp-menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="sgsp-close-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 5 14 14M19 5 5 19"/></svg><span>Menu</span></summary>
+      <nav class="sgsp-nav sgsp-nav--mobile" aria-label="Main navigation">
+        <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
+      </nav>
+    </details>
+  </div>
 </header>
+<!-- sgsp:header:end -->
+<!-- sgsp:breadcrumb:start -->
+<nav class="sgsp-shell sgsp-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Job Switch Calculator</span></nav>
+<div class="sgsp-main-anchor" id="sgsp-main" tabindex="-1"></div>
+<!-- sgsp:breadcrumb:end -->
+<div class="page">
+
 
 <main>
-  <section class="hero">
+  <section class="hero ac-tool-intro">
     <div class="hero-layout">
       <div>
-        <div class="eyebrow">🇸🇬 Singapore job decision tool · 2026</div>
+        <div class="eyebrow">Job change and break-even · 2026</div>
         <h1>Is your new job offer really worth switching for?</h1>
         <p>Compare your current job and new offer after salary, CPF, AWS, bonus, annual leave, working hours, commute, notice buyout, gap days and job risk. See the real value beyond monthly salary.</p>
         <div class="hero-actions">
@@ -62,15 +81,7 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
           <span class="pill">Annual Net Gain</span><span class="pill">Break-even Months</span><span class="pill">Effective Hourly Value</span><span class="pill">Notice Buyout</span><span class="pill">Risk-adjusted Score</span>
         </div>
       </div>
-      <aside class="preview-card" aria-label="Sample switching decision preview">
-        <div class="preview-title">Sample Decision Preview</div>
-        <div class="preview-note">Illustration only · use your own offer numbers below</div>
-        <div class="preview-line"><span>Monthly Salary Increase</span><b>+S$800</b></div>
-        <div class="preview-line positive"><span>Estimated Annual Gain</span><b>+S$8,420</b></div>
-        <div class="preview-line negative"><span>Switching Cost</span><b>-S$300</b></div>
-        <div class="preview-line"><span>Break-even Time</span><b>0.4 months</b></div>
-        <div class="preview-total"><span>Decision Label</span><span>Worth Considering</span></div>
-      </aside>
+
     </div>
   </section>
 
@@ -133,12 +144,14 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
           <div class="field"><label for="currentCommute">Round-trip commute (min)</label><input id="currentCommute" type="number" min="0" max="600" step="5" value="60" inputmode="numeric"></div>
           <div class="field full"><label for="currentCost">Monthly work / commute cost (S$)</label><input id="currentCost" type="number" min="0" step="20" value="150" inputmode="decimal"></div>
         </div>
-        <div class="group-title">Subjective scores</div>
+        <details class="ac-tool-details ac-job-scores">
+          <summary>Optional: stability, growth and work-life scores</summary>
         <div class="form-grid">
           <div class="field"><label for="currentStability">Stability</label><div class="range-field"><input id="currentStability" type="range" min="1" max="5" value="4" oninput="syncRanges()"><span class="range-value" id="currentStabilityVal">4</span></div></div>
           <div class="field"><label for="currentGrowth">Growth</label><div class="range-field"><input id="currentGrowth" type="range" min="1" max="5" value="3" oninput="syncRanges()"><span class="range-value" id="currentGrowthVal">3</span></div></div>
           <div class="field full"><label for="currentWlb">Work-life balance</label><div class="range-field"><input id="currentWlb" type="range" min="1" max="5" value="4" oninput="syncRanges()"><span class="range-value" id="currentWlbVal">4</span></div></div>
         </div>
+        </details>
       </article>
 
       <article class="input-card">
@@ -161,12 +174,14 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
           <div class="field"><label for="newCost">Monthly work / commute cost (S$)</label><input id="newCost" type="number" min="0" step="20" value="120" inputmode="decimal"></div>
           <div class="field"><label for="probationMonths">Probation months</label><input id="probationMonths" type="number" min="0" max="12" step="1" value="3" inputmode="numeric"></div>
         </div>
-        <div class="group-title">Subjective scores</div>
+        <details class="ac-tool-details ac-job-scores">
+          <summary>Optional: stability, growth and work-life scores</summary>
         <div class="form-grid">
           <div class="field"><label for="newStability">Stability</label><div class="range-field"><input id="newStability" type="range" min="1" max="5" value="3" oninput="syncRanges()"><span class="range-value" id="newStabilityVal">3</span></div></div>
           <div class="field"><label for="newGrowth">Growth</label><div class="range-field"><input id="newGrowth" type="range" min="1" max="5" value="4" oninput="syncRanges()"><span class="range-value" id="newGrowthVal">4</span></div></div>
           <div class="field full"><label for="newWlb">Work-life balance</label><div class="range-field"><input id="newWlb" type="range" min="1" max="5" value="3" oninput="syncRanges()"><span class="range-value" id="newWlbVal">3</span></div></div>
         </div>
+        </details>
       </article>
     </div>
 
@@ -221,24 +236,6 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
   <section class="section"><h2>Recent comparisons</h2><p>Your last few comparison summaries are stored only in your browser local storage.</p><div class="history-list" id="historyList"></div></section>
 
   <section class="section">
-    <h2>Related Singapore salary tools and guides</h2>
-    <div class="related">
-      <a class="featured-link" href="offer-comparison-calculator.html">Job Offer Comparison Calculator</a>
-      <a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
-      <a class="featured-link" href="salary-calculator.html">Salary Calculator</a>
-      <a href="resignation-calculator.html">Resignation Settlement Calculator</a>
-      <a href="/guide-salary-increment-2026.html">Salary Increment Guide 2026</a>
-      <a href="/is-higher-salary-worth-switching-jobs-singapore-2026.html">Switching Costs and Payback Guide</a>
-      <a href="/guide-salary-increase-switching-jobs-2026.html">10% Salary Increase Guide</a>
-      <a href="/guide-cpf-2026.html">CPF Contribution Guide 2026</a>
-      <a href="/guide-resignation-2026.html">Resignation Guide 2026</a>
-      <a href="/guide-annual-leave-2026.html">Annual Leave Guide 2026</a>
-      <a href="/guide-13th-month-bonus-2026.html">13th Month Bonus Guide 2026</a>
-      <a href="/guide-income-tax-2026.html">Income Tax Guide 2026</a>
-    </div>
-  </section>
-
-  <section class="section">
     <h2>Frequently asked questions</h2>
     <div class="faq">
       <details><summary>Is a 10% salary increase enough to switch jobs?</summary><p>Not always. Compare AWS, bonus, CPF, annual leave, commute time, working hours, job stability and switching cost.</p></details>
@@ -248,8 +245,15 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
       <details><summary>Can I use this for EP or S Pass offers?</summary><p>Yes, choose “No CPF calculation” if CPF is not applicable.</p></details>
     </div>
   </section>
-</main>
+<aside class="preview-card" aria-label="Sample switching decision preview">
+        <div class="preview-title">Worked break-even example</div>
+        <div class="preview-note">Illustration from the worked example below.</div>
+        <div class="preview-line"><span>Recurring monthly value gain</span><b>+S$400</b></div>
+        <div class="preview-line positive"><span>First-year net gain</span><b>+S$3,600</b></div>
+        <div class="preview-line negative"><span>Switching Cost</span><b>−S$1,200</b></div>
+        <div class="preview-line"><span>Break-even Time</span><b>3 months</b></div>
 
+      </aside>
 <section class="review-notes" aria-label="Separate recurring gains from switching costs"><h2>Separate recurring gains from switching costs</h2>
 <h3>Break-even example</h3><p>At age 55 or below with full CPF, compare S$4,500 and S$5,000 monthly salary with no AWS, bonus, allowances, benefits or work costs. Annual value after employee CPF rises from S$43,200 to S$48,000. The recurring monthly gain is S$400. With S$1,200 total switching cost, break-even is three months and first-year net gain is S$3,600 before income tax.</p>
 <h3>What the score can and cannot tell you</h3><p>Annual value includes the benefits value you enter, so monthly value gain may exceed additional bank-account cash. The tool's effective hourly model includes 52 weeks of working and commuting hours; annual leave is shown separately. Gap-loss uses a 30-day planning divisor, rather than a statutory incomplete-month salary formula. Enter notice buyout as a confirmed amount: notice days, unused-leave days and probation fields provide scenario context and do not independently calculate a cash settlement. Stability, growth and work-life scores are your assumptions. Decision labels are model heuristics, not official career recommendations.</p>
@@ -257,9 +261,25 @@ html[data-theme=dark]{--bg:#0b0f19;--card:#1e293b;--text:#f8fafc;--primary:#f871
 <details><summary>Can leave reduce notice buyout automatically?</summary><p>No. Use an offset only where the employer agrees. Confirm dates and payment direction with the <a href="/resignation-calculator.html">Resignation Calculator</a> and reconcile the <a href="/annual-leave-calculator.html">leave balance</a>.</p></details>
 <p>Use <a href="/offer-comparison-calculator.html">Offer Comparison</a> to check package inputs first. Re-run this model with no expected bonus and a longer unpaid gap to see whether the decision survives less favourable assumptions.</p>
 <p>Sources checked <time datetime="2026-11-07">7 November 2026</time>: <a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay">CPF contribution rules</a> and <a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice">MOM notice and leave offset</a>. CPF uses full-rate annual percentage estimates rather than exact monthly payroll rounding. These examples are hypothetical.</p></section>
-<footer class="foot">
-  <a href="index.html">Home</a><span>|</span><a href="salary-calculator.html">Salary Calculator</a><span>|</span><a href="resignation-calculator.html">Resignation</a><span>|</span><a href="offer-comparison-calculator.html">Compare Offers</a><span>|</span><a href="/tools.html">Calculators</a><span>|</span><a href="/guides.html">Guides</a><span>|</span><a href="about.html">About</a><span>|</span><a href="privacy.html">Privacy Policy</a>
-</footer>
+  <section class="ac-tool-links" data-related-links aria-labelledby="tool-next-heading">
+    <h2 id="tool-next-heading">Check the inputs behind your decision</h2>
+    <h3>Related tools</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/salary-benchmark-explorer.html"><strong>Salary Benchmark Explorer</strong><span>Check the published wage range for a comparable role.</span></a></li>
+      <li><a href="/offer-comparison-calculator.html"><strong>Offer Comparison</strong><span>Compare annual cash, hours, benefits and work costs.</span></a></li>
+      <li><a href="/resignation-calculator.html"><strong>Resignation Calculator</strong><span>Work through notice dates, pay and eligible unused leave.</span></a></li>
+    </ul>
+    <h3>Related guides</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/is-higher-salary-worth-switching-jobs-singapore-2026.html"><strong>Switching Costs and Payback Guide</strong><span>Work out when recurring gains cover the costs of leaving.</span></a></li>
+      <li><a href="/guide-salary-increase-switching-jobs-2026.html"><strong>10% Salary Increase Guide</strong><span>Test a 10% raise against changes to the rest of the package.</span></a></li>
+      <li><a href="/guide-salary-increment-2026.html"><strong>Salary Increment Guide</strong><span>Compare a raise on the same pay and benefits basis.</span></a></li>
+    </ul>
+  </section>
+</main>
+
+
+
 </div>
 
 <script src="planning-inputs.js"></script>
@@ -288,5 +308,30 @@ function saveHistory(item){const key='sg_job_switch_history_v1',history=JSON.par
 function renderHistory(){const key='sg_job_switch_history_v1',box=$('historyList'),history=JSON.parse(localStorage.getItem(key)||'[]');if(!history.length){box.innerHTML='<p class="notes">No recent comparisons yet. Run the calculator once to save a summary here.</p>';return}box.innerHTML=history.map(h=>`<div class="history-item" tabindex="0"><div><strong>${escapeHtml(h.label)}</strong><div class="notes" style="margin:2px 0 0;">${escapeHtml(h.current)} → ${escapeHtml(h.next)} · ${escapeHtml(h.time)}</div></div><b>${h.gain>=0?'+':'-'}${intMoney(Math.abs(h.gain))}</b></div>`).join('')}
 window.addEventListener('DOMContentLoaded',()=>{syncRanges();renderHistory();document.querySelectorAll('input,select').forEach(field=>{field.addEventListener('input',invalidateSwitch);field.addEventListener('change',invalidateSwitch)})});
 </script>
+<!-- sgsp:footer:start -->
+<footer class="sgsp-footer">
+  <div class="sgsp-shell sgsp-foot-grid">
+    <div><a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a><p>Pay, leave and career decisions in Singapore.</p></div>
+    <nav aria-label="Calculator links">
+      <strong>Calculators</strong>
+      <a href="/salary-calculator.html">Salary Calculator</a>
+<a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+<a href="/resignation-calculator.html">Resignation Calculator</a>
+<a href="/offer-comparison-calculator.html">Offer Comparison</a>
+<a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+<a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
+    </nav>
+    <nav aria-label="Site information">
+      <strong>Resources</strong>
+      <a href="/tools.html">All calculators</a>
+      <a href="/guides.html">All guides</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="sgsp-shell sgsp-foot-line">Independent planning tools and guides for Singapore.</div>
+</footer>
+<!-- sgsp:footer:end -->
 </body>
 </html>

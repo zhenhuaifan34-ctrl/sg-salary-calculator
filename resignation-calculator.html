@@ -167,48 +167,54 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
 </style>
 <link rel="stylesheet" href="/seo-recovery.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/site-shell.css">
+<script src="/site-shell.js" defer></script>
+<link rel="stylesheet" href="/tool-layout.css">
 </head>
-<body>
-<div class="tool-page">
-  <header class="site-header">
-    <a class="brand" href="index.html">SG Salary Pro <span class="badge">2026 Ready</span></a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="salary-calculator.html">Salary</a>
-      <a href="resignation-calculator.html" class="active">Resignation</a>
-      <a href="annual-leave-calculator.html">Annual Leave</a>
-      <a href="offer-comparison-calculator.html">Compare Offers</a>
-      <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-      <a href="/tools.html">Calculators</a>
-      <a href="/guides.html">Guides</a>
-      <button class="mode" onclick="toggleTheme()">Mode</button>
+<body class="ac-tool-page ac-resign sgsp-site sgsp-page--tool">
+<!-- sgsp:header:start -->
+<a class="sgsp-skip" href="#sgsp-main">Skip to content</a>
+<header class="sgsp-header">
+  <div class="sgsp-shell sgsp-head-grid">
+    <a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a>
+    <nav class="sgsp-nav sgsp-nav--desktop" aria-label="Main navigation">
+      <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
     </nav>
-  </header>
+    <button type="button" class="sgsp-theme" id="home-theme" data-sgsp-theme aria-pressed="false" aria-label="Dark theme" hidden>Theme</button>
+    <details class="sgsp-mobile-menu">
+      <summary><svg class="sgsp-menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="sgsp-close-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 5 14 14M19 5 5 19"/></svg><span>Menu</span></summary>
+      <nav class="sgsp-nav sgsp-nav--mobile" aria-label="Main navigation">
+        <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<!-- sgsp:header:end -->
+<!-- sgsp:breadcrumb:start -->
+<nav class="sgsp-shell sgsp-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Resignation Calculator</span></nav>
+<div class="sgsp-main-anchor" id="sgsp-main" tabindex="-1"></div>
+<!-- sgsp:breadcrumb:end -->
+<main class="tool-page">
 
-  <section class="tool-hero">
+
+  <section class="tool-hero ac-tool-intro">
     <div class="tool-hero-layout">
       <div>
-        <div class="eyebrow">🇸🇬 Free resignation settlement tool · 2026</div>
-        <h1>Estimate notice dates and itemised resignation payments.</h1>
+        <div class="eyebrow">Notice, leave &amp; final pay · 2026</div>
+        <h1>Singapore Resignation Calculator</h1>
         <p>Keep the contractual notice end, official employment end and actual last attendance separate. Employer-payable and employee-payable items are shown on different sides, with unresolved rules excluded from totals.</p>
         <div class="hero-actions">
           <a class="hero-btn primary" href="#resignPanel">Calculate My Settlement</a>
           <a class="hero-btn secondary" href="/guide-resignation-2026.html">Read Resignation Guide</a>
         </div>
       </div>
-      <aside class="preview-panel">
-        <strong>Sample resignation result</strong>
-        <div class="preview-muted">Illustration only. Use your own salary below.</div>
-        <div class="preview-mini-line"><span>Monthly Gross Rate</span><b>S$4,000</b></div>
-        <div class="preview-mini-line"><span>Unused Leave</span><b>5 days</b></div>
-        <div class="preview-mini-line"><span>Notice Period</span><b>1 month</b></div>
-        <div class="preview-mini-line"><span>Leave Encashment</span><b>Only HR-confirmed days</b></div>
-        <div class="preview-links">
-          <button type="button" onclick="applyResignScenario('full')">Try a full-notice example</button>
-          <a href="/guide-annual-leave-2026.html">Check annual leave rules →</a>
-          <a href="salary-calculator.html">Calculate monthly salary →</a>
-        </div>
-      </aside>
+
     </div>
   </section>
 
@@ -220,21 +226,15 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
   </section>
 
   <div class="tool-layout">
-    <main class="tool-main">
+    <section class="tool-main ac-tool-input" aria-label="Resignation inputs">
 <div class="card">
 <div class="print">RESIGNATION SETTLEMENT ESTIMATE<br>Date Generated: <span id="printDateSpan"></span><br>Independent calculator — not a government certification.</div>
 <div class="head">
-<h2>Resignation Settlement Calculator <span class="badge">2026 Ready</span>
+<h2>Notice and payroll inputs <span class="badge">2026 Ready</span>
 </h2>
 
 </div>
-<nav class="nav">
-  <a href="index.html">Home</a>
-  <a href="salary-calculator.html">Salary</a>
-  <a class="active" href="resignation-calculator.html">Resignation</a>
-  <a href="offer-comparison-calculator.html">Compare Offers</a>
-  <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-</nav>
+
 <form id="resignPanel" novalidate>
   <section class="form-section">
     <h2>1. Contract and notice dates</h2>
@@ -367,13 +367,29 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
   <div class="row"><button class="primary" type="submit" style="flex:2">Calculate Itemised Settlement</button><button class="reset" type="button" onclick="resetResign()" style="flex:1;margin-top:0">Reset</button></div>
 </form>
 
+
+<div class="history" id="resignHistorySection">
+<div class="hist-head">
+<span>Recent Resignation Calculations</span>
+<button onclick="clearHistory()">Clear All</button>
+</div>
+<ul class="hist" id="resignHistoryList">
+</ul>
+</div>
+</div>
+    </section>
+
+    <section class="tool-side" aria-label="Resignation results and next steps">
+      <div class="ac-tool-outcome">
 <div class="result" id="resignResultBox" aria-live="polite">
-  <div class="title">Resignation Settlement Summary <span class="status-pill" id="resultStatus">Review</span></div>
+  <h2 class="title">Settlement summary <span class="status-pill" id="resultStatus">Review</span></h2>
   <div class="validation-box" id="errorBox"><h3>Fix these inputs</h3><ul id="errorList"></ul></div>
   <div class="validation-box pending" id="pendingBox"><h3>Excluded pending items</h3><ul id="pendingList"></ul></div>
-  <div class="line"><span>Contractual notice end:</span><b id="resContractualEnd">—</b></div>
+  <div class="ac-tool-timeline" role="group" aria-label="Notice and attendance dates">
+    <div class="line"><span>Contractual notice end:</span><b id="resContractualEnd">—</b></div>
   <div class="line"><span>Official last employment date:</span><b id="resOfficialLastDay">—</b></div>
   <div class="line"><span>Actual last scheduled attendance:</span><b id="resAttendanceDate">Not HR-confirmed</b></div>
+  </div>
   <div class="result-group"><h3>Employer payable items</h3><div class="result-list" id="employerItems"></div></div>
   <div class="result-group"><h3>Employee possible payable items</h3><div class="result-list" id="employeeItems"></div></div>
   <div class="total-gate blocked" id="totalGate"><strong id="totalStatus">No final totals while any rule is unresolved.</strong><div id="totalLines" hidden></div></div>
@@ -396,36 +412,25 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
   </div>
   <div class="action-stack"><button class="reset" type="button" onclick="copyResignResults()">Copy Settlement</button><button class="primary" type="button" onclick="downloadTxtReport()" style="background:var(--success)">Export Report (.txt)</button><button class="primary" type="button" onclick="window.print()" style="background:var(--warning)">Print</button><button class="primary" type="button" onclick="shareApp('shareResignBtn')" id="shareResignBtn" style="background:var(--secondary)">Share Tool</button></div>
 </div>
-<div class="history" id="resignHistorySection">
-<div class="hist-head">
-<span>Recent Resignation Calculations</span>
-<button onclick="clearHistory()">Clear All</button>
-</div>
-<ul class="hist" id="resignHistoryList">
-</ul>
-</div>
-</div>
-<div class="seo">
-<a href="/guide-resignation-2026.html">Resignation Guide 2026</a>
-<a href="/guide-annual-leave-2026.html">Annual Leave Guide 2026</a>
-<a href="/guide-public-holiday-2026.html">Public Holiday Guide 2026</a>
-<a href="/guide-2026.html">Employment Act Guide 2026</a>
-<a href="/guide-income-tax-2026.html">Income Tax Guide 2026</a>
-<a href="/guide-cpf-2026.html">CPF Contribution Guide 2026</a>
-<a href="/offer-comparison-calculator.html">Job Offer Comparison Calculator</a>
-<a href="/job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a>
-<a href="/is-higher-salary-worth-switching-jobs-singapore-2026.html">Higher Salary Job Switch Guide 2026</a>
-<a href="/guide-salary-increase-switching-jobs-2026.html">10% Salary Increase Guide 2026</a>
-<a href="/guide-salary-benchmark-2026.html">Salary Benchmark Guide 2026</a>
-</div>
-<div class="foot">
-<a href="about.html">About</a>
-<a href="privacy.html">Privacy</a>
-</div>
-</div>
-    </main>
-
-    <aside class="tool-side" aria-label="Tool helper panel">
+        <div class="ac-tool-empty">
+          <p class="ac-tool-kicker">Your result</p>
+          <h2>Resignation summary</h2>
+          <p>Complete the inputs to view your estimate here.</p>
+        </div>
+      </div>
+<aside class="preview-panel">
+        <strong>Sample resignation result</strong>
+        <div class="preview-muted">Illustration only. Use your own salary below.</div>
+        <div class="preview-mini-line"><span>Monthly Gross Rate</span><b>S$4,000</b></div>
+        <div class="preview-mini-line"><span>Unused Leave</span><b>5 days</b></div>
+        <div class="preview-mini-line"><span>Notice Period</span><b>1 month</b></div>
+        <div class="preview-mini-line"><span>Leave Encashment</span><b>Only HR-confirmed days</b></div>
+        <div class="preview-links">
+          <button type="button" onclick="applyResignScenario('full')">Try a full-notice example</button>
+          <a href="/guide-annual-leave-2026.html">Check annual leave rules →</a>
+          <a href="salary-calculator.html">Calculate monthly salary →</a>
+        </div>
+      </aside>
 <section class="side-card">
       <h2>Quick resignation scenarios</h2>
       <p>Fill sample values and calculate instantly. These presets only change inputs, not formulas.</p>
@@ -460,7 +465,7 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
         <a class="side-link" href="/guide-2026.html">Employment Act Guide</a>
       </div>
     </section>
-    </aside>
+    </section>
   </div>
 
   <section class="review-notes" aria-label="Read dates and settlement separately"><h2>Read dates and settlement separately</h2>
@@ -470,13 +475,22 @@ textarea:focus{outline:0;border-color:var(--secondary);box-shadow:0 0 0 4px var(
 <details><summary>Why is the final total withheld?</summary><p>Unconfirmed notice treatment, employer calendar, allowances or leave eligibility can change who pays whom. Resolve the flagged inputs rather than treating an incomplete total as a final payroll figure.</p></details>
 <p>Reconcile days in <a href="/annual-leave-calculator.html">Annual Leave</a> first. Use <a href="/job-switch-worth-it-calculator.html">Job Switch</a> to compare the resulting one-off exit costs with future gains.</p>
 <p>Sources checked <time datetime="2026-11-07">7 November 2026</time>: <a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice">MOM notice</a> and <a href="https://www.mom.gov.sg/employment-practices/salary/monthly-and-daily-salary">MOM gross daily and incomplete-month salary</a>. The <a href="/guide-resignation-2026.html">resignation guide</a> explains common settlement mistakes.</p></section>
-<footer class="tool-footer">
-    <a href="index.html">Home</a><span>|</span>
-    <a href="/tools.html">Calculators</a><span>|</span><a href="/guides.html">Guides</a><span>|</span>
-    <a href="about.html">About</a><span>|</span>
-    <a href="privacy.html">Privacy Policy</a>
-  </footer>
-</div>
+
+  <section class="ac-tool-links" data-related-links aria-labelledby="tool-next-heading">
+    <h2 id="tool-next-heading">Prepare for your last day and your next job</h2>
+    <h3>Related tools</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/annual-leave-calculator.html"><strong>Annual Leave Calculator</strong><span>Reconcile confirmed leave and your company balance.</span></a></li>
+      <li><a href="/job-switch-worth-it-calculator.html"><strong>Job Switch Calculator</strong><span>Compare future gains against one-off exit costs.</span></a></li>
+    </ul>
+    <h3>Related guides</h3>
+    <ul class="ac-tool-link-cards">
+      <li><a href="/guide-resignation-2026.html"><strong>Resignation Guide</strong><span>Distinguish leave during notice from offset and encashment.</span></a></li>
+      <li><a href="/guide-annual-leave-2026.html"><strong>Annual Leave Guide</strong><span>Understand statutory proration and employer policy.</span></a></li>
+      <li><a href="/guide-2026.html"><strong>Employment Act Guide</strong><span>Confirm coverage and which employment rules apply.</span></a></li>
+    </ul>
+  </section>
+</main>
 
 <script src="employment-rules.js"></script>
 <script>
@@ -545,5 +559,30 @@ window.addEventListener('keydown',event=>{if(event.key==='Escape')resetResign()}
 window.addEventListener('DOMContentLoaded',()=>{initTheme();renderHist();updateFormVisibility();const saved=localStorage.getItem('savedResignBasicSalary')||localStorage.getItem('savedBasicSalary');if(saved)$('resignBasic').value=saved;$('resignPanel').addEventListener('submit',event=>{event.preventDefault();calcResign(true)});$('resignPanel').addEventListener('change',updateFormVisibility)});
 </script>
 
+<!-- sgsp:footer:start -->
+<footer class="sgsp-footer">
+  <div class="sgsp-shell sgsp-foot-grid">
+    <div><a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a><p>Pay, leave and career decisions in Singapore.</p></div>
+    <nav aria-label="Calculator links">
+      <strong>Calculators</strong>
+      <a href="/salary-calculator.html">Salary Calculator</a>
+<a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+<a href="/resignation-calculator.html">Resignation Calculator</a>
+<a href="/offer-comparison-calculator.html">Offer Comparison</a>
+<a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+<a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
+    </nav>
+    <nav aria-label="Site information">
+      <strong>Resources</strong>
+      <a href="/tools.html">All calculators</a>
+      <a href="/guides.html">All guides</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="sgsp-shell sgsp-foot-line">Independent planning tools and guides for Singapore.</div>
+</footer>
+<!-- sgsp:footer:end -->
 </body>
 </html>

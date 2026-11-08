@@ -5,375 +5,134 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Higher Salary Offer in Singapore: Switching Costs and Payback | SG Salary Pro</title>
   <meta name="description" content="Build a first-year job-switch decision using confirmed recurring gain, one-time exit costs, a payback calculation and clear dates before resigning.">
-  <style>
-    :root {
-      --bg: #f7f9fc;
-      --card: #ffffff;
-      --text: #172033;
-      --muted: #5f6b7a;
-      --line: #dbe3ee;
-      --primary: #2563eb;
-      --primary-dark: #1e40af;
-      --soft: #eaf1ff;
-      --accent: #0f766e;
-      --warning: #b45309;
-      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-    }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.65;
-    }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.94);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
-    }
-    .nav {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .brand {
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      font-size: 14px;
-    }
-    .nav-links a {
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .nav-links a:hover { color: var(--primary); }
-    .wrap {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 34px 20px 56px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 320px;
-      gap: 26px;
-      align-items: start;
-    }
-    .article {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 34px;
-    }
-    .kicker {
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    h1 {
-      margin: 10px 0 14px;
-      font-size: 40px;
-      line-height: 1.12;
-      letter-spacing: 0;
-    }
-    .intro {
-      color: var(--muted);
-      font-size: 18px;
-      margin: 0 0 22px;
-    }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 14px;
-      padding-bottom: 22px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 26px;
-    }
-    .pill {
-      background: var(--soft);
-      color: var(--primary-dark);
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-weight: 700;
-    }
-    h2 {
-      margin: 34px 0 12px;
-      font-size: 26px;
-      line-height: 1.25;
-    }
-    h3 {
-      margin: 22px 0 8px;
-      font-size: 19px;
-    }
-    p { margin: 0 0 16px; }
-    ul, ol { padding-left: 22px; margin: 0 0 18px; }
-    li { margin: 6px 0; }
-    .note {
-      border-left: 4px solid var(--primary);
-      background: var(--soft);
-      padding: 14px 16px;
-      border-radius: 6px;
-      margin: 20px 0;
-    }
-    .warning {
-      border-left-color: var(--warning);
-      background: #fff7ed;
-    }
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      margin: 18px 0 24px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 680px;
-      background: #fff;
-    }
-    th, td {
-      text-align: left;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-    th {
-      background: #f1f5f9;
-      font-size: 14px;
-    }
-    tr:last-child td { border-bottom: 0; }
-    .formula {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      background: #0f172a;
-      color: #e2e8f0;
-      padding: 14px 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      margin: 16px 0 22px;
-      font-size: 14px;
-    }
-    .cta-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 20px 0 26px;
-    }
-    .tool-card {
-      display: block;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-      background: #fff;
-      color: var(--text);
-    }
-    .tool-card strong { display: block; margin-bottom: 6px; }
-    .tool-card span { color: var(--muted); font-size: 14px; }
-    .tool-card:hover {
-      border-color: #93c5fd;
-      text-decoration: none;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
-    }
-    .sidebar {
-      position: sticky;
-      top: 78px;
-      display: grid;
-      gap: 14px;
-    }
-    .side-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-    .side-card h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-    .side-card a {
-      display: block;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .side-card a:last-child { border-bottom: 0; }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-    .button:hover {
-      background: var(--primary-dark);
-      text-decoration: none;
-    }
-    .faq details {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 10px 0;
-      background: #fff;
-    }
-    .faq summary {
-      cursor: pointer;
-      font-weight: 800;
-    }
-    .sources {
-      font-size: 14px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      margin-top: 34px;
-      padding-top: 18px;
-    }
-    footer {
-      border-top: 1px solid var(--line);
-      background: #fff;
-      padding: 24px 20px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .footer-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 900px) {
-      .wrap {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        position: static;
-      }
-      h1 {
-        font-size: 32px;
-      }
-      .article {
-        padding: 24px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      .nav-links {
-        justify-content: flex-start;
-        gap: 10px;
-      }
-      .cta-grid {
-        grid-template-columns: 1fr;
-      }
-      h1 {
-        font-size: 29px;
-      }
-    }
-  </style>
 
 <link rel="canonical" href="https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Higher Salary Offer in Singapore: Switching Costs and Payback">
 <meta property="og:description" content="Build a first-year job-switch decision using confirmed recurring gain, one-time exit costs, a payback calculation and clear dates before resigning.">
 <meta property="og:url" content="https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Higher Salary Offer in Singapore: Switching Costs and Payback", "description": "Build a first-year job-switch decision using confirmed recurring gain, one-time exit costs, a payback calculation and clear dates before resigning.", "dateModified": "2026-11-07", "author": {"@type": "Organization", "name": "SG Salary Pro"}, "publisher": {"@type": "Organization", "name": "SG Salary Pro"}, "mainEntityOfPage": "https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html", "citation": ["https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice", "https://www.mom.gov.sg/employment-practices/salary/variable-wage-components", "https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay"]}</script>
-<style id="guide-readability">.guide-tools{display:flex;flex-wrap:wrap;gap:.65rem;margin:1rem 0 1.5rem}.guide-tools a{padding:.45rem .6rem;border:1px solid #cbd5e1;border-radius:6px}.reviewed{font-size:.9rem}article,main,.container{min-width:0}table{width:100%;min-width:0;table-layout:fixed}th,td{overflow-wrap:anywhere}a,p,li,h1,h2,h3{overflow-wrap:break-word}.source a{overflow-wrap:anywhere}h1{line-height:1.2}li{margin-bottom:.45rem}@media(max-width:600px){body{padding:12px}.container{padding:20px 16px}h1{font-size:1.65rem}th,td{padding:8px}nav a{max-width:100%}}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Higher Salary Offer in Singapore: Switching Costs and Payback", "description": "Build a first-year job-switch decision using confirmed recurring gain, one-time exit costs, a payback calculation and clear dates before resigning.", "dateModified": "2026-11-08", "author": {"@type": "Organization", "name": "SG Salary Pro"}, "publisher": {"@type": "Organization", "name": "SG Salary Pro"}, "mainEntityOfPage": "https://sg-salary-calculator.vercel.app/is-higher-salary-worth-switching-jobs-singapore-2026.html", "citation": ["https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice", "https://www.mom.gov.sg/employment-practices/salary/variable-wage-components", "https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay"]}</script>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/site-shell.css">
+<script src="/site-shell.js" defer></script>
+<link rel="stylesheet" href="/guide.css">
 </head>
-<body>
-  <header class="topbar">
-    <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="index.html">SG Salary Pro</a>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="salary-calculator.html">Salary</a>
-        <a href="resignation-calculator.html">Resignation</a>
-        <a href="offer-comparison-calculator.html">Compare Offers</a>
-        <a href="job-switch-worth-it-calculator.html">Switch Jobs?</a>
-        <a href="/guides.html">Guides</a>
-      </div>
+<body class="sgsp-site sgsp-page--guide">
+<!-- sgsp:header:start -->
+<a class="sgsp-skip" href="#sgsp-main">Skip to content</a>
+<header class="sgsp-header">
+  <div class="sgsp-shell sgsp-head-grid">
+    <a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a>
+    <nav class="sgsp-nav sgsp-nav--desktop" aria-label="Main navigation">
+      <a href="/">Home</a>
+<a href="/tools.html">Calculators</a>
+<a href="/guides.html" aria-current="location">Guides</a>
+<a href="/about.html">About</a>
     </nav>
-  </header>
-
-  <main class="wrap">
-    <article class="article"><nav class="guide-tools" aria-label="Tools and guides"><a href="/">Home</a><a href="/guides.html">Guides</a><a href="/salary-calculator.html">Salary</a><a href="/annual-leave-calculator.html">Annual Leave</a><a href="/resignation-calculator.html">Resignation</a><a href="/offer-comparison-calculator.html">Compare Offers</a><a href="/job-switch-worth-it-calculator.html">Job Switch</a></nav><header><h1>Higher Salary Offer in Singapore: Switching Costs and Payback</h1><p class="reviewed">Updated and source-checked <time datetime="2026-11-07">2026-11-07</time>. Independent educational guide by SG Salary Pro.</p></header>
-<p>A higher offer is easier to assess after separating recurring gain from one-time transition costs. This guide answers the payback question for someone moving from a current job to a new role; it does not prescribe a minimum raise percentage.</p>
-<p>Use the <a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a> for that decision. For two new offers, use <a href="/offer-comparison-calculator.html">Offer Comparison</a>. For the specific 10% and lost-AWS test, use the <a href="/guide-salary-increase-switching-jobs-2026.html">10% scenario guide</a>.</p>
-<h2>Build a transition ledger</h2><table><thead><tr><th scope="col">Recurring each month</th><th scope="col">One time</th></tr></thead><tbody><tr><td>Comparable cash gain after relevant payroll assumptions</td><td>Confirmed notice buyout paid by you</td></tr><tr><td>Additional transport and meal costs</td><td>Unpaid gap between jobs</td></tr><tr><td>Changed hours and commute time, shown separately</td><td>Contract-confirmed payment lost by leaving</td></tr></tbody></table>
+    <button type="button" class="sgsp-theme" id="home-theme" data-sgsp-theme aria-pressed="false" aria-label="Dark theme" hidden>Theme</button>
+    <details class="sgsp-mobile-menu">
+      <summary><svg class="sgsp-menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="sgsp-close-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 5 14 14M19 5 5 19"/></svg><span>Menu</span></summary>
+      <nav class="sgsp-nav sgsp-nav--mobile" aria-label="Main navigation">
+        <a href="/">Home</a>
+<a href="/tools.html">Calculators</a>
+<a href="/guides.html" aria-current="location">Guides</a>
+<a href="/about.html">About</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<!-- sgsp:header:end -->
+<!-- sgsp:breadcrumb:start -->
+<nav class="sgsp-shell sgsp-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides.html">Guides</a><span aria-hidden="true">/</span><span aria-current="page">Switching Costs and Payback</span></nav>
+<div class="sgsp-main-anchor" id="sgsp-main" tabindex="-1"></div>
+<!-- sgsp:breadcrumb:end -->
+<main class="sgsp-shell guide-main">
+  <article class="guide-article">
+    <header class="guide-hero">
+      <p class="guide-category">Career Decisions</p>
+      <h1>Higher Salary Offer in Singapore: Switching Costs and Payback</h1>
+      <div class="guide-lead">
+        <p>A higher offer is easier to assess after separating recurring gain from one-time transition costs. This guide answers the payback question for someone moving from a current job to a new role; it does not prescribe a minimum raise percentage.</p>
+        <p>Use the <a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a> for that decision. For two new offers, use <a href="/offer-comparison-calculator.html">Offer Comparison</a>. For the specific 10% and lost-AWS test, use the <a href="/guide-salary-increase-switching-jobs-2026.html">10% scenario guide</a>.</p>
+      </div>
+      <p class="guide-date">Last updated <time datetime="2026-11-08">8 November 2026</time></p>
+    </header>
+    <section class="guide-takeaways" aria-labelledby="key-takeaways">
+      <h2 id="key-takeaways">Key takeaways</h2>
+      <ul><li>Separate the recurring cash gain from one-time transition costs.</li>
+<li>A positive monthly gain lets you estimate the time to recover those costs.</li>
+<li>Check written notice, start dates and non-cash trade-offs before deciding.</li></ul>
+    </section>
+    <div class="guide-columns">
+      <details class="guide-toc" open>
+        <summary>On this page</summary>
+        <nav aria-label="On this page"><ul><li><a href="#build-a-transition-ledger">Build a transition ledger</a></li>
+<li><a href="#worked-example-eight-months-to-recover-costs">Worked example: eight months to recover costs</a></li>
+<li><a href="#confirm-dates-before-committing-to-a-start-date">Confirm dates before committing to a start date</a></li>
+<li><a href="#keep-non-cash-considerations-visible">Keep non-cash considerations visible</a></li>
+<li><a href="#common-mistakes">Common mistakes</a></li>
+<li><a href="#frequently-asked-question">Frequently asked question</a></li>
+<li><a href="#related-calculator">Related calculator</a></li>
+<li><a href="#related-guides">Related guides</a></li>
+<li><a href="#official-sources">Official sources</a></li></ul></nav>
+      </details>
+      <div class="guide-prose">
+        <h2 id="build-a-transition-ledger">Build a transition ledger</h2>
+<div aria-label="Recurring and one-time switching costs" class="guide-table" role="region" tabindex="0"><table><caption>Recurring and one-time switching costs</caption><thead><tr><th scope="col">Recurring each month</th><th scope="col">One time</th></tr></thead><tbody><tr><td>Comparable cash gain after relevant payroll assumptions</td><td>Confirmed notice buyout paid by you</td></tr><tr><td>Additional transport and meal costs</td><td>Unpaid gap between jobs</td></tr><tr><td>Changed hours and commute time, shown separately</td><td>Contract-confirmed payment lost by leaving</td></tr></tbody></table></div>
 <p>Keep uncertain amounts in a separate scenario. A leave balance is not automatically confirmed cash. Do not count an annual bonus loss both as a lower recurring package and again as a one-time loss.</p>
-<h2>Worked example: eight months to recover costs</h2><p>Assume a comparable monthly cash improvement of S$400, S$150 additional recurring transport/meal costs and S$2,000 one-time switching cost. Adjusted monthly gain = 400 − 150 = <strong>S$250</strong>. Payback = 2,000 ÷ 250 = <strong>8 months</strong>. A full twelve months at that gain, less the cost, produces <strong>S$1,000</strong> in the first twelve months. A delayed start or unpaid gap would change that result.</p>
+<h2 id="worked-example-eight-months-to-recover-costs">Worked example: eight months to recover costs</h2>
+<p>Assume a comparable monthly cash improvement of S$400, S$150 additional recurring transport/meal costs and S$2,000 one-time switching cost. Adjusted monthly gain = 400 − 150 = <strong>S$250</strong>. Payback = 2,000 ÷ 250 = <strong>8 months</strong>. A full twelve months at that gain, less the cost, produces <strong>S$1,000</strong> in the first twelve months. A delayed start or unpaid gap would change that result.</p>
 <p>These are planning assumptions, not a calculation of a specific person's tax or CPF. If monthly gain is zero or negative, this simple model has no positive payback period. Do not display a negative or infinite number as months to recover the cost.</p>
-<h2>Confirm dates before committing to a start date</h2><p>Read your notice clause and get any waiver or leave-offset agreement in writing. Taking approved leave during notice does not itself move the employment end; an agreed offset does. Use the <a href="/resignation-calculator.html">Resignation Calculator</a> for confirmed dates and settlement inputs and the <a href="/annual-leave-calculator.html">Annual Leave Calculator</a> for entitlement days.</p>
-<h2>Keep non-cash considerations visible</h2><p>Record manager fit, role scope, flexibility, learning and job stability in words. A cash model cannot establish their value or a probability of probation failure. Compare a confirmed-offer case with a downside case that excludes uncertain payments.</p>
-<h2>Common mistakes</h2><p>Using headline salary as cash gain, counting a target bonus as promised, treating employer CPF as spendable cash, or using a short payback period as proof that the role is suitable.</p>
-<h2>Frequently asked question</h2><h3>Does recovering costs in eight months mean I should accept?</h3><p>It answers the stated arithmetic only. Review cash reserves, written terms, working time and career considerations before deciding; the calculator is an estimate rather than an employment recommendation.</p>
+<h3>Check the first twelve months</h3>
+<p>With the same assumptions and no unpaid gap, the starting cash position is −S$2,000. After the first full month it is −S$1,750, after month 8 it is S$0, and after month 12 it is S$1,000. Count from the actual first paid month and put any unpaid gap in the transition ledger once.</p>
+<h2 id="confirm-dates-before-committing-to-a-start-date">Confirm dates before committing to a start date</h2>
+<p>Read your notice clause and get any waiver or leave-offset agreement in writing. Taking approved leave during notice does not itself move the employment end; an agreed offset does. Use the <a href="/resignation-calculator.html">Resignation Calculator</a> for confirmed dates and settlement inputs and the <a href="/annual-leave-calculator.html">Annual Leave Calculator</a> for entitlement days.</p>
+<h2 id="keep-non-cash-considerations-visible">Keep non-cash considerations visible</h2>
+<p>Record manager fit, role scope, flexibility, learning and job stability in words. A cash model cannot establish their value or a probability of probation failure. Compare a confirmed-offer case with a downside case that excludes uncertain payments.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>Using headline salary as cash gain, counting a target bonus as promised, treating employer CPF as spendable cash, or using a short payback period as proof that the role is suitable.</p>
+<h2 id="frequently-asked-question">Frequently asked question</h2>
+<h3>Does recovering costs in eight months mean I should accept?</h3>
+<p>It answers the stated arithmetic only. Review cash reserves, written terms, working time and career considerations before deciding; the calculator is an estimate rather than an employment recommendation.</p>
 <p>Check the published wage distribution for a comparable occupation in the <a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>.</p>
-<p><a href="/guides.html">Browse all guides</a></p>
-<section aria-label="Related guides"><h2>Continue with the next question</h2><ul><li><a href="/guide-resignation-2026.html">Singapore Resignation Guide 2026: Notice, Leave and Final Pay</a></li><li><a href="/guide-annual-leave-2026.html">Singapore Annual Leave Guide 2026: Entitlement and Proration</a></li><li><a href="/guide-salary-increase-switching-jobs-2026.html">Is a 10% Salary Increase Worth Switching Jobs in Singapore?</a></li></ul></section>
-<section class="source" aria-label="Sources"><h2>Official sources and review scope</h2><p>Sources checked on 2026-11-07. The examples use hypothetical inputs. Contract-specific terms, individual eligibility and later rule changes need separate confirmation.</p><ul><li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice">MOM: termination with notice</a></li><li><a href="https://www.mom.gov.sg/employment-practices/salary/variable-wage-components">MOM: AWS and variable payments</a></li><li><a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay">CPF Board: contribution rates</a></li></ul></section></article>
-
-    <aside class="sidebar" aria-label="Related calculators">
-      <div class="side-card">
-        <h2>Calculate Before You Switch</h2>
-        <p>Run the numbers before accepting a new offer or resigning from your current job.</p>
-        <a class="button" href="job-switch-worth-it-calculator.html">Open Job Switch Calculator</a>
-      </div>
-
-      <div class="side-card">
-        <h2>Tools</h2>
-        <a href="job-switch-worth-it-calculator.html">Job Switch Worth It Calculator</a>
-        <a href="offer-comparison-calculator.html">Offer Comparison Calculator</a>
-        <a href="salary-calculator.html">Salary Calculator</a>
-        <a href="resignation-calculator.html">Resignation Calculator</a>
-      </div>
-
-      <div class="side-card">
-        <h2>Best for</h2>
-        <p>Employees in Singapore comparing a new job offer with their current job, especially when notice period, CPF, AWS, bonus and commute time affect the decision.</p>
-      </div>
-    </aside>
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div>© 2026 SG Salary Pro. Free Singapore salary and career calculators.</div>
-      <div>
-        <a href="about.html">About</a> ·
-        <a href="privacy.html">Privacy</a> ·
-        <a href="index.html#faq">FAQ</a>
+        <section class="guide-related-tool guide-resource" aria-labelledby="related-calculator">
+          <h2 id="related-calculator">Related calculator</h2>
+          <p>Model a current job and a new offer with transition costs and payback.</p>
+          <a class="guide-tool-link" href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+        </section>
+        <section aria-labelledby="related-guides" class="guide-related-guides guide-resource"><h2 id="related-guides">Related guides</h2><ul><li><a href="/guide-resignation-2026.html">Singapore Resignation Guide 2026: Notice, Leave and Final Pay</a></li><li><a href="/guide-annual-leave-2026.html">Singapore Annual Leave Guide 2026: Entitlement and Proration</a></li><li><a href="/guide-salary-increase-switching-jobs-2026.html">Is a 10% Salary Increase Worth Switching Jobs in Singapore?</a></li></ul></section>
+        <section aria-labelledby="official-sources" class="guide-sources guide-resource"><h2 id="official-sources">Official sources and review scope</h2><p class="guide-review-scope">This article is an independent educational guide. Earlier rules and examples were checked on 2026-11-07. The editorial additions were reviewed on 2026-11-08. The examples show stated assumptions. Check the official sources and your individual terms before relying on an estimate.</p><ul><li><a href="https://www.mom.gov.sg/employment-practices/termination-of-employment/termination-with-notice">MOM: termination with notice</a></li><li><a href="https://www.mom.gov.sg/employment-practices/salary/variable-wage-components">MOM: AWS and variable payments</a></li><li><a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay">CPF Board: contribution rates</a></li></ul></section>
+        <p class="guide-return"><a href="/guides.html">Browse all guides</a></p>
       </div>
     </div>
-  </footer>
+  </article>
+</main>
+<!-- sgsp:footer:start -->
+<footer class="sgsp-footer">
+  <div class="sgsp-shell sgsp-foot-grid">
+    <div><a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a><p>Pay, leave and career decisions in Singapore.</p></div>
+    <nav aria-label="Calculator links">
+      <strong>Calculators</strong>
+      <a href="/salary-calculator.html">Salary Calculator</a>
+<a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+<a href="/resignation-calculator.html">Resignation Calculator</a>
+<a href="/offer-comparison-calculator.html">Offer Comparison</a>
+<a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+<a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
+    </nav>
+    <nav aria-label="Site information">
+      <strong>Resources</strong>
+      <a href="/tools.html">All calculators</a>
+      <a href="/guides.html">All guides</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="sgsp-shell sgsp-foot-line">Independent planning tools and guides for Singapore.</div>
+</footer>
+<!-- sgsp:footer:end -->
 </body>
 </html>

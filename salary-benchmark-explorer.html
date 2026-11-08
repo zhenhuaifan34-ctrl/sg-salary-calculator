@@ -26,20 +26,42 @@
     ]
   }
   </script>
+<link rel="stylesheet" href="/site-shell.css">
+<script src="/site-shell.js" defer></script>
 </head>
-<body class="bench-site" data-benchmark-page="explorer">
-  <a class="bench-skip" href="#main">Skip to content</a>
-  <header class="bench-header">
-    <div class="bench-shell bench-header-inner">
-      <a class="bench-brand" href="/"><span class="bench-mark" aria-hidden="true">↗</span> SG Salary <b>Pro</b></a>
-      <nav class="bench-nav" aria-label="Main navigation">
-        <a href="/">Home</a><a href="/tools.html">Calculators</a><a href="/guides.html">Guides</a>
+<body class="bench-site sgsp-site sgsp-page--tool" data-benchmark-page="explorer">
+<!-- sgsp:header:start -->
+<a class="sgsp-skip" href="#sgsp-main">Skip to content</a>
+<header class="sgsp-header">
+  <div class="sgsp-shell sgsp-head-grid">
+    <a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a>
+    <nav class="sgsp-nav sgsp-nav--desktop" aria-label="Main navigation">
+      <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
+    </nav>
+    <button type="button" class="sgsp-theme" id="home-theme" data-sgsp-theme aria-pressed="false" aria-label="Dark theme" hidden>Theme</button>
+    <details class="sgsp-mobile-menu">
+      <summary><svg class="sgsp-menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="sgsp-close-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 5 14 14M19 5 5 19"/></svg><span>Menu</span></summary>
+      <nav class="sgsp-nav sgsp-nav--mobile" aria-label="Main navigation">
+        <a href="/">Home</a>
+<a href="/tools.html" aria-current="location">Calculators</a>
+<a href="/guides.html">Guides</a>
+<a href="/about.html">About</a>
       </nav>
-      <a class="bench-button bench-secondary bench-header-cta" href="/salary-calculator.html">Check take-home pay</a>
-    </div>
-  </header>
+    </details>
+  </div>
+</header>
+<!-- sgsp:header:end -->
+<!-- sgsp:breadcrumb:start -->
+<nav class="sgsp-shell sgsp-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Salary Benchmark Explorer</span></nav>
+<div class="sgsp-main-anchor" id="sgsp-main" tabindex="-1"></div>
+<!-- sgsp:breadcrumb:end -->
+
+
   <main id="main" class="bench-shell">
-    <nav class="bench-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools.html">Calculators</a><span aria-hidden="true">/</span><span aria-current="page">Salary Benchmark</span></nav>
+
     <section class="bench-intro">
       <p class="bench-kicker">Official occupational wage data</p>
       <h1>Singapore Salary Benchmark Explorer</h1>
@@ -130,6 +152,31 @@
       <details class="bench-detail"><summary>Why might my job title be missing?</summary><p>Employers and MOM can use different job titles. Try a key word or a broader description, and select a listed occupation only if the work matches yours.</p></details>
     </section>
   </main>
-  <footer class="bench-footer"><div class="bench-shell"><span>SG Salary Pro</span><a href="/tools.html">Calculators</a><a href="/guides.html">Guides</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a></div></footer>
+
+<!-- sgsp:footer:start -->
+<footer class="sgsp-footer">
+  <div class="sgsp-shell sgsp-foot-grid">
+    <div><a class="sgsp-brand" href="/"><span class="sgsp-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 14l4-5 4 2 5-6m-5 0h5v5M5 5h3M5 8h1"/></svg></span><span>SG Salary <strong>Pro</strong></span></a><p>Pay, leave and career decisions in Singapore.</p></div>
+    <nav aria-label="Calculator links">
+      <strong>Calculators</strong>
+      <a href="/salary-calculator.html">Salary Calculator</a>
+<a href="/annual-leave-calculator.html">Annual Leave Calculator</a>
+<a href="/resignation-calculator.html">Resignation Calculator</a>
+<a href="/offer-comparison-calculator.html">Offer Comparison</a>
+<a href="/job-switch-worth-it-calculator.html">Job Switch Calculator</a>
+<a href="/salary-benchmark-explorer.html">Salary Benchmark Explorer</a>
+    </nav>
+    <nav aria-label="Site information">
+      <strong>Resources</strong>
+      <a href="/tools.html">All calculators</a>
+      <a href="/guides.html">All guides</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="sgsp-shell sgsp-foot-line">Independent planning tools and guides for Singapore.</div>
+</footer>
+<!-- sgsp:footer:end -->
 </body>
 </html>
